@@ -1,3 +1,4 @@
+import 'package:apoorv_app/screens/signup-flow/signup.dart';
 import 'package:flutter/material.dart';
 
 class WelcomeScreen extends StatelessWidget {
@@ -8,7 +9,8 @@ class WelcomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-          padding:  EdgeInsets.symmetric(horizontal: MediaQuery.sizeOf(context).width*0.05),
+          padding: EdgeInsets.symmetric(
+              horizontal: MediaQuery.sizeOf(context).width * 0.05),
           child: SafeArea(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -19,9 +21,11 @@ class WelcomeScreen extends StatelessWidget {
                   margin: const EdgeInsets.symmetric(horizontal: 12),
                   width: double.infinity,
                   child: FilledButton(
-                    onPressed: () {},
+                    onPressed: () =>
+                        Navigator.of(context).pushNamed(SignUpScreen.routeName),
                     style: FilledButton.styleFrom(
-                      backgroundColor: const Color.fromRGBO(0xFF, 0xE8, 0xB4, 1),
+                      backgroundColor:
+                          const Color.fromRGBO(0xFF, 0xE8, 0xB4, 1),
                       padding: const EdgeInsets.all(12),
                     ),
                     child: Wrap(
@@ -38,12 +42,11 @@ class WelcomeScreen extends StatelessWidget {
                         ),
                         const Text(
                           'Sign In with Google',
-                          style:
-                              TextStyle(
-                                    fontSize: 20,
-                                    fontFamily: 'Inter',
-                                    color: Colors.black,
-                                  ),
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontFamily: 'Inter',
+                            color: Colors.black,
+                          ),
                         ),
                       ],
                     ),

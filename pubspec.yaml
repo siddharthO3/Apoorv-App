@@ -89,7 +89,13 @@ flutter:
           weight: 700
         - asset: assets/fonts/Inter/Inter-Light.ttf
           weight: 300
-        
+    - family: Libre Baskerville
+      fonts: 
+        - asset: assets/fonts/Libre_Baskerville/LibreBaskerville-Regular.ttf
+        - asset: assets/fonts/Libre_Baskerville/LibreBaskerville-Italic.ttf
+          style: italic
+        - asset: assets/fonts/Libre_Baskerville/LibreBaskerville-Bold.ttf
+          weight: 700
 
     # - family: Schyler
     #   fonts:
