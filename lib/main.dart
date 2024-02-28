@@ -1,10 +1,12 @@
 import 'package:apoorv_app/firebase_options.dart';
+import 'package:apoorv_app/screens/homepage/homepage.dart';
+import 'package:apoorv_app/screens/signup-flow/signup.dart';
+import 'package:apoorv_app/screens/signup-flow/welcome.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import './screens/points/points.dart';
-import './screens/points/points_transfer.dart';
 
 // Future<void> main() async {
 //   await DotEnv().load(fileName: '.env');
@@ -28,11 +30,18 @@ class MyApp extends StatelessWidget{
   @override
   Widget build(BuildContext context){
     return MaterialApp(
-      initialRoute: 'points',
+      theme: ThemeData.dark(useMaterial3: true),
+      // theme: ThemeData(
+      //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+      //   useMaterial3: true,
+      // ),
       routes: {
-        'points': (context) => const PointsScreen(),
-        'points_transfer': (context) => const PointsTransfer(),
+        WelcomeScreen.routeName:(context) => const WelcomeScreen(),
+        SignUpScreen.routeName:(context) => const SignUpScreen(),
+        PointsScreen.routeName : (context) => const PointsScreen(),
+        HomePage.routeName:(context) => const HomePage(),
       },
+      initialRoute: WelcomeScreen.routeName,
     );
   }
 }

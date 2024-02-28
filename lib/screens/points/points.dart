@@ -4,6 +4,7 @@ import 'package:apoorv_app/widgets/score-card/score_card.dart';
 import 'package:apoorv_app/widgets/leaderboard-widget/leaderboard_card.dart';
 
 class PointsScreen extends StatelessWidget{
+  static const routeName = '/points';
   const PointsScreen({super.key});
 
   @override
