@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget{
         PointsScreen.routeName : (context) => const PointsScreen(),
         HomePage.routeName:(context) => const HomePage(),
       },
-      initialRoute: WelcomeScreen.routeName,
+      initialRoute: PointsScreen.routeName,
     );
   }
 }
