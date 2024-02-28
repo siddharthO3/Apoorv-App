@@ -6,7 +6,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-import './screens/points/points.dart';
+import './screens/homepage/points/points.dart';
 
 // Future<void> main() async {
 //   await DotEnv().load(fileName: '.env');
@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget{
         PointsScreen.routeName : (context) => const PointsScreen(),
         HomePage.routeName:(context) => const HomePage(),
       },
-      initialRoute: PointsScreen.routeName,
+      initialRoute: WelcomeScreen.routeName,
     );
   }
 }

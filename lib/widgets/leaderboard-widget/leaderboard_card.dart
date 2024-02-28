@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:apoorv_app/constants.dart';
+
 class LeaderboardCard extends StatelessWidget{
 
   final String? name;
@@ -18,42 +20,40 @@ class LeaderboardCard extends StatelessWidget{
     Color? color;
     switch(rank){
       case 1:
-        color=Color.fromARGB(255, 255, 215, 0);
+        color=Constants.yellowColor;
         break;
       case 2:
-        color=Color.fromRGBO(255, 192, 192, 192);
-        break;
-      case 3:
-        color=Color.fromARGB(255, 205, 127, 50);
+        color=Constants.yellowColor;
         break;
     }
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 10,),
       child:
       Container(
-          height: 70,
+          height: 60,
           width: MediaQuery.of(context).size.width*0.9,
-          child:Card(
-              color: color ?? Colors.white,
-              elevation: 3,
-              shadowColor: color ?? Colors.white,
-              shape: RoundedRectangleBorder(
-                side: BorderSide(
-                  color: color ?? Colors.grey, // Border color
-                  width: 2.0, // Border width
-                ),
-                borderRadius: BorderRadius.circular(5.0),
-              ),
-              child:
+
+          decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                color: color ?? Colors.grey,
+                spreadRadius: 2,
+                blurRadius: 2,
+                offset: Offset(0, 3),
+              )
+            ],
+            border: Border.all(
+                color: color ?? Colors.grey.shade300,
+            ),
+            borderRadius: BorderRadius.circular(5.0),
+            color: color ?? Colors.grey.shade300,
+          ),
+          child:ListTile(
+
+              title:
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Text('$rank',
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.black,
-                    ),
-                  ),
                   Text(name!,
                     style: TextStyle(
                       fontSize: 20,

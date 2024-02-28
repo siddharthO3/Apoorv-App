@@ -1,5 +1,9 @@
-import 'package:apoorv_app/constants.dart';
 import 'package:flutter/material.dart';
+
+import 'package:apoorv_app/constants.dart';
+import './points/points.dart';
+import './Feed/feed.dart';
+import './shop/shop.dart';
 
 class HomePage extends StatefulWidget {
   static const routeName = '/home-page';
@@ -12,6 +16,11 @@ class HomePage extends StatefulWidget {
 int currentPageIndex = 0;
 
 class _HomePageState extends State<HomePage> {
+  List screens=[
+    FeedScreen(),
+    ShopScreen(),
+    PointsScreen()
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +42,7 @@ class _HomePageState extends State<HomePage> {
           }),
         ],
       ),
-      body: Container(),
+      body: screens[currentPageIndex],
       bottomNavigationBar: NavigationBar(
         onDestinationSelected: (int index) {
           setState(() {
