@@ -107,7 +107,8 @@ class SignUpScreen extends StatelessWidget {
               //   ),
               // ),
               FilledButton(
-                onPressed: ()=> Navigator.of(context).pushNamed(HomePage.routeName),
+                onPressed: () =>
+                    Navigator.of(context).pushNamed(HomePage.routeName),
                 style: ButtonStyle(
                     backgroundColor:
                         MaterialStateProperty.all<Color>(Constants.redColor),
