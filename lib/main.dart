@@ -6,23 +6,29 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-Future<void> main() async {
-  await DotEnv().load(fileName: '.env');
-  
-  WidgetsFlutterBinding.ensureInitialized();
+import './screens/homepage/points/points.dart';
 
-  await Firebase.initializeApp(
-    options: await DefaultFirebaseOptions.currentPlatform,
-  );
+// Future<void> main() async {
+//   await DotEnv().load(fileName: '.env');
+//
+//   WidgetsFlutterBinding.ensureInitialized();
+//
+//   await Firebase.initializeApp(
+//     options: await DefaultFirebaseOptions.currentPlatform,
+//   );
+//
+//   runApp(const MyApp());
+// }
 
+void main(){
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatelessWidget{
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
     return MaterialApp(
       theme: ThemeData.dark(useMaterial3: true),
       // theme: ThemeData(
@@ -32,7 +38,7 @@ class MyApp extends StatelessWidget {
       routes: {
         WelcomeScreen.routeName:(context) => const WelcomeScreen(),
         SignUpScreen.routeName:(context) => const SignUpScreen(),
-
+        PointsScreen.routeName : (context) => const PointsScreen(),
         HomePage.routeName:(context) => const HomePage(),
       },
       initialRoute: WelcomeScreen.routeName,
