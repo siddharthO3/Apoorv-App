@@ -1,7 +1,8 @@
+import 'package:apoorv_app/constants.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
-    static const routeName = '/home-page';
+  static const routeName = '/home-page';
   const HomePage({super.key});
 
   @override
@@ -39,7 +40,7 @@ class _HomePageState extends State<HomePage> {
             currentPageIndex = index;
           });
         },
-        indicatorColor: Colors.amber,
+        indicatorColor: Constants.yellowColor,
         selectedIndex: currentPageIndex,
         destinations: const <Widget>[
           NavigationDestination(
