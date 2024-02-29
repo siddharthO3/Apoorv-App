@@ -7,6 +7,7 @@ class Constants {
   static const greenColor = Color.fromRGBO(0x45, 0x97, 0x05, 1);
   static const redColorAlt = Color.fromRGBO(0x45, 0x97, 0x05, 1);
   static const whiteColor = Colors.white;
+  static const blackColor = Colors.black;
 
   static const gradientHigh = Color.fromRGBO(0xFF, 0xC3, 0xAE, 1);
   static const gradientLow = Color.fromRGBO(0xFF, 0xE8, 0xB4, 1);

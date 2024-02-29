@@ -1,6 +1,7 @@
 import 'package:apoorv_app/firebase_options.dart';
 import 'package:apoorv_app/screens/homepage/homepage.dart';
 import 'package:apoorv_app/screens/homepage/Profile/profile.dart';
+import 'package:apoorv_app/screens/profile_2.dart';
 import 'package:apoorv_app/screens/signup-flow/signup.dart';
 import 'package:apoorv_app/screens/signup-flow/welcome.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -37,11 +38,13 @@ class MyApp extends StatelessWidget {
       //   useMaterial3: true,
       // ),
       routes: {
-        WelcomeScreen.routeName: (context) => const WelcomeScreen(),
-        SignUpScreen.routeName: (context) => SignUpScreen(),
-        PointsScreen.routeName: (context) => const PointsScreen(),
-        HomePage.routeName: (context) => const HomePage(),
-        ProfileScreen.routeName: (context) => const ProfileScreen(),
+        WelcomeScreen.routeName:(context) => const WelcomeScreen(),
+        SignUpScreen.routeName:(context) => SignUpScreen(),
+        PointsScreen.routeName : (context) => const PointsScreen(),
+        HomePage.routeName:(context) => const HomePage(),
+        ProfileScreen.routeName:(context) => const ProfileScreen(),
+
+        Profile2.routeName:(context) => const Profile2(),
       },
       initialRoute: WelcomeScreen.routeName,
     );

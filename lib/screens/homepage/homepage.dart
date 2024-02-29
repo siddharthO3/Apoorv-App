@@ -1,6 +1,5 @@
 import 'package:apoorv_app/constants.dart';
 import 'package:apoorv_app/screens/homepage/Profile/profile.dart';
-import 'package:apoorv_app/screens/homepage/points/points_transfer.dart';
 import 'package:flutter/material.dart';
 
 import './points/points.dart';
@@ -27,30 +26,19 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        titleTextStyle: const TextStyle(color: Constants.yellowColor),
-        // automaticallyImplyLeading: false,
-        centerTitle: true,
-        title: const Text(
-          "APOORV 2K24",
-          style: TextStyle(fontSize: 32),
-        ),
-        leading: Image.asset(
-          'assets/images/phoenix_74.png',
-          fit: BoxFit.fitHeight,
-        ),
-        // actions: [
-        //   Builder(builder: (context) {
-        //     return IconButton(
-        //       onPressed: () =>
-        //           Navigator.of(context).pushNamed(ProfileScreen.routeName),
-        //       icon: const Icon(Icons.account_circle_outlined),
-        //       iconSize: 32,
-        //       color: Constants.yellowColor,
-        //     );
-        //   }),
-        // ],
-      ),
+      // appBar: AppBar(
+      //   titleTextStyle: const TextStyle(color: Constants.yellowColor),
+      //   // automaticallyImplyLeading: false,
+      //   centerTitle: true,
+      //   title: const Text(
+      //     "APOORV 2K24",
+      //     style: TextStyle(fontSize: 32),
+      //   ),
+      //   leading: Image.asset(
+      //     'assets/images/phoenix_74.png',
+      //     fit: BoxFit.fitHeight,
+      //   ),
+      // ),
       body: screens[currentPageIndex],
       bottomNavigationBar: NavigationBar(
         onDestinationSelected: (int index) {

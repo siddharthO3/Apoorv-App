@@ -1,6 +1,7 @@
 import 'package:apoorv_app/constants.dart';
 import 'package:apoorv_app/screens/homepage/homepage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class SignUpScreen extends StatefulWidget {
   static const routeName = '/sign-up-1';
@@ -97,7 +98,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 if (value == null ||
                                     value.isEmpty ||
                                     !RegExp(r"(2020|2021|2022|2023)(bcs|bec|bcy|bds|BCS|BEC|BCY|BDS)0\d{3}")
-                                        .hasMatch(value!)) {
+                                        .hasMatch(value)) {
                                   return "You know the format";
                                 }
                                 return null;
@@ -124,12 +125,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     //         hintStyle: TextStyle(color: Colors.black))),
                     // Constants.gap,
                     TextFormField(
+                      // TODO: Fix phone number length, currently max
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return "Only Numbers!";
                           }
                           return null;
                         },
+                        keyboardType: TextInputType.phone,
+                        inputFormatters: [
+                          LengthLimitingTextInputFormatter(10),
+                          FilteringTextInputFormatter.digitsOnly,
+                        ],
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(16)),
