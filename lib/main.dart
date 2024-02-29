@@ -1,5 +1,6 @@
 import 'package:apoorv_app/firebase_options.dart';
 import 'package:apoorv_app/screens/homepage/homepage.dart';
+import 'package:apoorv_app/screens/profile.dart';
 import 'package:apoorv_app/screens/signup-flow/signup.dart';
 import 'package:apoorv_app/screens/signup-flow/welcome.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -8,21 +9,21 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import './screens/homepage/points/points.dart';
 
-// Future<void> main() async {
-//   await DotEnv().load(fileName: '.env');
-//
-//   WidgetsFlutterBinding.ensureInitialized();
-//
-//   await Firebase.initializeApp(
-//     options: await DefaultFirebaseOptions.currentPlatform,
-//   );
-//
-//   runApp(const MyApp());
-// }
+Future<void> main() async {
+  await DotEnv().load(fileName: '.env');
 
-void main(){
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(
+    options: await DefaultFirebaseOptions.currentPlatform,
+  );
+
   runApp(const MyApp());
 }
+
+// void main(){
+//   runApp(const MyApp());
+// }
 
 class MyApp extends StatelessWidget{
   const MyApp({super.key});
@@ -40,6 +41,7 @@ class MyApp extends StatelessWidget{
         SignUpScreen.routeName:(context) => const SignUpScreen(),
         PointsScreen.routeName : (context) => const PointsScreen(),
         HomePage.routeName:(context) => const HomePage(),
+        ProfileScreen.routeName:(context) => const ProfileScreen(),
       },
       initialRoute: WelcomeScreen.routeName,
     );

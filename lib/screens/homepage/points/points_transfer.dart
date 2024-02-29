@@ -6,16 +6,16 @@ class PointsTransfer extends StatelessWidget{
   @override
   Widget build(BuildContext context){
     return Scaffold(
-      backgroundColor: Color.fromRGBO(18, 18, 18, 1),
+      backgroundColor: const Color.fromRGBO(18, 18, 18, 1),
       body:
           SafeArea(
             child: Column(
               children: [
-                SizedBox(height: 30,),
+                const SizedBox(height: 30,),
                 Center(
                   child:
                   Container(
-                      padding: EdgeInsets.symmetric(vertical: 20),
+                      padding: const EdgeInsets.symmetric(vertical: 20),
                       width: 160,
                       height: 160,
                       decoration: BoxDecoration(
@@ -23,7 +23,7 @@ class PointsTransfer extends StatelessWidget{
                         borderRadius: BorderRadius.circular(80.0),
                       ),
                       child:
-                      Column(
+                      const Column(
                         children: [
                           Icon(
                             Icons.star_border_outlined,

@@ -1,8 +1,9 @@
+import 'package:apoorv_app/constants.dart';
+import 'package:apoorv_app/screens/profile.dart';
 import 'package:flutter/material.dart';
 
-import 'package:apoorv_app/constants.dart';
 import './points/points.dart';
-import './Feed/feed.dart';
+import './feed/feed.dart';
 import './shop/shop.dart';
 
 class HomePage extends StatefulWidget {
@@ -17,28 +18,33 @@ int currentPageIndex = 0;
 
 class _HomePageState extends State<HomePage> {
   List screens=[
-    FeedScreen(),
-    ShopScreen(),
-    PointsScreen()
+    const FeedScreen(),
+    const ShopScreen(),
+    const PointsScreen()
   ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(
-        child: Center(
-          child: Text("Drawer"),
-        ),
-      ),
       appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Text("Homepage"),
+        titleTextStyle: const TextStyle(color: Constants.yellowColor),
+        // automaticallyImplyLeading: false,
+        centerTitle: true,
+        title: const Text(
+          "APOORV 2K24",
+          style: TextStyle(fontSize: 32),
+        ),
+        leading: Image.asset(
+          'assets/images/phoenix_74.png',
+          fit: BoxFit.fitHeight,
+        ),
         actions: [
           Builder(builder: (context) {
             return IconButton(
-                onPressed: () {
-                  Scaffold.of(context).openDrawer();
-                },
-                icon: Icon(Icons.perm_identity));
+              onPressed: ()=> Navigator.of(context).pushNamed(ProfileScreen.routeName),
+              icon: const Icon(Icons.account_circle_outlined),
+              iconSize: 32,
+              color: Constants.yellowColor,
+            );
           }),
         ],
       ),

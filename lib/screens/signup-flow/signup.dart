@@ -89,23 +89,6 @@ class SignUpScreen extends StatelessWidget {
                   ),
                 ],
               )),
-              // FilledButton(
-              //   onPressed: () {},
-              //   style: ButtonStyle(
-              //       backgroundColor:
-              //           MaterialStateProperty.all<Color>(Constants.redColor),
-              //       foregroundColor:
-              //           MaterialStateProperty.all<Color>(Colors.white)),
-              //   child: Container(
-              //     height: 48,
-              //     alignment: Alignment.center,
-              //     child: const Text(
-              //       'Continue',
-              //       style: TextStyle(fontSize: 20),
-              //       textAlign: TextAlign.center,
-              //     ),
-              //   ),
-              // ),
               FilledButton(
                 onPressed: () =>
                     Navigator.of(context).pushNamed(HomePage.routeName),

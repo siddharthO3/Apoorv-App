@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 
 class ScoreCard extends StatelessWidget{
 
@@ -14,7 +13,7 @@ class ScoreCard extends StatelessWidget{
 
   @override
   Widget build(BuildContext context){
-    return Container(
+    return SizedBox(
       width: 120,
       height: 120,
       child:
@@ -22,7 +21,7 @@ class ScoreCard extends StatelessWidget{
             elevation: 5,
             color: Colors.black,
             shape: RoundedRectangleBorder(
-              side: BorderSide(
+              side: const BorderSide(
                 color: Colors.white,
                 width: 2.0,
               ),
@@ -32,7 +31,7 @@ class ScoreCard extends StatelessWidget{
               Column(
                 children: [
                   Padding(
-                    padding: EdgeInsets.symmetric(vertical: 20),
+                    padding: const EdgeInsets.symmetric(vertical: 20),
                     child: Icon(
                       icon!,
                       color: Colors.yellow,
@@ -41,7 +40,7 @@ class ScoreCard extends StatelessWidget{
                   ),
 
                   Text(value!,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 20,
                     ),
