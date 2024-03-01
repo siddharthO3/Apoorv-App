@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:apoorv_app/widgets/score-card/score_card.dart';
-import 'package:apoorv_app/widgets/leaderboard-widget/leaderboard_card.dart';
+import 'package:apoorv_app/widgets/points-widget/score_card.dart';
+import 'package:apoorv_app/widgets/points-widget/leaderboard_card.dart';
 
 class PointsScreen extends StatelessWidget{
   static const routeName = '/points';
@@ -9,8 +9,12 @@ class PointsScreen extends StatelessWidget{
 
   @override
   Widget build(BuildContext context){
-    return const Scaffold(
+    return Scaffold(
       backgroundColor: Color.fromRGBO(18, 18, 18, 1),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
       body:
           SafeArea(
             child: SingleChildScrollView(

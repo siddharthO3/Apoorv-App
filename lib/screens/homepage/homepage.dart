@@ -1,3 +1,4 @@
+import 'package:apoorv_app/screens/homepage/points/points_transfer.dart';
 import 'package:flutter/material.dart';
 
 import 'package:apoorv_app/constants.dart';
@@ -19,29 +20,31 @@ class _HomePageState extends State<HomePage> {
   List screens=[
     FeedScreen(),
     ShopScreen(),
-    PointsScreen()
+    PointsTransfer()
   ];
   @override
   Widget build(BuildContext context) {
+    bool isAppBarVisible = true;
     return Scaffold(
       drawer: Drawer(
         child: Center(
           child: Text("Drawer"),
         ),
       ),
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Text("Homepage"),
-        actions: [
-          Builder(builder: (context) {
-            return IconButton(
-                onPressed: () {
-                  Scaffold.of(context).openDrawer();
-                },
-                icon: Icon(Icons.perm_identity));
-          }),
-        ],
-      ),
+      // appBar: AppBar(
+      //   backgroundColor: Constants.yellowColor,
+      //   automaticallyImplyLeading: false,
+      //   title: Text("Home Page"),
+      //   actions: [
+      //     Builder(builder: (context) {
+      //       return IconButton(
+      //           onPressed: () {
+      //             Scaffold.of(context).openDrawer();
+      //           },
+      //           icon: Icon(Icons.perm_identity));
+      //     }),
+      //   ],
+      // ),
       body: screens[currentPageIndex],
       bottomNavigationBar: NavigationBar(
         onDestinationSelected: (int index) {

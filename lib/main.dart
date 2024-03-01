@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import './screens/homepage/points/points.dart';
+import './screens/homepage/points/points_transfer.dart';
 
 // Future<void> main() async {
 //   await DotEnv().load(fileName: '.env');
@@ -40,6 +41,7 @@ class MyApp extends StatelessWidget{
         SignUpScreen.routeName:(context) => const SignUpScreen(),
         PointsScreen.routeName : (context) => const PointsScreen(),
         HomePage.routeName:(context) => const HomePage(),
+        PointsTransfer.routeName: (context) => const PointsTransfer(),
       },
       initialRoute: WelcomeScreen.routeName,
     );
