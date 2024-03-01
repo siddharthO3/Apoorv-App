@@ -1,9 +1,10 @@
+import 'package:apoorv_app/constants.dart';
+import 'package:apoorv_app/screens/homepage/Profile/profile.dart';
 import 'package:apoorv_app/screens/homepage/points/points_transfer.dart';
 import 'package:flutter/material.dart';
 
-import 'package:apoorv_app/constants.dart';
 import './points/points.dart';
-import './Feed/feed.dart';
+import './feed/feed.dart';
 import './shop/shop.dart';
 
 class HomePage extends StatefulWidget {
@@ -17,33 +18,28 @@ class HomePage extends StatefulWidget {
 int currentPageIndex = 0;
 
 class _HomePageState extends State<HomePage> {
-  List screens=[
-    FeedScreen(),
-    ShopScreen(),
-    PointsTransfer()
+  List screens = [
+    const FeedScreen(),
+    const ShopScreen(),
+    const PointsTransfer(),
+    const ProfileScreen(),
   ];
   @override
   Widget build(BuildContext context) {
     bool isAppBarVisible = true;
     return Scaffold(
-      drawer: Drawer(
-        child: Center(
-          child: Text("Drawer"),
-        ),
-      ),
       // appBar: AppBar(
-      //   backgroundColor: Constants.yellowColor,
-      //   automaticallyImplyLeading: false,
-      //   title: Text("Home Page"),
-      //   actions: [
-      //     Builder(builder: (context) {
-      //       return IconButton(
-      //           onPressed: () {
-      //             Scaffold.of(context).openDrawer();
-      //           },
-      //           icon: Icon(Icons.perm_identity));
-      //     }),
-      //   ],
+      //   titleTextStyle: const TextStyle(color: Constants.yellowColor),
+      //   // automaticallyImplyLeading: false,
+      //   centerTitle: true,
+      //   title: const Text(
+      //     "APOORV 2K24",
+      //     style: TextStyle(fontSize: 32),
+      //   ),
+      //   leading: Image.asset(
+      //     'assets/images/phoenix_74.png',
+      //     fit: BoxFit.fitHeight,
+      //   ),
       // ),
       body: screens[currentPageIndex],
       bottomNavigationBar: NavigationBar(
@@ -52,23 +48,28 @@ class _HomePageState extends State<HomePage> {
             currentPageIndex = index;
           });
         },
-        indicatorColor: Constants.yellowColor,
+        indicatorColor: Constants.redColor,
         selectedIndex: currentPageIndex,
         destinations: const <Widget>[
           NavigationDestination(
-            selectedIcon: Icon(Icons.feed_outlined),
-            icon: Icon(Icons.feed),
-            label: 'Feed',
+            selectedIcon: Icon(Icons.home),
+            icon: Icon(Icons.home_outlined),
+            label: 'Home',
           ),
           NavigationDestination(
-            selectedIcon: Icon(Icons.store_mall_directory_outlined),
-            icon: Icon(Icons.store_mall_directory),
+            selectedIcon: Icon(Icons.store_mall_directory),
+            icon: Icon(Icons.store_mall_directory_outlined),
             label: 'Shop',
           ),
           NavigationDestination(
-            selectedIcon: Icon(Icons.stars_outlined),
-            icon: Icon(Icons.stars_sharp),
+            selectedIcon: Icon(Icons.stars),
+            icon: Icon(Icons.stars_outlined),
             label: 'Points',
+          ),
+          NavigationDestination(
+            selectedIcon: Icon(Icons.account_circle),
+            icon: Icon(Icons.account_circle_outlined),
+            label: 'Profile',
           ),
         ],
       ),

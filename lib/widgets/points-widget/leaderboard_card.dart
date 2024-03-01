@@ -27,7 +27,7 @@ class LeaderboardCard extends StatelessWidget{
         break;
     }
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 10,),
+      padding: const EdgeInsets.symmetric(vertical: 10,),
       child:
       Container(
           height: 60,
@@ -39,7 +39,7 @@ class LeaderboardCard extends StatelessWidget{
                 color: color ?? Colors.grey,
                 spreadRadius: 2,
                 blurRadius: 2,
-                offset: Offset(0, 3),
+                offset: const Offset(0, 3),
               )
             ],
             border: Border.all(
@@ -55,13 +55,13 @@ class LeaderboardCard extends StatelessWidget{
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Text(name!,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 20,
                       color: Colors.black,
                     ),
                   ),
                   Text('$points',
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 20,
                       color: Colors.black,
                     ),

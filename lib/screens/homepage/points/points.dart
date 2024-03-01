@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:apoorv_app/widgets/points-widget/score_card.dart';
 import 'package:apoorv_app/widgets/points-widget/leaderboard_card.dart';
 
-class PointsScreen extends StatelessWidget{
+class PointsScreen extends StatelessWidget {
   static const routeName = '/points';
   const PointsScreen({super.key});
 
