@@ -1,5 +1,6 @@
 import 'package:apoorv_app/constants.dart';
 import 'package:apoorv_app/screens/homepage/Profile/profile.dart';
+import 'package:apoorv_app/screens/homepage/points/points_transfer.dart';
 import 'package:flutter/material.dart';
 
 import './points/points.dart';
@@ -20,11 +21,12 @@ class _HomePageState extends State<HomePage> {
   List screens = [
     const FeedScreen(),
     const ShopScreen(),
-    const PointsScreen(),
+    const PointsTransfer(),
     const ProfileScreen(),
   ];
   @override
   Widget build(BuildContext context) {
+    bool isAppBarVisible = true;
     return Scaffold(
       // appBar: AppBar(
       //   titleTextStyle: const TextStyle(color: Constants.yellowColor),
