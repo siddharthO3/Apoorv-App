@@ -1,3 +1,5 @@
+import 'package:apoorv_app/screens/signup-flow/letsgo.dart';
+
 import 'screens/homepage/homepage.dart';
 import 'screens/homepage/Profile/profile.dart';
 import 'screens/homepage/points/points.dart';
@@ -48,6 +50,7 @@ class MyApp extends StatelessWidget {
         PointsScreen.routeName: (context) => const PointsScreen(),
         ProfileScreen.routeName: (context) => const ProfileScreen(),
         Leaderboard.routeName: (context) => const Leaderboard(),
+        LetsGoPage.routeName: (context) => const LetsGoPage(),
       },
       initialRoute: WelcomeScreen.routeName,
     );

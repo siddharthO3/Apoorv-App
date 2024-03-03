@@ -3,6 +3,8 @@ import '../homepage/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'letsgo.dart';
+
 class SignUpScreen extends StatefulWidget {
   static const routeName = '/sign-up-1';
   const SignUpScreen({super.key});
@@ -189,7 +191,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   const SnackBar(content: Text('Logging In')),
                                 );
                                 Navigator.of(context)
-                                    .pushNamed(HomePage.routeName);
+                                    .pushNamed(LetsGoPage.routeName);
                               }
                             },
                             style: ButtonStyle(
