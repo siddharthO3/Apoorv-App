@@ -1,9 +1,8 @@
-import 'package:apoorv_app/constants.dart';
-import 'package:apoorv_app/screens/homepage/Profile/profile.dart';
-import 'package:apoorv_app/screens/homepage/points/points_transfer.dart';
+import '../../constants.dart';
+import 'Profile/profile.dart';
+import 'points/points.dart';
 import 'package:flutter/material.dart';
 
-import './points/points.dart';
 import './feed/feed.dart';
 import './shop/shop.dart';
 
@@ -15,18 +14,16 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-int currentPageIndex = 0;
-
 class _HomePageState extends State<HomePage> {
+  int currentPageIndex = 0;
   List screens = [
     const FeedScreen(),
     const ShopScreen(),
-    const PointsTransfer(),
+    const PointsScreen(),
     const ProfileScreen(),
   ];
   @override
   Widget build(BuildContext context) {
-    bool isAppBarVisible = true;
     return Scaffold(
       // appBar: AppBar(
       //   titleTextStyle: const TextStyle(color: Constants.yellowColor),

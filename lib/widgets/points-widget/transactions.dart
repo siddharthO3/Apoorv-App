@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:apoorv_app/constants.dart';
+import '../../constants.dart';
 
 class TransactionsWidget extends StatelessWidget{
   final String? name;
@@ -23,22 +23,22 @@ class TransactionsWidget extends StatelessWidget{
     switch(type){
       case 'credit':
         transactedPoints='+$points';
-        textColor=Color.fromRGBO(69, 151, 5,1);
+        textColor=Constants.greenColor;
         break;
       case 'debit':
         transactedPoints='- $points';
-        textColor=Constants.redColor;
+        textColor=Constants.redColorAlt;
         break;
     }
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 5),
+      padding: const EdgeInsets.symmetric(vertical: 5),
       child:
       Container(
         decoration: BoxDecoration(
           color: Constants.yellowColor,
           borderRadius: BorderRadius.circular(15),
         ),
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         child:
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -47,14 +47,14 @@ class TransactionsWidget extends StatelessWidget{
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(name!,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w600,
                         color: Color.fromRGBO(18, 18, 18, 1)
                     )
                 ),
                 Text(date!,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w600,
                       color: Color.fromRGBO(18, 18, 18, 1)
@@ -71,9 +71,9 @@ class TransactionsWidget extends StatelessWidget{
                       color: textColor,
                   ),
                 ),
-                Text("Points",
+                const Text("Points",
                   style: TextStyle(
-                    fontSize: 20,
+                    fontSize: 14,
                     fontWeight: FontWeight.w600,
                     color: Color.fromRGBO(18, 18, 18,1),
                   ),
