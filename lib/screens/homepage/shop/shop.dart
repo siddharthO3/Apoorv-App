@@ -50,35 +50,39 @@ class ShopScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 30),
-                      child: Text(
-                        "Deals",
-                        style: GoogleFonts.lora(
-                          textStyle: const TextStyle(
-                            color: Constants.yellowColor,
-                            fontSize: 28.5,
+                Padding(
+                  padding: EdgeInsets.only(top: 25),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 30),
+                        child: Text(
+                          "Deals",
+                          style: GoogleFonts.lora(
+                            textStyle: const TextStyle(
+                              color: Constants.yellowColor,
+                              fontSize: 28.5,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 20),
-                      child: Text(
-                        "View all",
-                        style: GoogleFonts.lora(
-                          textStyle: const TextStyle(
-                            color: Constants.yellowColor,
-                            fontSize: 28.5,
+                      Padding(
+                        padding: const EdgeInsets.only(right: 20),
+                        child: Text(
+                          "View all",
+                          style: GoogleFonts.lora(
+                            textStyle: const TextStyle(
+                              color: Constants.yellowColor,
+                              fontSize: 28.5,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
+                SizedBox(height: 12,),
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(
