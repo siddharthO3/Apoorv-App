@@ -16,7 +16,7 @@ class LetsGoPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Image.asset('assets/images/people_800.png'),
-            Text(
+            const Text(
               "Let's Explore The \nApp",
               style: TextStyle(
                   fontSize: 36,
@@ -24,7 +24,7 @@ class LetsGoPage extends StatelessWidget {
                   fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
-            Text(
+            const Text(
                 "Lorem ipsum dolor sit amet consectetur. A gravida eros aliquam sed condimentum. Etiam vitae sit scelerisque a eget integer. Quis in dolor amet velit pretium sed vestibulum. Urna ullamcorper eu egestas egestas amet id.",
                 textAlign: TextAlign.center),
             FilledButton(

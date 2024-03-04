@@ -1,10 +1,10 @@
+import 'package:apoorv_app/screens/homepage/Maps/maps.dart';
+
 import '../../constants.dart';
 import 'Profile/profile.dart';
 import 'points/points.dart';
 import 'package:flutter/material.dart';
-
 import './feed/feed.dart';
-import './shop/shop.dart';
 
 class HomePage extends StatefulWidget {
   static const routeName = '/home-page';
@@ -18,7 +18,7 @@ class _HomePageState extends State<HomePage> {
   int currentPageIndex = 0;
   List screens = [
     const FeedScreen(),
-    const ShopScreen(),
+    const MapsScreen(),
     const PointsScreen(),
     const ProfileScreen(),
   ];
@@ -54,9 +54,9 @@ class _HomePageState extends State<HomePage> {
             label: 'Home',
           ),
           NavigationDestination(
-            selectedIcon: Icon(Icons.store_mall_directory),
-            icon: Icon(Icons.store_mall_directory_outlined),
-            label: 'Shop',
+            selectedIcon: Icon(Icons.map),
+            icon: Icon(Icons.map_outlined),
+            label: 'Maps',
           ),
           NavigationDestination(
             selectedIcon: Icon(Icons.stars),

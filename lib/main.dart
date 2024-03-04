@@ -1,3 +1,5 @@
+import 'package:apoorv_app/screens/homepage/Transactions/payment.dart';
+import 'package:apoorv_app/screens/homepage/Transactions/payment_success.dart';
 import 'package:apoorv_app/screens/signup-flow/letsgo.dart';
 
 import 'screens/homepage/homepage.dart';
@@ -51,6 +53,8 @@ class MyApp extends StatelessWidget {
         ProfileScreen.routeName: (context) => const ProfileScreen(),
         Leaderboard.routeName: (context) => const Leaderboard(),
         LetsGoPage.routeName: (context) => const LetsGoPage(),
+        Payment.routeName: (context) => const Payment(),
+        PaymentSuccess.routeName: (context) => const PaymentSuccess(),
       },
       initialRoute: WelcomeScreen.routeName,
     );
