@@ -25,6 +25,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       // appBar: AppBar(
       //   titleTextStyle: const TextStyle(color: Constants.yellowColor),
       //   // automaticallyImplyLeading: false,

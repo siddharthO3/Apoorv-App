@@ -186,9 +186,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           FilledButton(
                             onPressed: () {
                               if (_formKey.currentState!.validate()) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(content: Text('Logging In')),
-                                );
+                                // ScaffoldMessenger.of(context).showSnackBar(
+                                //   const SnackBar(content: Text('Logging In')),
+                              //   );
                                 Navigator.of(context)
                                     .pushNamed(LetsGoPage.routeName);
                               }

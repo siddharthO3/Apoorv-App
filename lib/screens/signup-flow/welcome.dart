@@ -1,6 +1,8 @@
 import 'package:apoorv_app/screens/signup-flow/signup.dart';
 import 'package:flutter/material.dart';
 
+import '../../constants.dart';
+
 class WelcomeScreen extends StatelessWidget {
   static const routeName = '/welcome';
   const WelcomeScreen({super.key});
@@ -20,35 +22,37 @@ class WelcomeScreen extends StatelessWidget {
                 Container(
                   margin: const EdgeInsets.symmetric(horizontal: 12),
                   width: double.infinity,
-                  child: FilledButton(
-                    onPressed: () =>
-                        Navigator.of(context).pushNamed(SignUpScreen.routeName),
-                    style: FilledButton.styleFrom(
-                      backgroundColor:
-                          const Color.fromRGBO(0xFF, 0xE8, 0xB4, 1),
-                      padding: const EdgeInsets.all(12),
+                  child: Container(
+                    decoration: const BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [Constants.gradientLow, Constants.gradientHigh],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        ),
+                      // color: Constants.yellowColor,
+                      borderRadius: BorderRadius.all(Radius.circular(50)),
                     ),
-                    child: Wrap(
-                      alignment: WrapAlignment.spaceEvenly,
-                      spacing: 24,
-                      crossAxisAlignment: WrapCrossAlignment.center,
-                      children: [
-                        SizedBox(
-                          height: 64,
-                          child: Image.asset(
-                            'assets/images/google.png',
-                            fit: BoxFit.contain,
-                          ),
+                    child: FilledButton.icon(
+                      onPressed: () => Navigator.of(context)
+                          .pushNamed(SignUpScreen.routeName),
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                              Colors.transparent)),
+                      icon: SizedBox(
+                        height: 64,
+                        child: Image.asset(
+                          'assets/images/google.png',
+                          fit: BoxFit.contain,
                         ),
-                        const Text(
-                          'Sign In with Google',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontFamily: 'Inter',
-                            color: Colors.black,
-                          ),
+                      ),
+                      label: const Text(
+                        'Sign In with Google',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontFamily: 'Inter',
+                          color: Colors.black,
                         ),
-                      ],
+                      ),
                     ),
                   ),
                 )

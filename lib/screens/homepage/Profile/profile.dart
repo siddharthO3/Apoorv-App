@@ -127,11 +127,11 @@ class ProfileScreen extends StatelessWidget {
                     const Text('+91 00000 00000',
                         style: TextStyle(
                             color: Constants.blackColor, fontSize: 16)),
-                    const Text('College:',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                            color: Constants.blackColor)),
+                    // const Text('College:',
+                    //     style: TextStyle(
+                    //         fontWeight: FontWeight.bold,
+                    //         fontSize: 16,
+                    //         color: Constants.blackColor)),
                     // const Text('IIIT Kottayam',
                     //     style: TextStyle(
                     //         color: Constants.blackColor, fontSize: 16)),
