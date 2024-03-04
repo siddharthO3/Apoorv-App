@@ -1,9 +1,6 @@
-import 'package:apoorv_app/constants.dart';
+import '../../../constants.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-
-import '../../../widgets/signup-flow/qr/generate_qr.dart';
-import '../../../widgets/signup-flow/qr/scan_qr.dart';
 
 class ProfileScreen extends StatelessWidget {
   static const routeName = '/profile';
@@ -135,9 +132,9 @@ class ProfileScreen extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
                             color: Constants.blackColor)),
-                    const Text('IIIT Kottayam',
-                        style: TextStyle(
-                            color: Constants.blackColor, fontSize: 16)),
+                    // const Text('IIIT Kottayam',
+                    //     style: TextStyle(
+                    //         color: Constants.blackColor, fontSize: 16)),
                   ]),
             ),
             Constants.gap,
@@ -149,8 +146,8 @@ class ProfileScreen extends StatelessWidget {
                     EdgeInsets.all(MediaQuery.of(context).size.width * 0.1),
                 decoration: const BoxDecoration(
                   borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20),
+                    topLeft: Radius.circular(24),
+                    topRight: Radius.circular(24),
                   ),
                   color: Constants.blackColor,
                 ),
