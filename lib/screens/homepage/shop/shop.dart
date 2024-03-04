@@ -14,35 +14,87 @@ class ShopScreen extends StatelessWidget {
     return Material(
       child: SafeArea(
         child: Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
+          width: double.infinity,
+          height: double.infinity,
           color: Constants.blackColor,
-          child: Column(
-            // mainAxisSize: MainAxisSize.max,
-            children: [
-              Text(
-                "Limited Time Offers",
-                style: GoogleFonts.lora(textStyle: const TextStyle(
-                  color: Constants.yellowColor,
-                  fontSize: 28.5,
+          child: SingleChildScrollView(
+            child: Column(
+              // mainAxisSize: MainAxisSize.max,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 30),
+                  child: Align(
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      "Limited Time Offers",
+                      style: GoogleFonts.lora(
+                        textStyle: const TextStyle(
+                          color: Constants.yellowColor,
+                          fontSize: 28.5,
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height / 2,
+                          width: 10),
+                      const ProductCard(),
+                      const ProductCard(),
+                      const ProductCard(),
+                      const ProductCard(),
+                    ],
+                  ),
                 ),
-              ),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    SizedBox(
-                        height: MediaQuery.of(context).size.height / 2,
-                        width: 10),
-                    const ProductCard(),
-                    const ProductCard(),
-                    const ProductCard(),
-                    const ProductCard(),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 30),
+                      child: Text(
+                        "Deals",
+                        style: GoogleFonts.lora(
+                          textStyle: const TextStyle(
+                            color: Constants.yellowColor,
+                            fontSize: 28.5,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 20),
+                      child: Text(
+                        "View all",
+                        style: GoogleFonts.lora(
+                          textStyle: const TextStyle(
+                            color: Constants.yellowColor,
+                            fontSize: 28.5,
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
-              ),
-            ],
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height / 2,
+                          width: 10),
+                      const ProductCard(),
+                      const ProductCard(),
+                      const ProductCard(),
+                      const ProductCard(),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

@@ -50,7 +50,7 @@ class MyApp extends StatelessWidget {
 
         // Profile2.routeName:(context) => const Profile2(),
       },
-      initialRoute: WelcomeScreen.routeName,
+      initialRoute: ShopScreen.routeName,
     );
   }
 }
