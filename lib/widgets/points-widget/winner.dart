@@ -23,7 +23,7 @@ class Winner extends StatelessWidget{
             backgroundImage: NetworkImage(image ?? ''),
             radius: 50,
             child:
-            Stack(
+            const Stack(
               children: [
                 Align(
                   alignment: Alignment.bottomRight,
@@ -33,7 +33,7 @@ class Winner extends StatelessWidget{
             )
         ),
         Text(name!,
-          style: TextStyle(
+          style: const TextStyle(
             fontWeight: FontWeight.w600,
             fontSize: 20,
           ),
@@ -42,12 +42,12 @@ class Winner extends StatelessWidget{
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text("$points",
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
               ),
             ),
-            Icon(
+            const Icon(
               Icons.stars,
               color: Colors.white,
               size: 16,
