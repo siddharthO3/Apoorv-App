@@ -1,3 +1,4 @@
+import 'package:apoorv_app/screens/homepage/feed/feed.dart';
 import 'package:apoorv_app/screens/signup-flow/letsgo.dart';
 
 import 'screens/homepage/homepage.dart';
@@ -54,9 +55,10 @@ class MyApp extends StatelessWidget {
         Leaderboard.routeName: (context) => const Leaderboard(),
         LetsGoPage.routeName: (context) => const LetsGoPage(),
         ShopScreen.routeName: (context) => const ShopScreen(),
+        FeedScreen.routeName: (context) => const FeedScreen(),
         
       },
-      initialRoute: ShopScreen.routeName,
+      initialRoute: FeedScreen.routeName,
     );
   }
 }
