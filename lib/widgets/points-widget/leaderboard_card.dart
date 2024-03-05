@@ -7,38 +7,49 @@ class LeaderboardCard extends StatelessWidget{
   final String? name;
   final int? points;
   final int? rank;
+  final String? image;
 
   const LeaderboardCard({
     super.key,
     this.name,
     this.points,
     this.rank,
+    this.image,
   });
 
   @override
   Widget build(BuildContext context){
     Color? color;
-    switch(rank){
+    double? spreadRadius;
+    double? blurRadius;
+
+    switch((rank!%2)){
+      case 0:
+        color=Constants.yellowColor;
+        break;
       case 1:
-        color=Constants.yellowColor;
+        color=Color.fromRGBO(242, 242, 242, 1);
         break;
-      case 2:
-        color=Constants.yellowColor;
-        break;
+    }
+
+    if (name == 'Siddharth'){
+      color=Constants.redColor;
+      spreadRadius=6;
+      blurRadius=3;
     }
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10,),
       child:
       Container(
-          height: 60,
+          height: 70,
           width: MediaQuery.of(context).size.width*0.9,
 
           decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
                 color: color ?? Colors.grey,
-                spreadRadius: 2,
-                blurRadius: 2,
+                spreadRadius: spreadRadius ?? 2,
+                blurRadius: blurRadius ?? 2,
                 offset: const Offset(0, 3),
               )
             ],
@@ -49,23 +60,47 @@ class LeaderboardCard extends StatelessWidget{
             color: color ?? Colors.grey.shade300,
           ),
           child:ListTile(
-
               title:
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  Row(
+                    children: [
+                      Text('$rank',
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.black,
+                        ),
+                      ),
+                      SizedBox(width: 10,),
+                      CircleAvatar(
+                        radius: 25,
+                        backgroundImage: NetworkImage(image ?? ''),
+                      ),
+                    ],
+                  ),
                   Text(name!,
                     style: const TextStyle(
                       fontSize: 20,
                       color: Colors.black,
                     ),
                   ),
-                  Text('$points',
-                    style: const TextStyle(
-                      fontSize: 20,
-                      color: Colors.black,
-                    ),
-                  ),
+                  Row(
+                    children: [
+                      Text('$points',
+                        style: const TextStyle(
+                          fontSize: 20,
+                          color: Colors.black,
+                        ),
+                      ),
+                      Icon(
+                        Icons.stars,
+                        color: Colors.black,
+                        size: 20,
+                      ),
+                    ],
+                  )
+
                 ],
               )
           )
