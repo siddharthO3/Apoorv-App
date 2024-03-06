@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../../widgets/points-widget/leaderboard_card.dart';
-import '../points/points.dart';
 import 'package:apoorv_app/constants.dart';
 import '../../../widgets/points-widget/winner.dart';
 

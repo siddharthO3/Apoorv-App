@@ -77,7 +77,7 @@ class Payment extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Container(
+                  SizedBox(
                     width: 120,
                     child: TextField(
                       keyboardType: TextInputType.phone,

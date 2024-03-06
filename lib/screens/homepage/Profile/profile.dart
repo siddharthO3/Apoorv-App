@@ -1,3 +1,6 @@
+import 'package:apoorv_app/widgets/provider/user_info_provider.dart';
+import 'package:provider/provider.dart';
+
 import '../../../constants.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -97,35 +100,49 @@ class ProfileScreen extends StatelessWidget {
                           )
                         ]),
                     Constants.gap,
-                    const Text('Siddharth Gupta',
-                        style: TextStyle(
+                    Text(context.read<UserProvider>().userName,
+                        style: const TextStyle(
                           color: Constants.blackColor,
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
                         )),
-                    const Text('Roll No',
+                    const Text("Email",
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                            color: Constants.blackColor)),
-                    const Text('2021BCS0054',
-                        style: TextStyle(
+                            color: Constants.blackColor,
+                            fontSize: 16)),
+                    Text(context.read<UserProvider>().userEmail,
+                        style: const TextStyle(
                             color: Constants.blackColor, fontSize: 16)),
-                    const Text('Email',
+                    const Text("Phone",
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
                             color: Constants.blackColor)),
-                    const Text('siddharth21bcs54@iiitkottayam.ac.in',
-                        style: TextStyle(
+                    Text(context.read<UserProvider>().userPhNo,
+                        style: const TextStyle(
                             color: Constants.blackColor, fontSize: 16)),
-                    const Text('Phone',
+                    if (context.read<UserProvider>().fromCollege)
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text('Roll No',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                  color: Constants.blackColor)),
+                          Text(context.read<UserProvider>().userRollNo!,
+                              style: const TextStyle(
+                                  color: Constants.blackColor, fontSize: 16)),
+                        ],
+                      ),
+                    const Text('College',
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
                             color: Constants.blackColor)),
-                    const Text('+91 00000 00000',
-                        style: TextStyle(
+                    Text(context.read<UserProvider>().userCollegeName!,
+                        style: const TextStyle(
                             color: Constants.blackColor, fontSize: 16)),
                     // const Text('College:',
                     //     style: TextStyle(
