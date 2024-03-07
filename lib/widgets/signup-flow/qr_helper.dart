@@ -1,5 +1,7 @@
+import 'package:apoorv_app/providers/user_info_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:provider/provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 import '../../constants.dart';
@@ -10,15 +12,17 @@ class ShowCentreDialog {
   var _screenOpened = false;
 
   Future<dynamic>? qrDialog() {
+    String idToken = context.read<UserProvider>().idToken;
     return showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
+        // backgroundColor: Constants.whiteColor,
         content: Container(
           height: MediaQuery.of(ctx).size.width * 0.77,
           width: MediaQuery.of(ctx).size.width * 0.8,
           alignment: Alignment.center,
           child: QrImageView(
-            data: 'Siddharth',
+            data: idToken,
             backgroundColor: Constants.whiteColor,
             // size: MediaQuery.of(ctx).size.width * 0.75,
           ),
@@ -32,6 +36,7 @@ class ShowCentreDialog {
     return showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
+        // backgroundColor: Color.fromRGBO(0, 0, 0, 0.5),
         content: SizedBox(
           height: MediaQuery.of(ctx).size.width * 0.8,
           width: MediaQuery.of(ctx).size.width * 0.8,

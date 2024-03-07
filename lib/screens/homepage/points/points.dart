@@ -12,30 +12,6 @@ class PointsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // return Scaffold(
-    // appBar: AppBar(
-    //   backgroundColor: Constants.yellowColor,
-    //   automaticallyImplyLeading: false,
-    //   title: Container(
-    //     decoration: BoxDecoration(
-    //       color: Constants.blackColor,
-    //       // border: Border.all(
-    //       //   color: Colors.white,
-    //       // ),
-    //       borderRadius: BorderRadius.circular(30),
-    //     ),
-    //     child: const TextField(
-    //       decoration: InputDecoration(
-    //           border: InputBorder.none,
-    //           hintText: "Search Contacts",
-    //           prefixIcon: Icon(
-    //             Icons.search,
-    //             size: 30,
-    //           )),
-    //     ),
-    //   ),
-    // ),
-    // body: Container(
     return Container(
       // padding: const EdgeInsets.only(top: 20),
       decoration: const BoxDecoration(

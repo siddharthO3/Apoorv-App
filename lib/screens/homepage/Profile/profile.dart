@@ -1,4 +1,3 @@
-import 'package:apoorv_app/base_client.dart';
 import 'package:apoorv_app/providers/user_info_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -8,16 +7,11 @@ import 'package:qr_flutter/qr_flutter.dart';
 
 class ProfileScreen extends StatelessWidget {
   static const routeName = '/profile';
-  ProfileScreen({super.key});
-  String? qrToken;
-
-  void getQRString() async{
-    qrToken = await BaseClient.getAuthToken();
-  }
+  const ProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    getQRString();
+    Provider.of<UserProvider>(context).refreshIdToken();
     // Scaffold(
     //     appBar: AppBar(
     //       titleTextStyle: const TextStyle(color: Constants.yellowColor),
@@ -168,7 +162,7 @@ class ProfileScreen extends StatelessWidget {
                   color: Constants.blackColor,
                 ),
                 child: QrImageView(
-                    data: qrToken!,
+                    data: context.read<UserProvider>().idToken,
                     backgroundColor: Constants.whiteColor,
                     // size: MediaQuery.of(context).size.width * 0.75,
                 ) ,

@@ -20,7 +20,7 @@ class _HomePageState extends State<HomePage> {
     const FeedScreen(),
     const MapsScreen(),
     const PointsScreen(),
-    ProfileScreen(),
+    const ProfileScreen(),
   ];
   @override
   Widget build(BuildContext context) {

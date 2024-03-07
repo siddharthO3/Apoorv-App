@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class UserProvider extends ChangeNotifier {
@@ -8,6 +9,9 @@ class UserProvider extends ChangeNotifier {
   String? profilePhotoUrl;
   String userEmail;
   bool fromCollege = false;
+
+  String idToken = "";
+
   UserProvider({
     this.userName = "Full Name",
     this.userCollegeName,
@@ -48,5 +52,20 @@ class UserProvider extends ChangeNotifier {
   void updateEmail(String em) {
     userEmail = em;
     notifyListeners();
+  }
+
+  void refreshIdToken() {
+    // void refreshIdToken() async {
+    // idToken = (await FirebaseAuth.instance.currentUser!.getIdToken())!;
+    // print(idToken);
+    // notifyListeners();
+    idToken = FirebaseAuth.instance.currentUser!.uid;
+    notifyListeners();
+    // (FirebaseAuth.instance.currentUser!.getIdToken()).then((value) {
+    //   if (value != null) {
+    //     idToken = value;
+    //     notifyListeners();
+    //   }
+    // });
   }
 }

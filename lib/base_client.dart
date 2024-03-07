@@ -5,14 +5,15 @@ class BaseClient {
   // final auth = FirebaseAuth.instance;
 
   static String baseUrl = "";
-  static Dio dio = Dio(
-    BaseOptions(
-      baseUrl: baseUrl,
-    ),
-  );
+  static Dio dio = Dio();
 
   BaseClient(String url) {
     baseUrl = url;
+    dio = Dio(
+      BaseOptions(
+        baseUrl: baseUrl,
+      ),
+    );
   }
 
   void addFirebaseToDio(String idToken) async {
