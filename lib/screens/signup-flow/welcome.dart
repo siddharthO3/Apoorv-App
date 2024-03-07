@@ -1,7 +1,9 @@
 import 'package:apoorv_app/base_client.dart';
+import 'package:apoorv_app/providers/user_info_provider.dart';
 import 'package:apoorv_app/screens/signup-flow/signup.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../constants.dart';
 import '../../widgets/signup-flow/sign_in_with_google.dart';
@@ -13,6 +15,7 @@ class WelcomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(BaseClient.baseUrl);
     return Scaffold(
       body: Padding(
           padding: EdgeInsets.symmetric(
@@ -28,11 +31,11 @@ class WelcomeScreen extends StatelessWidget {
                   width: double.infinity,
                   child: Container(
                     decoration: const BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [Constants.gradientLow, Constants.gradientHigh],
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                        ),
+                      gradient: LinearGradient(
+                        colors: [Constants.gradientLow, Constants.gradientHigh],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
                       // color: Constants.yellowColor,
                       borderRadius: BorderRadius.all(Radius.circular(50)),
                     ),
@@ -41,10 +44,16 @@ class WelcomeScreen extends StatelessWidget {
                         await signInWithGoogle();
                         var auth = FirebaseAuth.instance;
                         if (auth.currentUser != null) {
+                          //TODO: Check context.mounted if it works
+
+                          if (context.mounted) {
                           showSnackbarOnScreen(context, "User Signed in!");
-                          Navigator.of(context)
-                              .pushNamed(SignUpScreen.routeName);
-                        BaseClient.printAuthTokenForTest();
+                          Provider.of<UserProvider>(context, listen: false)
+                              .updateEmail(auth.currentUser!.email!);
+                            Navigator.of(context)
+                                .pushNamed(SignUpScreen.routeName);
+                          }
+                          // BaseClient.printAuthTokenForTest();
                         }
                       },
                       style: ButtonStyle(

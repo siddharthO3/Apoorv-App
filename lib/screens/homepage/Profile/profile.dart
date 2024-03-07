@@ -153,7 +153,7 @@ class ProfileScreen extends StatelessWidget {
                 // width: double.infinity,
                 alignment: Alignment.center,
                 padding:
-                    EdgeInsets.all(MediaQuery.of(context).size.width * 0.1),
+                    EdgeInsets.all(MediaQuery.of(context).size.width * 0.05),
                 decoration: const BoxDecoration(
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(24),

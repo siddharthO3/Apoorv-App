@@ -1,3 +1,4 @@
+import 'package:apoorv_app/base_client.dart';
 import 'package:apoorv_app/screens/homepage/Transactions/payment.dart';
 import 'package:apoorv_app/screens/homepage/Transactions/payment_success.dart';
 import 'package:apoorv_app/screens/signup-flow/letsgo.dart';
@@ -26,6 +27,7 @@ Future<void> main() async {
     options: await DefaultFirebaseOptions.currentPlatform,
   );
 
+  BaseClient(dotenv.get('BASE_URL'));
   // FirebaseAuth.instance.authStateChanges().listen((User? user) {
   //   if (user == null) {
   //     print('User is currently signed out!');
@@ -69,7 +71,7 @@ class MyApp extends StatelessWidget {
           SignUpScreen.routeName: (context) => const SignUpScreen(),
           HomePage.routeName: (context) => const HomePage(),
           PointsScreen.routeName: (context) => const PointsScreen(),
-          ProfileScreen.routeName: (context) => ProfileScreen(),
+          ProfileScreen.routeName: (context) => const ProfileScreen(),
           Leaderboard.routeName: (context) => const Leaderboard(),
           LetsGoPage.routeName: (context) => const LetsGoPage(),
           Payment.routeName: (context) => const Payment(),
