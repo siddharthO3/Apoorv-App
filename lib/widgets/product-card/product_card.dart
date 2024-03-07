@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../constants.dart';
+import '../../utils/constants.dart';
 
 class ProductCard extends StatelessWidget {
   const ProductCard({super.key});

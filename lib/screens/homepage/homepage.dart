@@ -1,4 +1,4 @@
-import '../../constants.dart';
+import '../../utils/constants.dart';
 import 'Profile/profile.dart';
 import 'points/points.dart';
 import 'package:flutter/material.dart';

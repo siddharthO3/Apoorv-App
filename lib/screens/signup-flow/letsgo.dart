@@ -1,6 +1,6 @@
 import 'package:apoorv_app/screens/homepage/homepage.dart';
 import 'package:flutter/material.dart';
-import '../../constants.dart';
+import '../../utils/constants.dart';
 
 class LetsGoPage extends StatelessWidget {
   static const routeName = "/letsgo";

@@ -1,14 +1,20 @@
+import 'package:apoorv_app/widgets/Feed_Page/feed_list.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../constants.dart';
+import '../../../utils/constants.dart';
+import '../../../utils/mock_data.dart';
+import '../../../utils/Models/Feed.dart';
+
+final List Dummy = dummy;
 
 class FeedScreen extends StatelessWidget {
   static const routeName = '/feed';
   const FeedScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
+    const String name = "Roronoa Zoro";
+
     return SafeArea(
       child: Material(
         child: Container(
@@ -42,7 +48,7 @@ class FeedScreen extends StatelessWidget {
                         children: [
                           Flexible(
                             child: Text(
-                              "Welcome,\n Monkey D. Luffy",
+                              "Welcome,\n$name",
                               style: GoogleFonts.poppins(
                                 textStyle: const TextStyle(
                                   color: Constants.blackColor,
@@ -85,36 +91,21 @@ class FeedScreen extends StatelessWidget {
                 height: 20,
               ),
               // ListView.builder( {
-              Container(
-                width: MediaQuery.of(context).size.width * 0.95,
-                height: 80,
-                decoration: const BoxDecoration(
-                  color: Constants.creamColor,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(15),
-                  ),
-                ),
-                child: Center(
-                  child: ListTile(
-                    leading: Image.asset("assets/images/Apoorv.png"),
-                    title: Text(
-                      "Treasure Hunt is Going to Start Soon, Please Gather at AB 201",
-                      style: GoogleFonts.raleway(
-                        textStyle: const TextStyle(
-                          color: Constants.blackColor,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 20,
+              Expanded(
+                child: ListView.builder(
+                    itemCount: Dummy.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      final Content = Dummy[index];
+                
+                      return FeedList(
+                        body: Content.body,
+                        color: Content.color,
+                        txtColor: Content.txtcolor,
+                        image: Content.image,
+                      );
+                    }),
               ),
 
-              // },)
             ],
           ),
         ),

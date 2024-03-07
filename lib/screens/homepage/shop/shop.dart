@@ -1,4 +1,4 @@
-import 'package:apoorv_app/constants.dart';
+import 'package:apoorv_app/utils/constants.dart';
 // import 'package:apoorv_app/screens/homepage/Profile/profile.dart';
 import 'package:apoorv_app/widgets/product-card/product_card.dart';
 import 'package:flutter/material.dart';
