@@ -4,7 +4,7 @@ import '../../constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../../widgets/provider/user_info_provider.dart';
+import '../../providers/user_info_provider.dart';
 import 'letsgo.dart';
 
 class SignUpScreen extends StatefulWidget {

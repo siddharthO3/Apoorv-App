@@ -1,9 +1,12 @@
 import 'package:apoorv_app/screens/homepage/Transactions/payment.dart';
 import 'package:apoorv_app/screens/homepage/Transactions/payment_success.dart';
 import 'package:apoorv_app/screens/signup-flow/letsgo.dart';
-import 'package:apoorv_app/widgets/provider/user_info_provider.dart';
+import 'package:apoorv_app/providers/user_info_provider.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
 
+import 'firebase_options.dart';
 import 'screens/homepage/homepage.dart';
 import 'screens/homepage/Profile/profile.dart';
 import 'screens/homepage/points/points.dart';
@@ -14,21 +17,29 @@ import 'package:flutter/services.dart';
 
 import 'screens/homepage/points/leaderboard.dart';
 
-// Future<void> main() async {
-//   await DotEnv().load(fileName: '.env');
-//
-//   WidgetsFlutterBinding.ensureInitialized();
-//
-//   await Firebase.initializeApp(
-//     options: await DefaultFirebaseOptions.currentPlatform,
-//   );
-//
-//   runApp(const MyApp());
-// }
+Future<void> main() async {
+  await DotEnv().load(fileName: '.env');
 
-void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(
+    options: await DefaultFirebaseOptions.currentPlatform,
+  );
+
+  // FirebaseAuth.instance.authStateChanges().listen((User? user) {
+  //   if (user == null) {
+  //     print('User is currently signed out!');
+  //   } else {
+  //     print('User is signed in!');
+  //   }
+  // });
+
   runApp(const MyApp());
 }
+
+// void main() {
+//   runApp(const MyApp());
+// }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -58,7 +69,7 @@ class MyApp extends StatelessWidget {
           SignUpScreen.routeName: (context) => const SignUpScreen(),
           HomePage.routeName: (context) => const HomePage(),
           PointsScreen.routeName: (context) => const PointsScreen(),
-          ProfileScreen.routeName: (context) => const ProfileScreen(),
+          ProfileScreen.routeName: (context) => ProfileScreen(),
           Leaderboard.routeName: (context) => const Leaderboard(),
           LetsGoPage.routeName: (context) => const LetsGoPage(),
           Payment.routeName: (context) => const Payment(),

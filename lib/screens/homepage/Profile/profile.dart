@@ -1,4 +1,5 @@
-import 'package:apoorv_app/widgets/provider/user_info_provider.dart';
+import 'package:apoorv_app/base_client.dart';
+import 'package:apoorv_app/providers/user_info_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../../constants.dart';
@@ -7,10 +8,16 @@ import 'package:qr_flutter/qr_flutter.dart';
 
 class ProfileScreen extends StatelessWidget {
   static const routeName = '/profile';
-  const ProfileScreen({super.key});
+  ProfileScreen({super.key});
+  String? qrToken;
+
+  void getQRString() async{
+    qrToken = await BaseClient.getAuthToken();
+  }
 
   @override
   Widget build(BuildContext context) {
+    getQRString();
     // Scaffold(
     //     appBar: AppBar(
     //       titleTextStyle: const TextStyle(color: Constants.yellowColor),
@@ -144,14 +151,6 @@ class ProfileScreen extends StatelessWidget {
                     Text(context.read<UserProvider>().userCollegeName!,
                         style: const TextStyle(
                             color: Constants.blackColor, fontSize: 16)),
-                    // const Text('College:',
-                    //     style: TextStyle(
-                    //         fontWeight: FontWeight.bold,
-                    //         fontSize: 16,
-                    //         color: Constants.blackColor)),
-                    // const Text('IIIT Kottayam',
-                    //     style: TextStyle(
-                    //         color: Constants.blackColor, fontSize: 16)),
                   ]),
             ),
             Constants.gap,
@@ -169,10 +168,10 @@ class ProfileScreen extends StatelessWidget {
                   color: Constants.blackColor,
                 ),
                 child: QrImageView(
-                  data: 'Siddharth',
-                  backgroundColor: Constants.whiteColor,
-                  // size: MediaQuery.of(context).size.width * 0.75,
-                ),
+                    data: qrToken!,
+                    backgroundColor: Constants.whiteColor,
+                    // size: MediaQuery.of(context).size.width * 0.75,
+                ) ,
               ),
             ),
           ],

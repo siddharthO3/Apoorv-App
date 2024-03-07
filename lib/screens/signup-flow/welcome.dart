@@ -1,7 +1,11 @@
+import 'package:apoorv_app/base_client.dart';
 import 'package:apoorv_app/screens/signup-flow/signup.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants.dart';
+import '../../widgets/signup-flow/sign_in_with_google.dart';
+import '../../widgets/snackbar.dart';
 
 class WelcomeScreen extends StatelessWidget {
   static const routeName = '/welcome';
@@ -33,8 +37,16 @@ class WelcomeScreen extends StatelessWidget {
                       borderRadius: BorderRadius.all(Radius.circular(50)),
                     ),
                     child: FilledButton.icon(
-                      onPressed: () => Navigator.of(context)
-                          .pushNamed(SignUpScreen.routeName),
+                      onPressed: () async {
+                        await signInWithGoogle();
+                        var auth = FirebaseAuth.instance;
+                        if (auth.currentUser != null) {
+                          showSnackbarOnScreen(context, "User Signed in!");
+                          Navigator.of(context)
+                              .pushNamed(SignUpScreen.routeName);
+                        BaseClient.printAuthTokenForTest();
+                        }
+                      },
                       style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(
                               Colors.transparent)),
