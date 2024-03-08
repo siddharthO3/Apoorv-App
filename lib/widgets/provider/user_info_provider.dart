@@ -8,6 +8,9 @@ class UserProvider extends ChangeNotifier {
   String? profilePhotoUrl;
   String userEmail;
   bool fromCollege = false;
+
+  int points = 0;
+
   UserProvider({
     this.userName = "Full Name",
     this.userCollegeName,
@@ -47,6 +50,11 @@ class UserProvider extends ChangeNotifier {
 
   void updateEmail(String em) {
     userEmail = em;
+    notifyListeners();
+  }
+
+  void updatePoints(int newPoints) {
+    points = newPoints;
     notifyListeners();
   }
 }
