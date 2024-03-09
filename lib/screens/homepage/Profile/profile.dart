@@ -60,10 +60,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         MaterialStateProperty.all<Color>(
                                             Colors.black),
                                   ),
-                                  child: const SizedBox(
+                                  child: SizedBox(
                                     width: double.infinity,
                                     child: Text(
-                                      "Points Balance: 100",
+                                      "Points Balance: ${context.read<UserProvider>().points}",
                                       textAlign: TextAlign.center,
                                       // style: TextStyle(fontSize: 16),
                                     ),

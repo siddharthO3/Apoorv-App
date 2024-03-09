@@ -16,6 +16,40 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int currentPageIndex = 0;
+
+  bool popStatus = true;
+
+  @override
+  void initState() {
+    super.initState();
+    popScreen(context);
+  }
+
+  Future <void> popScreen(BuildContext context) async{
+    popStatus = await Navigator.maybePop(context);
+    if (mounted) {
+      setState(() {});
+    }
+  }
+
+  void showAppCloseConfirmation (BuildContext context){
+    final snackBar = SnackBar(
+      content: Text("Do you want to exit? Confirm and click back"),
+      backgroundColor: Colors.white,
+      action: SnackBarAction(
+        label: 'Yes',
+        onPressed: (){
+          ScaffoldMessenger.of(context).hideCurrentSnackBar();
+          setState(() {
+            popStatus=true;
+          });
+
+        },
+      ),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
   List screens = [
     const FeedScreen(),
     const MapsScreen(),
@@ -25,7 +59,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     // BaseClient.printAuthTokenForTest();
-    return Scaffold(
+    return PopScope(child: Scaffold(
       resizeToAvoidBottomInset: false,
       // appBar: AppBar(
       //   titleTextStyle: const TextStyle(color: Constants.yellowColor),
@@ -72,6 +106,15 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
+    ),
+      canPop: popStatus,
+      onPopInvoked: (bool didPop) async{
+        if (didPop) {
+          return;
+        }
+        showAppCloseConfirmation(context);
+      },
     );
+
   }
 }
