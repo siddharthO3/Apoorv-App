@@ -35,10 +35,45 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   bool isChecked = true;
 
+  bool popStatus = true;
+
+  @override
+  void initState() {
+    super.initState();
+    popScreen(context);
+  }
+
+  Future <void> popScreen(BuildContext context) async{
+    popStatus = await Navigator.maybePop(context);
+    if (mounted) {
+      setState(() {});
+    }
+  }
+
+  void showAppCloseConfirmation (BuildContext context){
+    final snackBar = SnackBar(
+      content: Text("Do you want to exit? Confirm and click back"),
+      backgroundColor: Colors.white,
+      action: SnackBarAction(
+        label: 'Yes',
+        onPressed: (){
+          ScaffoldMessenger.of(context).hideCurrentSnackBar();
+          setState(() {
+            popStatus=true;
+          });
+
+        },
+      ),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
+
   @override
   Widget build(BuildContext context) {
     var userProvider = Provider.of<UserProvider>(context);
-    return Scaffold(
+    return PopScope(child:
+    Scaffold(
       // appBar: AppBar(
       //     centerTitle: true,
       //     title: RichText(
@@ -150,14 +185,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     decoration: InputDecoration(
                                       border: OutlineInputBorder(
                                           borderSide:
-                                              const BorderSide(width: 50),
+                                          const BorderSide(width: 50),
                                           borderRadius:
-                                              BorderRadius.circular(16)),
+                                          BorderRadius.circular(16)),
                                       filled: true,
                                       fillColor: Constants.yellowColor,
                                       hintText: 'Roll Number',
                                       hintStyle:
-                                          const TextStyle(color: Colors.black),
+                                      const TextStyle(color: Colors.black),
                                     )),
                                 Constants.gap,
                               ],
@@ -176,12 +211,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     decoration: InputDecoration(
                                       border: OutlineInputBorder(
                                           borderRadius:
-                                              BorderRadius.circular(16)),
+                                          BorderRadius.circular(16)),
                                       filled: true,
                                       fillColor: Constants.yellowColor,
                                       hintText: "College Name",
                                       hintStyle:
-                                          const TextStyle(color: Colors.black),
+                                      const TextStyle(color: Colors.black),
                                     )),
                                 Constants.gap,
                               ],
@@ -234,11 +269,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             },
                             style: ButtonStyle(
                                 backgroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                        Constants.redColor),
+                                MaterialStateProperty.all<Color>(
+                                    Constants.redColor),
                                 foregroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                        Colors.white)),
+                                MaterialStateProperty.all<Color>(
+                                    Colors.white)),
                             child: Container(
                               height: 48,
                               alignment: Alignment.center,
@@ -263,10 +298,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
               ),
             );
-          }),
+          }
+          ),
         ),
       ),
       // ),
+      ),
+      canPop: popStatus,
+      onPopInvoked: (bool didPop) async{
+        if (didPop) {
+          return;
+        }
+        showAppCloseConfirmation(context);
+      },
     );
   }
 }
