@@ -1,3 +1,6 @@
+import 'package:apoorv_app/widgets/provider/user_info_provider.dart';
+import 'package:provider/provider.dart';
+
 import '../../../widgets/signup-flow/qr/generate_qr.dart';
 import '../../../widgets/signup-flow/qr/scan_qr.dart';
 import 'package:flutter/material.dart';
@@ -71,18 +74,18 @@ class PointsScreen extends StatelessWidget {
               ),
             ),
             // Constants.gap,
-            const Column(
+            Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  "1024",
-                  style: TextStyle(
+                  context.read<UserProvider>().points.toString(),
+                  style: const TextStyle(
                     fontSize: 72,
                     fontWeight: FontWeight.w700,
                     color: Constants.blackColor,
                   ),
                 ),
-                Text(
+                const Text(
                   "Points",
                   style: TextStyle(
                     fontWeight: FontWeight.w600,

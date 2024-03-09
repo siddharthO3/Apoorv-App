@@ -1,7 +1,10 @@
+import 'package:provider/provider.dart';
+
 import '../../constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../../widgets/provider/user_info_provider.dart';
 import 'letsgo.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -13,7 +16,22 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
+  final TextEditingController userNameController = TextEditingController();
+  final TextEditingController userPhNoController = TextEditingController();
+  final TextEditingController userRollNoController = TextEditingController();
+  final TextEditingController userCollegeNameController =
+      TextEditingController();
+
   final _formKey = GlobalKey<FormState>();
+
+  @override
+  void dispose() {
+    userNameController.dispose();
+    userRollNoController.dispose();
+    userCollegeNameController.dispose();
+    userPhNoController.dispose();
+    super.dispose();
+  }
 
   bool isChecked = true;
 
@@ -53,6 +71,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var userProvider = Provider.of<UserProvider>(context);
     return PopScope(child:
     Scaffold(
       // appBar: AppBar(
@@ -116,17 +135,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 }
                                 return null;
                               },
+                              controller: userNameController,
                               decoration: InputDecoration(
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(16)),
                                 filled: true,
                                 fillColor: Constants.yellowColor,
-                                hintText: 'Full Name',
+                                hintText: "Full Name",
                                 hintStyle: const TextStyle(color: Colors.black),
                               )),
                           Constants.gap,
                           TextFormField(
-                            // TODO: Fix phone number length, currently max
+                              controller: userPhNoController,
+                              // TODO: Fix phone number length, currently max
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return "Only Numbers!";
@@ -151,11 +172,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             Column(
                               children: [
                                 TextFormField(
+                                    controller: userRollNoController,
                                     validator: (value) {
                                       if (value == null ||
                                           value.isEmpty ||
-                                          !RegExp(r"(2020|2021|2022|2023)(bcs|bec|bcy|bds|BCS|BEC|BCY|BDS)0\d{3}")
-                                              .hasMatch(value)) {
+                                          !RegExp(r"(2020|2021|2022|2023)(bcs|bec|bcy|bds)0\d{3}")
+                                              .hasMatch(value.toLowerCase())) {
                                         return "You know the format";
                                       }
                                       return null;
@@ -179,6 +201,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             Column(
                               children: [
                                 TextFormField(
+                                    controller: userCollegeNameController,
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
                                         return "Fill your college name!";
@@ -191,7 +214,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                           BorderRadius.circular(16)),
                                       filled: true,
                                       fillColor: Constants.yellowColor,
-                                      hintText: 'College Name',
+                                      hintText: "College Name",
                                       hintStyle:
                                       const TextStyle(color: Colors.black),
                                     )),
@@ -206,6 +229,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 child: Checkbox(
                                   value: isChecked,
                                   onChanged: (bool? value) {
+                                    userCollegeNameController.clear();
+                                    userRollNoController.clear();
                                     setState(() {
                                       isChecked = value!;
                                     });
@@ -220,7 +245,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           Constants.gap,
                           FilledButton(
                             onPressed: () {
+                              // context.read<UserProvider>().changeUserName(newUserName: newUserName)
                               if (_formKey.currentState!.validate()) {
+                                userProvider.fromCollege = isChecked;
+                                if (isChecked) {
+                                  userProvider.changeSameCollegeDetails(
+                                      newUserName: userNameController.text,
+                                      newUserRollNo: userRollNoController.text,
+                                      newUserPhNo: userPhNoController.text);
+                                } else {
+                                  userProvider.changeOtherCollegeDetails(
+                                      newUserName: userNameController.text,
+                                      newUserCollegeName:
+                                          userCollegeNameController.text,
+                                      newUserPhNo: userPhNoController.text);
+                                }
                                 // ScaffoldMessenger.of(context).showSnackBar(
                                 //   const SnackBar(content: Text('Logging In')),
                                 //   );
