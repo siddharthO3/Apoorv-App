@@ -41,6 +41,7 @@ dependencies:
   flutter_svg: ^2.0.10+1
   qr_flutter: ^4.1.0
   mobile_scanner: ^4.0.1
+  back_button_interceptor: ^7.0.2
 
 dev_dependencies:
   flutter_test:

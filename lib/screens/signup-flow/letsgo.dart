@@ -1,6 +1,9 @@
 import 'package:apoorv_app/screens/homepage/homepage.dart';
+import 'package:apoorv_app/screens/signup-flow/signup.dart';
+import 'package:apoorv_app/screens/signup-flow/welcome.dart';
 import 'package:flutter/material.dart';
 import '../../constants.dart';
+
 
 class LetsGoPage extends StatelessWidget {
   static const routeName = "/letsgo";
@@ -29,6 +32,7 @@ class LetsGoPage extends StatelessWidget {
                 textAlign: TextAlign.center),
             FilledButton(
               onPressed: () {
+                Navigator.popUntil(context, ModalRoute.withName(WelcomeScreen.routeName));
                 Navigator.of(context).pushNamed(HomePage.routeName);
               },
               style: ButtonStyle(
