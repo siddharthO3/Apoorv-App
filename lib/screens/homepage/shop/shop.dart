@@ -1,3 +1,5 @@
+import 'package:apoorv_app/utils/dummy_data/Product_data.dart';
+
 import '../../../../constants.dart';
 // import 'package:apoorv_app/screens/homepage/Profile/profile.dart';
 import 'package:apoorv_app/widgets/product-card/product_card.dart';
@@ -5,8 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 // import 'package:flutter/services.dart';
 
+final List Data = data;
+
 class ShopScreen extends StatelessWidget {
-  static const routeName = '/shop';
   const ShopScreen({super.key});
 
   @override
@@ -43,10 +46,13 @@ class ShopScreen extends StatelessWidget {
                       SizedBox(
                           height: MediaQuery.of(context).size.height / 2,
                           width: 10),
-                      const ProductCard(),
-                      const ProductCard(),
-                      const ProductCard(),
-                      const ProductCard(),
+                      for (var i = 0; i < Data.length; i++)
+                        ProductCard(
+                          name: Data[i].name,
+                          img: Data[i].img,
+                          price: Data[i].price,
+                          description: Data[i].description,
+                        ),
                     ],
                   ),
                 ),
@@ -82,7 +88,9 @@ class ShopScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                SizedBox(height: 12,),
+                SizedBox(
+                  height: 12,
+                ),
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(
@@ -90,10 +98,13 @@ class ShopScreen extends StatelessWidget {
                       SizedBox(
                           height: MediaQuery.of(context).size.height / 2,
                           width: 10),
-                      const ProductCard(),
-                      const ProductCard(),
-                      const ProductCard(),
-                      const ProductCard(),
+                      for (var i = 0; i < Data.length; i++)
+                        ProductCard(
+                          name: Data[i].name,
+                          img: Data[i].img,
+                          price: Data[i].price,
+                          description: Data[i].description,
+                        ),
                     ],
                   ),
                 ),

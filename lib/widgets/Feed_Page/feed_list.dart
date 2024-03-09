@@ -26,7 +26,7 @@ class FeedList extends StatelessWidget {
         if (image == null) ...{
           Container(
             width: MediaQuery.of(context).size.width * 0.95,
-            height: 80,
+            height: 100,
             decoration: BoxDecoration(
               color: color,
               borderRadius: const BorderRadius.all(

@@ -23,7 +23,6 @@ class _LeaderboardState extends State<Leaderboard> {
     data.sort((b, a) => a.points.compareTo(b.points));
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -91,12 +90,6 @@ class _LeaderboardState extends State<Leaderboard> {
               const SizedBox(
                 height: 20,
               ),
-              Center(
-                  child: Winner(
-                image: data[0].dummyImage,
-                name: data[0].name,
-                points: int.parse(data[0].points),
-              )),
               Padding(
                 padding: EdgeInsets.symmetric(
                     horizontal: MediaQuery.of(context).size.width * 0.03),
@@ -112,7 +105,13 @@ class _LeaderboardState extends State<Leaderboard> {
                     final content = data[index];
                     String rnk = '${index + 1}';
                     if (index == 0) {
-                      return const SizedBox.shrink();
+                      return Center(
+                        child: Winner(
+                          image: content.dummyImage,
+                          name: content.name,
+                          points: int.parse(content.points),
+                        ),
+                      );
                     }
                     return LeaderboardCard(
                       name: content.name,

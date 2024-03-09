@@ -1,6 +1,7 @@
 import 'package:apoorv_app/screens/homepage/feed/feed.dart';
 import 'package:apoorv_app/screens/homepage/Transactions/payment.dart';
 import 'package:apoorv_app/screens/homepage/Transactions/payment_success.dart';
+import 'package:apoorv_app/screens/homepage/shop/shop.dart';
 import 'package:apoorv_app/screens/signup-flow/letsgo.dart';
 import 'package:apoorv_app/widgets/provider/user_info_provider.dart';
 import 'package:provider/provider.dart';
@@ -14,17 +15,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'screens/homepage/points/leaderboard.dart';
 
-// Future<void> main() async {
-//   await DotEnv().load(fileName: '.env');
-//
-//   WidgetsFlutterBinding.ensureInitialized();
-//
-//   await Firebase.initializeApp(
-//     options: await DefaultFirebaseOptions.currentPlatform,
-//   );
-//
-//   runApp(const MyApp());
-// }
 
 void main() {
   runApp(const MyApp());
@@ -65,7 +55,8 @@ class MyApp extends StatelessWidget {
           Payment.routeName: (context) => const Payment(),
           PaymentSuccess.routeName: (context) => const PaymentSuccess(),
         },
-        initialRoute: Leaderboard.routeName,
+        // initialRoute:WelcomeScreen.routeName,
+        home: ShopScreen(),
       ),
     );
   }

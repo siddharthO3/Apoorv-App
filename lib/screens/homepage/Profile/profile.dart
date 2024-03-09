@@ -11,20 +11,6 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Scaffold(
-    //     appBar: AppBar(
-    //       titleTextStyle: const TextStyle(color: Constants.yellowColor),
-    //       // automaticallyImplyLeading: false,
-    //       centerTitle: true,
-    //       title: const Text(
-    //         "PROFILE",
-    //         style: TextStyle(fontSize: 32),
-    //       ),
-    //       leading: Image.asset(
-    //         'assets/images/phoenix_74.png',
-    //         fit: BoxFit.fitHeight,
-    //       ),
-    //     ),
     return Container(
       decoration: const BoxDecoration(
         gradient: LinearGradient(
@@ -144,14 +130,6 @@ class ProfileScreen extends StatelessWidget {
                     Text(context.read<UserProvider>().userCollegeName!,
                         style: const TextStyle(
                             color: Constants.blackColor, fontSize: 16)),
-                    // const Text('College:',
-                    //     style: TextStyle(
-                    //         fontWeight: FontWeight.bold,
-                    //         fontSize: 16,
-                    //         color: Constants.blackColor)),
-                    // const Text('IIIT Kottayam',
-                    //     style: TextStyle(
-                    //         color: Constants.blackColor, fontSize: 16)),
                   ]),
             ),
             Constants.gap,
@@ -171,7 +149,6 @@ class ProfileScreen extends StatelessWidget {
                 child: QrImageView(
                   data: 'Siddharth',
                   backgroundColor: Constants.whiteColor,
-                  // size: MediaQuery.of(context).size.width * 0.75,
                 ),
               ),
             ),
