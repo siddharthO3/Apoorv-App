@@ -1,10 +1,13 @@
-import 'package:apoorv_app/base_client.dart';
-import 'package:apoorv_app/screens/homepage/Profile/profile_2.dart';
-import 'package:apoorv_app/screens/homepage/Transactions/payment.dart';
-import 'package:apoorv_app/screens/homepage/Transactions/payment_success.dart';
-import 'package:apoorv_app/screens/homepage/Transactions/transaction_starter.dart';
-import 'package:apoorv_app/screens/signup-flow/letsgo.dart';
-import 'package:apoorv_app/providers/user_info_provider.dart';
+import 'base_client.dart';
+import 'providers/receiver_provider.dart';
+import 'router.dart';
+import 'screens/homepage/Profile/profile_2.dart';
+import 'screens/homepage/Transactions/payment.dart';
+import 'screens/homepage/Transactions/payment_success.dart';
+import 'screens/homepage/points/all_transactions.dart';
+import 'screens/signup-flow/letsgo.dart';
+import 'providers/user_info_provider.dart';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
@@ -61,6 +64,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => UserProvider(),
         ),
+        ChangeNotifierProvider(
+          create: (context) => ReceiverProvider(),
+        ),
       ],
       child: MaterialApp(
         theme: ThemeData.dark(useMaterial3: true),
@@ -70,6 +76,7 @@ class MyApp extends StatelessWidget {
         //   useMaterial3: true,
         // ),
         routes: {
+          Routing.routeName: (context) => const Routing(),
           WelcomeScreen.routeName: (context) => const WelcomeScreen(),
           SignUpScreen.routeName: (context) => const SignUpScreen(),
           HomePage.routeName: (context) => const HomePage(),
@@ -80,11 +87,12 @@ class MyApp extends StatelessWidget {
           LetsGoPage.routeName: (context) => LetsGoPage(),
           Payment.routeName: (context) => const Payment(),
           PaymentSuccess.routeName: (context) => const PaymentSuccess(),
-          TransactionStart.routeName: (context) => const TransactionStart(),
+          AllTransactions.routeName: (context) => const AllTransactions(),
         },
-        initialRoute: WelcomeScreen.routeName,
+        initialRoute: Routing.routeName,
+        // initialRoute: WelcomeScreen.routeName,
+        // home: const LoadingScreen(),
       ),
     );
-
   }
 }

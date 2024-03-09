@@ -1,4 +1,4 @@
-import 'package:apoorv_app/api.dart';
+import 'package:apoorv_app/providers/receiver_provider.dart';
 import 'package:apoorv_app/providers/user_info_provider.dart';
 import 'package:apoorv_app/screens/homepage/Transactions/payment.dart';
 import 'package:apoorv_app/widgets/snackbar.dart';
@@ -52,15 +52,12 @@ class ShowCentreDialog {
                 _screenOpened = true;
                 Map<String, dynamic> response =
                     await Provider.of<UserProvider>(context, listen: false)
-                        .updateProfileScreen();
+                        .getUserInfo();
                 if (response['success']) {
-                  var data = {
-                    'uid': code,
-                    'name': response['fullName'],
-                    'email': response['email'],
-                  };
+                  Provider.of<ReceiverProvider>(context, listen: false)
+                      .setUID(code!);
                   Navigator.of(context)
-                      .popAndPushNamed(Payment.routeName, arguments: data);
+                      .popAndPushNamed(Payment.routeName, arguments: code);
                 } else {
                   showSnackbarOnScreen(context, "Try again");
                 }

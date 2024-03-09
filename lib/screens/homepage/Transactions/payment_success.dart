@@ -22,7 +22,7 @@ class PaymentSuccess extends StatelessWidget {
                 horizontal: MediaQuery.of(context).size.width * 0.05),
             child: FilledButton(
               onPressed: () {
-                Navigator.of(context).pushNamed(PaymentSuccess.routeName);
+                Navigator.of(context).popUntil((route) => route.isFirst);
               },
               style: ButtonStyle(
                   backgroundColor:

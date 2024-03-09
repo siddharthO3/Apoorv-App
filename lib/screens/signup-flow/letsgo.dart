@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../constants.dart';
 
-
+// TODO: Fix Let's go page and move API
 class LetsGoPage extends StatelessWidget {
   static const routeName = "/letsgo";
   LetsGoPage({super.key});
@@ -88,7 +88,6 @@ class LetsGoPage extends StatelessWidget {
                 textAlign: TextAlign.center),
             FilledButton(
               onPressed: () async {
-                print(BaseClient.baseUrl);
                 List<dynamic> res = await uploadNewUserData(
                     args, context.read<UserProvider>().idToken);
                 if (context.mounted) {

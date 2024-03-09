@@ -1,0 +1,23 @@
+import 'package:apoorv_app/router.dart';
+import 'package:flutter/material.dart';
+
+class LoadingScreen extends StatelessWidget {
+  const LoadingScreen({super.key});
+
+  void delayLoad(BuildContext context) {
+    Future.delayed(Durations.extralong4, () {
+      Navigator.of(context).pushReplacementNamed(Routing.routeName);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    delayLoad(context);
+
+    return const Scaffold(
+      body: Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
+  }
+}

@@ -41,8 +41,8 @@ class _Profile2ScreenState extends State<Profile2Screen> {
   // Function to fetch and update profile data
   Future<void> _updateProfileData() async {
     setState(() {
-      _myFuture = Provider.of<UserProvider>(context, listen: false)
-          .updateProfileScreen();
+      _myFuture =
+          Provider.of<UserProvider>(context, listen: false).getUserInfo();
     });
   }
 
@@ -75,7 +75,7 @@ class _Profile2ScreenState extends State<Profile2Screen> {
 
                   var data = snapshot.data;
 
-                  Future.delayed(const Duration(seconds: 1),
+                  Future.delayed(Duration.zero,
                       () => showSnackbarOnScreen(ctx, data['message']));
 
                   return Container(
@@ -99,14 +99,36 @@ class _Profile2ScreenState extends State<Profile2Screen> {
                                 children: [
                                   Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Icon(
-                                          Icons.account_circle_rounded,
-                                          size: MediaQuery.of(ctx).size.width *
-                                              0.33,
-                                          color: Constants.greenColor,
+                                        ClipRRect(
+                                          borderRadius: BorderRadius.circular(
+                                              MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.33 /
+                                                  2),
+                                          child: Image.network(
+                                            providerContext.profilePhotoUrl!,
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.33,
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.33,
+                                            fit: BoxFit
+                                                .cover, // You might want to add this to cover the entire circular area
+                                          ),
                                         ),
+
+                                        // Icon(
+                                        //   Icons.account_circle_rounded,
+                                        //   size: MediaQuery.of(ctx).size.width *
+                                        //       0.33,
+                                        //   color: Constants.greenColor,
+                                        // ),
                                         SizedBox(
                                           width: MediaQuery.of(ctx).size.width *
                                               0.45,
@@ -235,7 +257,7 @@ class _Profile2ScreenState extends State<Profile2Screen> {
                   );
                 } else {
                   Future.delayed(
-                    const Duration(seconds: 1),
+                    Duration.zero,
                     () =>
                         showSnackbarOnScreen(context, snapshot.data['message']),
                   );

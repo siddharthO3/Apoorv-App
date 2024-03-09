@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../constants.dart';
 
-class TransactionsWidget extends StatelessWidget{
+class TransactionsWidget extends StatelessWidget {
   final String? name;
   final String? date;
   final String? type;
@@ -17,30 +17,31 @@ class TransactionsWidget extends StatelessWidget{
   });
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     String? transactedPoints;
     Color? textColor;
-    switch(type){
+    Color? widgetColor;
+    switch (type) {
       case 'credit':
-        transactedPoints='+$points';
-        textColor=Constants.greenColor;
+        transactedPoints = '+$points';
+        textColor = Constants.greenColor;
+        widgetColor = Constants.silverColor;
         break;
       case 'debit':
-        transactedPoints='- $points';
-        textColor=Constants.redColorAlt;
+        transactedPoints = '- $points';
+        textColor = Constants.redColorAlt;
+        widgetColor = Constants.yellowColor;
         break;
     }
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5),
-      child:
-      Container(
+      child: Container(
         decoration: BoxDecoration(
-          color: Constants.yellowColor,
+          color: widgetColor,
           borderRadius: BorderRadius.circular(15),
         ),
         padding: const EdgeInsets.all(10),
-        child:
-        Row(
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Column(
@@ -48,34 +49,36 @@ class TransactionsWidget extends StatelessWidget{
               children: [
                 Text(name!,
                     style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600,
-                        color: Color.fromRGBO(18, 18, 18, 1)
-                    )
-                ),
-                Text(date!,
-                  style: const TextStyle(
-                      fontSize: 12,
+                      fontSize: 20,
                       fontWeight: FontWeight.w600,
-                      color: Color.fromRGBO(18, 18, 18, 1)
+                      color: Color.fromRGBO(18, 18, 18, 1),
+                    )),
+                Text(
+                  date!,
+                  style: const TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                    color: Color.fromRGBO(18, 18, 18, 1),
                   ),
                 ),
               ],
             ),
             Column(
               children: [
-                Text(transactedPoints!,
+                Text(
+                  transactedPoints!,
                   style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                      color: textColor,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
+                    color: textColor,
                   ),
                 ),
-                const Text("Points",
+                const Text(
+                  "Points",
                   style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
-                    color: Color.fromRGBO(18, 18, 18,1),
+                    color: Color.fromRGBO(18, 18, 18, 1),
                   ),
                 ),
               ],

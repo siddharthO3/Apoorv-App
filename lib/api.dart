@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
@@ -5,20 +7,30 @@ import 'package:dio/dio.dart';
 import 'base_client.dart';
 
 class APICalls {
-  Future<Map<String, dynamic>> getUserDataAPI(String uid, String idToken) async {
+  Future<Map<String, dynamic>> getUserDataAPI(
+    String uid,
+    String idToken,
+  ) async {
     Map<String, dynamic> payload = {};
     try {
-      var response = await BaseClient.dio.get('/user/$uid', options: Options(headers: {
-        'Authorization': idToken,
-      }));
+      var response = await BaseClient.dio.get(
+        '/user/$uid',
+        options: Options(
+          headers: {
+            'Authorization': idToken,
+          },
+        ),
+      );
       if (response.statusCode == 200) {
         payload =
             json.decode(response.toString())["user"] as Map<String, dynamic>;
+        print(payload);
         payload['success'] = true;
-        payload['message'] = 'User data updated';
+        payload['message'] = 'User data updated for users';
       }
     } on DioException catch (e) {
       print("Response code: ${e.response!.statusCode}");
+      print(e.message);
       // TODO: Custom error messages needed
       if (e.type == DioExceptionType.badResponse) {
         payload['message'] =
@@ -33,6 +45,45 @@ class APICalls {
       payload['success'] = false;
     }
     print(payload);
+    return payload;
+  }
+
+  Future<Map<String, dynamic>> getAllTransactions(
+    String idToken,
+    String uid,
+  ) async {
+    Map<String, dynamic> payload = {};
+    try {
+      var response = await BaseClient.dio.get(
+        '/transaction/$uid',
+        options: Options(
+          headers: {
+            'Authorization': idToken,
+          },
+        ),
+      );
+      if (response.statusCode == 200) {
+        print("All transaction hit successful");
+        payload = json.decode(response.toString()) as Map<String, dynamic>;
+        payload['message'] = 'User data updated for transaction';
+      }
+      if (response.statusCode == 204) {
+        payload['transactions'] = [];
+        payload['message'] = payload['error'];
+      }
+    } on DioException catch (e) {
+      print("Response code: ${e.response!.statusCode}");
+      if (e.type == DioExceptionType.badResponse) {
+        payload['error'] =
+            "${json.decode(e.response.toString())['error']}\n${e.type.name}, index: ${e.type.index}: ${e.response!.statusCode}";
+      } else if (e.type == DioExceptionType.connectionError) {
+        payload['error'] =
+            "${e.type.name}, index: ${e.type.index}: ${e.response!.statusCode}";
+      } else {
+        payload['error'] =
+            "${json.decode(e.response.toString())['error']}\n${e.type.name}, index: ${e.type.index}: ${e.response!.statusCode}";
+      }
+    }
     return payload;
   }
 
@@ -73,15 +124,13 @@ class APICalls {
         retValue = {
           'success': false,
           'message':
-              'Transaction didn"t complete!, ${e.type.name}  ${json.decode(e.response.toString())['error']}',
+              'Transaction didn"t complete!, ${e.type.name}\n${json.decode(e.response.toString())['error']}',
         };
-      }
-
-      else {
+      } else {
         retValue = {
-        'success': false,
-        'message': 'Transaction didn"t complete!, ${e.type.name}',
-      };
+          'success': false,
+          'message': 'Transaction didn"t complete!, ${e.type.name}',
+        };
       }
     }
 

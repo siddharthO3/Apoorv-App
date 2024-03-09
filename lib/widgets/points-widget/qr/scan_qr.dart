@@ -1,5 +1,4 @@
 import 'package:apoorv_app/screens/homepage/Transactions/payment.dart';
-import 'package:apoorv_app/widgets/signup-flow/qr_helper.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
