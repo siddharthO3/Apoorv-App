@@ -1,6 +1,8 @@
 import 'package:apoorv_app/base_client.dart';
+import 'package:apoorv_app/screens/homepage/Profile/profile_2.dart';
 import 'package:apoorv_app/screens/homepage/Transactions/payment.dart';
 import 'package:apoorv_app/screens/homepage/Transactions/payment_success.dart';
+import 'package:apoorv_app/screens/homepage/Transactions/transaction_starter.dart';
 import 'package:apoorv_app/screens/signup-flow/letsgo.dart';
 import 'package:apoorv_app/providers/user_info_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -62,6 +64,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         theme: ThemeData.dark(useMaterial3: true),
+        restorationScopeId: "root",
         // theme: ThemeData(
         //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         //   useMaterial3: true,
@@ -72,10 +75,12 @@ class MyApp extends StatelessWidget {
           HomePage.routeName: (context) => const HomePage(),
           PointsScreen.routeName: (context) => const PointsScreen(),
           ProfileScreen.routeName: (context) => const ProfileScreen(),
+          Profile2Screen.routeName: (context) => const Profile2Screen(),
           Leaderboard.routeName: (context) => const Leaderboard(),
-          LetsGoPage.routeName: (context) => const LetsGoPage(),
+          LetsGoPage.routeName: (context) => LetsGoPage(),
           Payment.routeName: (context) => const Payment(),
           PaymentSuccess.routeName: (context) => const PaymentSuccess(),
+          TransactionStart.routeName: (context) => const TransactionStart(),
         },
         initialRoute: WelcomeScreen.routeName,
       ),

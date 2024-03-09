@@ -1,4 +1,7 @@
+import 'package:apoorv_app/api.dart';
 import 'package:apoorv_app/providers/user_info_provider.dart';
+import 'package:apoorv_app/screens/homepage/Transactions/payment.dart';
+import 'package:apoorv_app/widgets/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:provider/provider.dart';
@@ -12,7 +15,7 @@ class ShowCentreDialog {
   var _screenOpened = false;
 
   Future<dynamic>? qrDialog() {
-    String idToken = context.read<UserProvider>().idToken;
+    String uid = context.read<UserProvider>().uid;
     return showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
@@ -22,7 +25,7 @@ class ShowCentreDialog {
           width: MediaQuery.of(ctx).size.width * 0.8,
           alignment: Alignment.center,
           child: QrImageView(
-            data: idToken,
+            data: uid,
             backgroundColor: Constants.whiteColor,
             // size: MediaQuery.of(ctx).size.width * 0.75,
           ),
@@ -42,20 +45,33 @@ class ShowCentreDialog {
           width: MediaQuery.of(ctx).size.width * 0.8,
           child: MobileScanner(
             controller: cameraController,
-            onDetect: (barcodes) {
+            onDetect: (barcodes) async {
               if (!_screenOpened) {
                 final String? code = barcodes.barcodes[0].rawValue;
                 print("Screen opening now\nWith value: $code");
-                ScaffoldMessenger.of(context)
-                    .showSnackBar(SnackBar(content: Text(code!)));
+                _screenOpened = true;
+                Map<String, dynamic> response =
+                    await Provider.of<UserProvider>(context, listen: false)
+                        .updateProfileScreen();
+                if (response['success']) {
+                  var data = {
+                    'uid': code,
+                    'name': response['fullName'],
+                    'email': response['email'],
+                  };
+                  Navigator.of(context)
+                      .popAndPushNamed(Payment.routeName, arguments: data);
+                } else {
+                  showSnackbarOnScreen(context, "Try again");
+                }
+                // ScaffoldMessenger.of(context)
+                //     .showSnackBar(SnackBar(content: Text(code!)));
                 // for(int i=0; i< barcodes.barcodes.length; i++)
                 // {
                 //   var b = barcodes.barcodes[i];
                 //   print("${i}th barcode gave this value: ${b.rawValue}");
                 // }
-                Navigator.of(context).pop();
-
-                _screenOpened = true;
+                // Navigator.of(context).pop();
               }
             },
           ),

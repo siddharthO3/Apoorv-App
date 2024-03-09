@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:apoorv_app/base_client.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants.dart';
@@ -38,6 +41,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     var userProvider = Provider.of<UserProvider>(context);
+    BaseClient.printAuthTokenForTest();
     return Scaffold(
       // appBar: AppBar(
       //     centerTitle: true,
@@ -211,6 +215,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           FilledButton(
                             onPressed: () {
                               // context.read<UserProvider>().changeUserName(newUserName: newUserName)
+                              Map<String, Object> args;
                               if (_formKey.currentState!.validate()) {
                                 userProvider.fromCollege = isChecked;
                                 if (isChecked) {
@@ -228,8 +233,35 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 // ScaffoldMessenger.of(context).showSnackBar(
                                 //   const SnackBar(content: Text('Logging In')),
                                 //   );
-                                Navigator.of(context)
-                                    .pushNamed(LetsGoPage.routeName);
+                                if (isChecked) {
+                                  args = {
+                                    'fromCollege': isChecked,
+                                    'role': "user",
+                                    'fullName': userNameController.text,
+                                    'rollNumber': userRollNoController.text,
+                                    'phone': userPhNoController.text,
+                                    'collegeName': 'IIIT Kottayam',
+                                    'email':
+                                        context.read<UserProvider>().userEmail,
+                                  };
+                                } else {
+                                  args = {
+                                    'fromCollege': isChecked,
+                                    'role': "user",
+                                    'fullName': userNameController.text,
+                                    'phone': userPhNoController.text,
+                                    'collegeName': userCollegeNameController.text,
+                                    'email':
+                                        context.read<UserProvider>().userEmail,
+                                  };
+                                }
+
+                                print(args);
+                                print(jsonEncode(args));
+
+                                Navigator.of(context).pushNamed(
+                                    LetsGoPage.routeName,
+                                    arguments: args);
                               }
                             },
                             style: ButtonStyle(

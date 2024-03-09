@@ -1,7 +1,7 @@
 import 'package:apoorv_app/screens/homepage/Maps/maps.dart';
+import 'package:apoorv_app/screens/homepage/Profile/profile_2.dart';
 
 import '../../constants.dart';
-import 'Profile/profile.dart';
 import 'points/points.dart';
 import 'package:flutter/material.dart';
 import './feed/feed.dart';
@@ -20,10 +20,11 @@ class _HomePageState extends State<HomePage> {
     const FeedScreen(),
     const MapsScreen(),
     const PointsScreen(),
-    const ProfileScreen(),
+    const Profile2Screen(),
   ];
   @override
   Widget build(BuildContext context) {
+    // BaseClient.printAuthTokenForTest();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       // appBar: AppBar(

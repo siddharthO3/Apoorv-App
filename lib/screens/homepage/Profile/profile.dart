@@ -1,31 +1,24 @@
+
 import 'package:apoorv_app/providers/user_info_provider.dart';
+import 'package:apoorv_app/widgets/signup-flow/logout.dart';
 import 'package:provider/provider.dart';
 
 import '../../../constants.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   static const routeName = '/profile';
   const ProfileScreen({super.key});
 
   @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  @override
   Widget build(BuildContext context) {
-    Provider.of<UserProvider>(context).refreshIdToken();
-    // Scaffold(
-    //     appBar: AppBar(
-    //       titleTextStyle: const TextStyle(color: Constants.yellowColor),
-    //       // automaticallyImplyLeading: false,
-    //       centerTitle: true,
-    //       title: const Text(
-    //         "PROFILE",
-    //         style: TextStyle(fontSize: 32),
-    //       ),
-    //       leading: Image.asset(
-    //         'assets/images/phoenix_74.png',
-    //         fit: BoxFit.fitHeight,
-    //       ),
-    //     ),
+    var prov = Provider.of<UserProvider>(context, listen: false);
     return Container(
       decoration: const BoxDecoration(
         gradient: LinearGradient(
@@ -77,32 +70,14 @@ class ProfileScreen extends StatelessWidget {
                                   ),
                                 ),
                                 Constants.gap,
-                                FilledButton(
-                                  onPressed: () {},
-                                  style: ButtonStyle(
-                                    backgroundColor:
-                                        MaterialStateProperty.all<Color>(
-                                            Constants.redColor),
-                                    foregroundColor:
-                                        MaterialStateProperty.all<Color>(
-                                            Constants.whiteColor),
-                                  ),
-                                  child: const SizedBox(
-                                    width: double.infinity,
-                                    child: Text(
-                                      "Logout",
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(fontSize: 16),
-                                    ),
-                                  ),
-                                ),
+                                const LogoutButton(),
                               ],
                             ),
                           )
                         ]),
                     Constants.gap,
-                    Text(context.read<UserProvider>().userName,
-                        style: const TextStyle(
+                    const Text("Dummy",
+                        style: TextStyle(
                           color: Constants.blackColor,
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
@@ -112,38 +87,38 @@ class ProfileScreen extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                             color: Constants.blackColor,
                             fontSize: 16)),
-                    Text(context.read<UserProvider>().userEmail,
-                        style: const TextStyle(
+                    const Text("dummy@noreply.com",
+                        style: TextStyle(
                             color: Constants.blackColor, fontSize: 16)),
                     const Text("Phone",
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
                             color: Constants.blackColor)),
-                    Text(context.read<UserProvider>().userPhNo,
-                        style: const TextStyle(
+                    const Text("1111111111",
+                        style: TextStyle(
                             color: Constants.blackColor, fontSize: 16)),
-                    if (context.read<UserProvider>().fromCollege)
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text('Roll No',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
-                                  color: Constants.blackColor)),
-                          Text(context.read<UserProvider>().userRollNo!,
-                              style: const TextStyle(
-                                  color: Constants.blackColor, fontSize: 16)),
-                        ],
-                      ),
+                    // if (providerContext.fromCollege)
+                    const Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Roll No',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                                color: Constants.blackColor)),
+                        Text("2021BCS0000",
+                            style: TextStyle(
+                                color: Constants.blackColor, fontSize: 16)),
+                      ],
+                    ),
                     const Text('College',
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
                             color: Constants.blackColor)),
-                    Text(context.read<UserProvider>().userCollegeName!,
-                        style: const TextStyle(
+                    const Text("IIITK",
+                        style: TextStyle(
                             color: Constants.blackColor, fontSize: 16)),
                   ]),
             ),
@@ -162,10 +137,10 @@ class ProfileScreen extends StatelessWidget {
                   color: Constants.blackColor,
                 ),
                 child: QrImageView(
-                    data: context.read<UserProvider>().idToken,
-                    backgroundColor: Constants.whiteColor,
-                    // size: MediaQuery.of(context).size.width * 0.75,
-                ) ,
+                  data: "Nothing to see here",
+                  backgroundColor: Constants.whiteColor,
+                  // size: MediaQuery.of(context).size.width * 0.75,
+                ),
               ),
             ),
           ],

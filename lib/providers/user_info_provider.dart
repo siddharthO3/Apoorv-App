@@ -1,3 +1,4 @@
+import 'package:apoorv_app/api.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -10,7 +11,10 @@ class UserProvider extends ChangeNotifier {
   String userEmail;
   bool fromCollege = false;
 
+  String uid = "";
   String idToken = "";
+
+  int points = 0;
 
   UserProvider({
     this.userName = "Full Name",
@@ -54,18 +58,58 @@ class UserProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void refreshIdToken() {
-    // void refreshIdToken() async {
-    // idToken = (await FirebaseAuth.instance.currentUser!.getIdToken())!;
-    // print(idToken);
-    // notifyListeners();
-    idToken = FirebaseAuth.instance.currentUser!.uid;
+  void refreshUID() {
+    uid = FirebaseAuth.instance.currentUser!.uid;
     notifyListeners();
-    // (FirebaseAuth.instance.currentUser!.getIdToken()).then((value) {
-    //   if (value != null) {
-    //     idToken = value;
-    //     notifyListeners();
-    //   }
-    // });
+  }
+
+  void refreshIdToken() async {
+    idToken = (await FirebaseAuth.instance.currentUser!.getIdToken())!;
+    notifyListeners();
+  }
+
+  void updatePoints(int newPoints) {
+    points = newPoints;
+    notifyListeners();
+  }
+
+  Future<Map<String, dynamic>> updateProfileScreen() async {
+    refreshUID();
+    refreshIdToken();
+
+    var res = await APICalls().getUserDataAPI(uid, idToken);
+    print("res: $res");
+    if (res['success']) {
+      if (res['fromCollege']) {
+        changeSameCollegeDetails(
+          newUserName: res['fullName'],
+          newUserRollNo: res['rollNumber'],
+          newUserPhNo: res['phone'],
+        );
+      } else {
+        changeOtherCollegeDetails(
+          newUserName: res['fullName'],
+          newUserCollegeName: res['collegeName'],
+          newUserPhNo: res['phone'],
+        );
+      }
+      updateEmail(res['email']);
+      updatePoints(res['points']);
+      notifyListeners();
+    }
+    return {
+      'success': res['success'],
+      'message': res['message'],
+    };
+  }
+
+  Future<Map<String, dynamic>> doATransaction(String to, int amount) async {
+    refreshUID();
+    var response = await APICalls().transactionAPI(uid, to, amount);
+    print("Response from provider-> $response");
+    if (response['success']) {
+      notifyListeners();
+    }
+    return response;
   }
 }

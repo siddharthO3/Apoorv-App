@@ -1,13 +1,71 @@
+import 'dart:convert';
+
+import 'package:apoorv_app/base_client.dart';
+import 'package:apoorv_app/providers/user_info_provider.dart';
 import 'package:apoorv_app/screens/homepage/homepage.dart';
+import 'package:apoorv_app/widgets/snackbar.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../constants.dart';
 
 class LetsGoPage extends StatelessWidget {
   static const routeName = "/letsgo";
-  const LetsGoPage({super.key});
+  LetsGoPage({super.key});
+
+  late Map<String, dynamic> args;
+
+  Future<List> uploadNewUserData(
+      Map<String, dynamic> args, String idToken) async {
+    var data = jsonEncode(args);
+    List<Object> ret = [];
+    try {
+      // var response = await Dio().post('http://10.0.2.2:3000/api/v1/user',
+      //     data: data, options: Options(headers: {'Authorization': idToken}));
+  print("printttttttttttttttttttt");
+      var response = await BaseClient.dio.post('/user',
+          data: data, options: Options(headers: {'Authorization': idToken}));
+
+      if (response.statusCode == 201) {
+        print("Data uploaded in the db: $data");
+        ret = [true, 'Data uploaded in the db'];
+      }
+    } on DioException catch (e) {
+      // print("Message: ${e.message}");
+      // print("Response code: ${e.response!.statusCode}");
+
+      // TODO: Custom error messages needed
+
+      if (e.type == DioExceptionType.badResponse) {
+        ret = [
+          false,
+          "${e.type.name}, index: ${e.type.index}: ${e.response!.statusCode}"
+        ];
+      } else if (e.type == DioExceptionType.connectionError) {
+        // return [false, "Error code: ${e.response!.statusCode}, with index: ${e.type.name}"];
+        ret = [false, "${e.type.name}, index: ${e.type.index}"];
+      }
+
+      // if (response.statusCode == 409) {
+      //   print("User already exists");
+      //   return false;
+      // } else {
+      //   print(
+      //       "Unable to upload data: ${response.statusCode} -> ${response.statusMessage}");
+      //   return false;
+      // }
+      else {
+        ret = [false, "Unhandled/Unknown Error, with name: ${e.type.name}"];
+      }
+    }
+    return ret;
+  }
 
   @override
   Widget build(BuildContext context) {
+    args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    Provider.of<UserProvider>(context, listen: false).refreshIdToken();
+
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.symmetric(
@@ -28,8 +86,20 @@ class LetsGoPage extends StatelessWidget {
                 "Lorem ipsum dolor sit amet consectetur. A gravida eros aliquam sed condimentum. Etiam vitae sit scelerisque a eget integer. Quis in dolor amet velit pretium sed vestibulum. Urna ullamcorper eu egestas egestas amet id.",
                 textAlign: TextAlign.center),
             FilledButton(
-              onPressed: () {
-                Navigator.of(context).pushNamed(HomePage.routeName);
+              onPressed: () async {
+                print(BaseClient.baseUrl);
+                List<dynamic> res = await uploadNewUserData(
+                    args, context.read<UserProvider>().idToken);
+                if (context.mounted) {
+                  if (res[0]) {
+                    showSnackbarOnScreen(context, res[1]);
+                    Navigator.of(context).restorablePushNamedAndRemoveUntil(
+                        HomePage.routeName, (route) => false);
+                  } else {
+                    // showSnackbarOnScreen(context, "Can't upload data to server");
+                    showSnackbarOnScreen(context, res[1]);
+                  }
+                }
               },
               style: ButtonStyle(
                   backgroundColor:

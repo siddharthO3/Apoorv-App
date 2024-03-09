@@ -41,17 +41,18 @@ class WelcomeScreen extends StatelessWidget {
                     ),
                     child: FilledButton.icon(
                       onPressed: () async {
-                        await signInWithGoogle();
+                        await signInWithGoogle(context);
                         var auth = FirebaseAuth.instance;
                         if (auth.currentUser != null) {
                           //TODO: Check context.mounted if it works
 
                           if (context.mounted) {
-                          showSnackbarOnScreen(context, "User Signed in!");
-                          Provider.of<UserProvider>(context, listen: false)
-                              .updateEmail(auth.currentUser!.email!);
+                            showSnackbarOnScreen(context, "User Signed in!");
+                            Provider.of<UserProvider>(context, listen: false)
+                                .updateEmail(auth.currentUser!.email!);
                             Navigator.of(context)
-                                .pushNamed(SignUpScreen.routeName);
+                                .restorablePushReplacementNamed(
+                                    SignUpScreen.routeName);
                           }
                           // BaseClient.printAuthTokenForTest();
                         }
