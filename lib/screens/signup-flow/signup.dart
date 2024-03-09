@@ -1,4 +1,4 @@
-import '../../utils/constants.dart';
+import '../../../constants.dart';
 import '../homepage/homepage.dart';
 import 'package:provider/provider.dart';
 

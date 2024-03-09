@@ -5,7 +5,7 @@ import '../../../widgets/signup-flow/qr/generate_qr.dart';
 import '../../../widgets/signup-flow/qr/scan_qr.dart';
 import 'package:flutter/material.dart';
 
-import '../../../utils/constants.dart';
+import '../../../../constants.dart';
 import 'leaderboard.dart';
 import '../../../widgets/points-widget/transactions.dart';
 

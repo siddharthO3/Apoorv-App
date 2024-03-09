@@ -1,5 +1,5 @@
 import 'package:apoorv_app/utils/Models/Feed.dart';
-import 'package:apoorv_app/utils/constants.dart';
+import '../../../constants.dart';
 import 'package:flutter/material.dart';
 
 final dummy = [

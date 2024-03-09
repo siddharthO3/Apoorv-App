@@ -1,7 +1,7 @@
 import 'package:apoorv_app/widgets/signup-flow/qr_helper.dart';
 import 'package:flutter/material.dart';
 
-import '../../../utils/constants.dart';
+import '../../../../constants.dart';
 
 class ScanQR extends StatelessWidget {
   const ScanQR({super.key});

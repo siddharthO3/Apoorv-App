@@ -12,7 +12,6 @@ import 'screens/signup-flow/signup.dart';
 import 'screens/signup-flow/welcome.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'screens/homepage/shop/shop.dart';
 import 'screens/homepage/points/leaderboard.dart';
 
 // Future<void> main() async {
@@ -66,7 +65,7 @@ class MyApp extends StatelessWidget {
           Payment.routeName: (context) => const Payment(),
           PaymentSuccess.routeName: (context) => const PaymentSuccess(),
         },
-        initialRoute: WelcomeScreen.routeName,
+        initialRoute: Leaderboard.routeName,
       ),
     );
   }

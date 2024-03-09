@@ -2,8 +2,8 @@ import 'package:apoorv_app/widgets/Feed_Page/feed_list.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../utils/constants.dart';
-import '../../../utils/mock_data.dart';
+import '../../../../constants.dart';
+import '../../../utils/dummy_data/mock_data.dart';
 import '../../../utils/Models/Feed.dart';
 
 final List Dummy = dummy;
