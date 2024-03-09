@@ -1,5 +1,9 @@
 import 'package:apoorv_app/screens/homepage/feed/feed.dart';
+import 'package:apoorv_app/screens/homepage/Transactions/payment.dart';
+import 'package:apoorv_app/screens/homepage/Transactions/payment_success.dart';
 import 'package:apoorv_app/screens/signup-flow/letsgo.dart';
+import 'package:apoorv_app/widgets/provider/user_info_provider.dart';
+import 'package:provider/provider.dart';
 
 import 'screens/homepage/homepage.dart';
 import 'screens/homepage/Profile/profile.dart';
@@ -38,28 +42,32 @@ class MyApp extends StatelessWidget {
         statusBarBrightness: Brightness.dark,
       ),
     );
-    return MaterialApp(
-      theme: ThemeData.dark(
-        useMaterial3: true,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => UserProvider(),
+        ),
+      ],
+      child: MaterialApp(
+        theme: ThemeData.dark(useMaterial3: true),
+        // theme: ThemeData(
+        //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        //   useMaterial3: true,
+        // ),
+        routes: {
+          WelcomeScreen.routeName: (context) => const WelcomeScreen(),
+          SignUpScreen.routeName: (context) => const SignUpScreen(),
+          HomePage.routeName: (context) => const HomePage(),
+          PointsScreen.routeName: (context) => const PointsScreen(),
+          ProfileScreen.routeName: (context) => const ProfileScreen(),
+          Leaderboard.routeName: (context) => const Leaderboard(),
+          LetsGoPage.routeName: (context) => const LetsGoPage(),
+          FeedScreen.routeName: (context) => const FeedScreen(),
+          Payment.routeName: (context) => const Payment(),
+          PaymentSuccess.routeName: (context) => const PaymentSuccess(),
+        },
+        initialRoute: WelcomeScreen.routeName,
       ),
-      debugShowCheckedModeBanner: false,
-      // theme: ThemeData(
-      //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      //   useMaterial3: true,
-      // ),
-      routes: {
-        WelcomeScreen.routeName: (context) => const WelcomeScreen(),
-        SignUpScreen.routeName: (context) => const SignUpScreen(),
-        HomePage.routeName: (context) => const HomePage(),
-        PointsScreen.routeName: (context) => const PointsScreen(),
-        ProfileScreen.routeName: (context) => const ProfileScreen(),
-        Leaderboard.routeName: (context) => const Leaderboard(),
-        LetsGoPage.routeName: (context) => const LetsGoPage(),
-        ShopScreen.routeName: (context) => const ShopScreen(),
-        FeedScreen.routeName: (context) => const FeedScreen(),
-        
-      },
-      initialRoute: FeedScreen.routeName,
     );
   }
 }

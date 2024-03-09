@@ -1,8 +1,12 @@
 import '../../utils/constants.dart';
 import '../homepage/homepage.dart';
+import 'package:provider/provider.dart';
+
+import '../../constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../../widgets/provider/user_info_provider.dart';
 import 'letsgo.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -14,13 +18,64 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
+  final TextEditingController userNameController = TextEditingController();
+  final TextEditingController userPhNoController = TextEditingController();
+  final TextEditingController userRollNoController = TextEditingController();
+  final TextEditingController userCollegeNameController =
+      TextEditingController();
+
   final _formKey = GlobalKey<FormState>();
+
+  @override
+  void dispose() {
+    userNameController.dispose();
+    userRollNoController.dispose();
+    userCollegeNameController.dispose();
+    userPhNoController.dispose();
+    super.dispose();
+  }
 
   bool isChecked = true;
 
+  bool popStatus = true;
+
+  @override
+  void initState() {
+    super.initState();
+    popScreen(context);
+  }
+
+  Future <void> popScreen(BuildContext context) async{
+    popStatus = await Navigator.maybePop(context);
+    if (mounted) {
+      setState(() {});
+    }
+  }
+
+  void showAppCloseConfirmation (BuildContext context){
+    final snackBar = SnackBar(
+      content: Text("Do you want to exit? Confirm and click back"),
+      backgroundColor: Colors.white,
+      action: SnackBarAction(
+        label: 'Yes',
+        onPressed: (){
+          ScaffoldMessenger.of(context).hideCurrentSnackBar();
+          setState(() {
+            popStatus=true;
+          });
+
+        },
+      ),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    var userProvider = Provider.of<UserProvider>(context);
+    return PopScope(child:
+    Scaffold(
       // appBar: AppBar(
       //     centerTitle: true,
       //     title: RichText(
@@ -82,16 +137,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 }
                                 return null;
                               },
+                              controller: userNameController,
                               decoration: InputDecoration(
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(16)),
                                 filled: true,
                                 fillColor: Constants.yellowColor,
-                                hintText: 'Full Name',
+                                hintText: "Full Name",
                                 hintStyle: const TextStyle(color: Colors.black),
                               )),
                           Constants.gap,
                           TextFormField(
+                              controller: userPhNoController,
                               // TODO: Fix phone number length, currently max
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
@@ -117,11 +174,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             Column(
                               children: [
                                 TextFormField(
+                                    controller: userRollNoController,
                                     validator: (value) {
                                       if (value == null ||
                                           value.isEmpty ||
-                                          !RegExp(r"(2020|2021|2022|2023)(bcs|bec|bcy|bds|BCS|BEC|BCY|BDS)0\d{3}")
-                                              .hasMatch(value)) {
+                                          !RegExp(r"(2020|2021|2022|2023)(bcs|bec|bcy|bds)0\d{3}")
+                                              .hasMatch(value.toLowerCase())) {
                                         return "You know the format";
                                       }
                                       return null;
@@ -129,14 +187,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     decoration: InputDecoration(
                                       border: OutlineInputBorder(
                                           borderSide:
-                                              const BorderSide(width: 50),
+                                          const BorderSide(width: 50),
                                           borderRadius:
-                                              BorderRadius.circular(16)),
+                                          BorderRadius.circular(16)),
                                       filled: true,
                                       fillColor: Constants.yellowColor,
                                       hintText: 'Roll Number',
                                       hintStyle:
-                                          const TextStyle(color: Colors.black),
+                                      const TextStyle(color: Colors.black),
                                     )),
                                 Constants.gap,
                               ],
@@ -145,6 +203,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             Column(
                               children: [
                                 TextFormField(
+                                    controller: userCollegeNameController,
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
                                         return "Fill your college name!";
@@ -154,12 +213,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     decoration: InputDecoration(
                                       border: OutlineInputBorder(
                                           borderRadius:
-                                              BorderRadius.circular(16)),
+                                          BorderRadius.circular(16)),
                                       filled: true,
                                       fillColor: Constants.yellowColor,
-                                      hintText: 'College Name',
+                                      hintText: "College Name",
                                       hintStyle:
-                                          const TextStyle(color: Colors.black),
+                                      const TextStyle(color: Colors.black),
                                     )),
                                 Constants.gap,
                               ],
@@ -172,6 +231,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 child: Checkbox(
                                   value: isChecked,
                                   onChanged: (bool? value) {
+                                    userCollegeNameController.clear();
+                                    userRollNoController.clear();
                                     setState(() {
                                       isChecked = value!;
                                     });
@@ -186,21 +247,35 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           Constants.gap,
                           FilledButton(
                             onPressed: () {
+                              // context.read<UserProvider>().changeUserName(newUserName: newUserName)
                               if (_formKey.currentState!.validate()) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(content: Text('Logging In')),
-                                );
+                                userProvider.fromCollege = isChecked;
+                                if (isChecked) {
+                                  userProvider.changeSameCollegeDetails(
+                                      newUserName: userNameController.text,
+                                      newUserRollNo: userRollNoController.text,
+                                      newUserPhNo: userPhNoController.text);
+                                } else {
+                                  userProvider.changeOtherCollegeDetails(
+                                      newUserName: userNameController.text,
+                                      newUserCollegeName:
+                                          userCollegeNameController.text,
+                                      newUserPhNo: userPhNoController.text);
+                                }
+                                // ScaffoldMessenger.of(context).showSnackBar(
+                                //   const SnackBar(content: Text('Logging In')),
+                                //   );
                                 Navigator.of(context)
                                     .pushNamed(LetsGoPage.routeName);
                               }
                             },
                             style: ButtonStyle(
                                 backgroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                        Constants.redColor),
+                                MaterialStateProperty.all<Color>(
+                                    Constants.redColor),
                                 foregroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                        Colors.white)),
+                                MaterialStateProperty.all<Color>(
+                                    Colors.white)),
                             child: Container(
                               height: 48,
                               alignment: Alignment.center,
@@ -225,10 +300,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
               ),
             );
-          }),
+          }
+          ),
         ),
       ),
       // ),
+      ),
+      canPop: popStatus,
+      onPopInvoked: (bool didPop) async{
+        if (didPop) {
+          return;
+        }
+        showAppCloseConfirmation(context);
+      },
     );
   }
 }

@@ -2,75 +2,115 @@ import 'package:flutter/material.dart';
 
 import 'package:apoorv_app/utils/constants.dart';
 
-class LeaderboardCard extends StatelessWidget{
-
+class LeaderboardCard extends StatelessWidget {
   final String? name;
   final int? points;
   final int? rank;
+  final String? image;
 
   const LeaderboardCard({
     super.key,
     this.name,
     this.points,
     this.rank,
+    this.image,
   });
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     Color? color;
-    switch(rank){
-      case 1:
-        color=Constants.yellowColor;
+    double? spreadRadius;
+
+    Map<Color, Color> styleColor = {
+      Constants.yellowColor: Constants.blackColor,
+      Constants.silverColor: Constants.blackColor,
+      Constants.redColor: Constants.whiteColor,
+    };
+
+    switch ((rank! % 2)) {
+      case 0:
+        color = Constants.yellowColor;
         break;
-      case 2:
-        color=Constants.yellowColor;
+      case 1:
+        color = Constants.silverColor;
         break;
     }
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10,),
-      child:
-      Container(
-          height: 60,
-          width: MediaQuery.of(context).size.width*0.9,
 
+    if (name == 'Siddharth') {
+      color = Constants.redColor;
+      spreadRadius = 6;
+    }
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        vertical: 10,
+      ),
+      margin: EdgeInsets.symmetric(
+          horizontal: MediaQuery.of(context).size.width * 0.02),
+      child: Container(
+          height: 70,
+          width: MediaQuery.of(context).size.width * 0.9,
           decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
                 color: color ?? Colors.grey,
-                spreadRadius: 2,
-                blurRadius: 2,
+                spreadRadius: spreadRadius ?? 2,
+                // blurRadius: blurRadius ?? 2,
                 offset: const Offset(0, 3),
               )
             ],
             border: Border.all(
-                color: color ?? Colors.grey.shade300,
+              color: color ?? Colors.grey.shade300,
             ),
-            borderRadius: BorderRadius.circular(5.0),
+            borderRadius: BorderRadius.circular(10),
             color: color ?? Colors.grey.shade300,
           ),
-          child:ListTile(
-
-              title:
+          child: ListTile(
+              title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Text(name!,
-                    style: const TextStyle(
+                  Text(
+                    '$rank',
+                    style: TextStyle(
                       fontSize: 20,
-                      color: Colors.black,
+                      color: styleColor[color],
                     ),
                   ),
-                  Text('$points',
-                    style: const TextStyle(
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  CircleAvatar(
+                    radius: 25,
+                    backgroundImage: NetworkImage(image ?? ''),
+                  ),
+                ],
+              ),
+              Text(
+                name!,
+                style: TextStyle(
+                  fontSize: 20,
+                  color: styleColor[color],
+                ),
+              ),
+              Row(
+                children: [
+                  Text(
+                    '$points',
+                    style: TextStyle(
                       fontSize: 20,
-                      color: Colors.black,
+                      color: styleColor[color],
                     ),
+                  ),
+                  Icon(
+                    Icons.stars,
+                    color: styleColor[color],
+                    size: 20,
                   ),
                 ],
               )
-          )
-      ),
+            ],
+          ))),
     );
-
   }
 }

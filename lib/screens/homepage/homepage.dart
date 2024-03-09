@@ -1,10 +1,10 @@
-import '../../utils/constants.dart';
+import 'package:apoorv_app/screens/homepage/Maps/maps.dart';
+
+import '../../constants.dart';
 import 'Profile/profile.dart';
 import 'points/points.dart';
 import 'package:flutter/material.dart';
-
 import './feed/feed.dart';
-import './shop/shop.dart';
 
 class HomePage extends StatefulWidget {
   static const routeName = '/home-page';
@@ -16,15 +16,50 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int currentPageIndex = 0;
+
+  bool popStatus = true;
+
+  @override
+  void initState() {
+    super.initState();
+    popScreen(context);
+  }
+
+  Future <void> popScreen(BuildContext context) async{
+    popStatus = await Navigator.maybePop(context);
+    if (mounted) {
+      setState(() {});
+    }
+  }
+
+  void showAppCloseConfirmation (BuildContext context){
+    final snackBar = SnackBar(
+      content: Text("Do you want to exit? Confirm and click back"),
+      backgroundColor: Colors.white,
+      action: SnackBarAction(
+        label: 'Yes',
+        onPressed: (){
+          ScaffoldMessenger.of(context).hideCurrentSnackBar();
+          setState(() {
+            popStatus=true;
+          });
+
+        },
+      ),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
   List screens = [
     const FeedScreen(),
-    const ShopScreen(),
+    const MapsScreen(),
     const PointsScreen(),
     const ProfileScreen(),
   ];
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return PopScope(child: Scaffold(
+      resizeToAvoidBottomInset: false,
       // appBar: AppBar(
       //   titleTextStyle: const TextStyle(color: Constants.yellowColor),
       //   // automaticallyImplyLeading: false,
@@ -54,9 +89,9 @@ class _HomePageState extends State<HomePage> {
             label: 'Home',
           ),
           NavigationDestination(
-            selectedIcon: Icon(Icons.store_mall_directory),
-            icon: Icon(Icons.store_mall_directory_outlined),
-            label: 'Shop',
+            selectedIcon: Icon(Icons.map),
+            icon: Icon(Icons.map_outlined),
+            label: 'Maps',
           ),
           NavigationDestination(
             selectedIcon: Icon(Icons.stars),
@@ -70,6 +105,15 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
+    ),
+      canPop: popStatus,
+      onPopInvoked: (bool didPop) async{
+        if (didPop) {
+          return;
+        }
+        showAppCloseConfirmation(context);
+      },
     );
+
   }
 }
