@@ -1,20 +1,18 @@
-import 'package:apoorv_app/screens/homepage/Maps/maps.dart';
+import 'package:apoorv_app/screens/shopkeeper/shopkeeper_points.dart';
+import 'package:apoorv_app/screens/shopkeeper/shopkeeper_profile.dart';
+import 'package:flutter/material.dart';
 
 import '../../constants.dart';
-import 'Profile/profile.dart';
-import 'points/points.dart';
-import 'package:flutter/material.dart';
-import './feed/feed.dart';
 
-class HomePage extends StatefulWidget {
-  static const routeName = '/home-page';
-  const HomePage({super.key});
+class ShopkeeperHomePage extends StatefulWidget {
+  static const routeName = '/shopkeeper-home-page';
+  const ShopkeeperHomePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<ShopkeeperHomePage> createState() => _ShopkeeperHomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _ShopkeeperHomePageState extends State<ShopkeeperHomePage> {
   int currentPageIndex = 0;
 
   bool popStatus = true;
@@ -34,7 +32,7 @@ class _HomePageState extends State<HomePage> {
 
   void showAppCloseConfirmation(BuildContext context) {
     final snackBar = SnackBar(
-      content: Text("Do you want to exit? Confirm and click back"),
+      content: const Text("Do you want to exit? Confirm and click back"),
       backgroundColor: Colors.white,
       action: SnackBarAction(
         label: 'Yes',
@@ -50,10 +48,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   List screens = [
-    const FeedScreen(),
-    const MapsScreen(),
-    PointsScreen(),
-    const ProfileScreen(),
+    const ShopkeeperPointsScreen(),
+    const ShopkeeperProfileScreen(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -90,16 +86,6 @@ class _HomePageState extends State<HomePage> {
           indicatorColor: Constants.redColor,
           selectedIndex: currentPageIndex,
           destinations: const <Widget>[
-            NavigationDestination(
-              selectedIcon: Icon(Icons.home),
-              icon: Icon(Icons.home_outlined),
-              label: 'Home',
-            ),
-            NavigationDestination(
-              selectedIcon: Icon(Icons.map),
-              icon: Icon(Icons.map_outlined),
-              label: 'Maps',
-            ),
             NavigationDestination(
               selectedIcon: Icon(Icons.stars),
               icon: Icon(Icons.stars_outlined),
