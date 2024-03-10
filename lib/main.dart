@@ -1,6 +1,10 @@
 import 'package:apoorv_app/screens/homepage/feed/feed.dart';
 import 'package:apoorv_app/screens/homepage/Transactions/payment.dart';
 import 'package:apoorv_app/screens/homepage/Transactions/payment_success.dart';
+import 'package:apoorv_app/screens/shopkeeper/shopkeeper_homepage.dart';
+import 'package:apoorv_app/screens/shopkeeper/shopkeeper_points.dart';
+import 'package:apoorv_app/screens/shopkeeper/shopkeeper_profile.dart';
+import 'package:apoorv_app/screens/shopkeeper/shopkeeper_signup.dart';
 import 'package:apoorv_app/screens/homepage/shop/shop.dart';
 import 'package:apoorv_app/screens/signup-flow/letsgo.dart';
 import 'package:apoorv_app/widgets/provider/user_info_provider.dart';
@@ -54,9 +58,15 @@ class MyApp extends StatelessWidget {
           FeedScreen.routeName: (context) => const FeedScreen(),
           Payment.routeName: (context) => const Payment(),
           PaymentSuccess.routeName: (context) => const PaymentSuccess(),
+          ShopkeeperHomePage.routeName: (context) => const ShopkeeperHomePage(),
+          ShopkeeperPointsScreen.routeName: (context) =>
+              const ShopkeeperPointsScreen(),
+          ShopkeeperProfileScreen.routeName: (context) =>
+              const ShopkeeperProfileScreen(),
+          ShopkeeperSignupScreen.routeName: (context) =>
+              const ShopkeeperSignupScreen(),
         },
-        // initialRoute:WelcomeScreen.routeName,
-        home: ShopScreen(),
+        initialRoute: HomePage.routeName,
       ),
     );
   }

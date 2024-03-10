@@ -5,6 +5,8 @@ import '../../../constants.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
+import '../../signup-flow/welcome.dart';
+
 class ProfileScreen extends StatelessWidget {
   static const routeName = '/profile';
   const ProfileScreen({super.key});
@@ -150,9 +152,11 @@ Widget buildQrImageView() {
 
 Widget buildLogoutButton(BuildContext context) {
   return FilledButton(
-    onPressed: () {
-      // Add your logout logic here
-    },
+    onPressed: () 
+{
+                                    Navigator.of(context).pushReplacementNamed(
+                                        WelcomeScreen.routeName);
+                                      },
     style: ButtonStyle(
       backgroundColor: MaterialStateProperty.all<Color>(Constants.redColor),
       foregroundColor: MaterialStateProperty.all<Color>(Constants.whiteColor),
