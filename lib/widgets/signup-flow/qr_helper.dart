@@ -40,7 +40,7 @@ class ShowCentreDialog {
             onDetect: (barcodes) {
               if (!_screenOpened) {
                 final String? code = barcodes.barcodes[0].rawValue;
-                print("Screen opening now\nWith value: $code");
+                // print("Screen opening now\nWith value: $code");
                 ScaffoldMessenger.of(context)
                     .showSnackBar(SnackBar(content: Text(code!)));
                 // for(int i=0; i< barcodes.barcodes.length; i++)

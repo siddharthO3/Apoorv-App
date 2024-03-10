@@ -3,16 +3,28 @@ import 'package:flutter/material.dart';
 import '../../../widgets/points-widget/leaderboard_card.dart';
 import 'package:apoorv_app/constants.dart';
 import '../../../widgets/points-widget/winner.dart';
+import '../../../utils/dummy_data/Leader_board_data.dart';
+import '../../../utils/Models/Linput.dart';
 
-class Leaderboard extends StatelessWidget {
+final List data = ldata;
+
+class Leaderboard extends StatefulWidget {
   static const routeName = '/leaderboard';
   const Leaderboard({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    String dummyImage =
-        'https://t3.ftcdn.net/jpg/02/43/12/34/360_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg';
+  State<Leaderboard> createState() => _LeaderboardState();
+}
 
+class _LeaderboardState extends State<Leaderboard> {
+  @override
+  void initState() {
+    super.initState();
+    data.sort((b, a) => a.points.compareTo(b.points));
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: const Color.fromRGBO(18, 18, 18, 1),
         body: SafeArea(
@@ -46,12 +58,14 @@ class Leaderboard extends StatelessWidget {
                         Navigator.pop(context);
                       },
                     ),
-                    const Text(
-                      "Leaderboard",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 24,
-                        fontWeight: FontWeight.w700,
+                    const Center(
+                      child: Text(
+                        "Leaderboard",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 28,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                     ),
                     Constants.gap,
@@ -76,63 +90,36 @@ class Leaderboard extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              Center(
-                  child: Winner(
-                image: dummyImage,
-                name: "John Doe",
-                points: 1000,
-              )),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width*0.03),
-                child: ListView(
+                padding: EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.width * 0.03),
+                child: ListView.builder(
+                  scrollDirection: Axis.vertical,
                   shrinkWrap: true,
-                  children: [
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    LeaderboardCard(
-                      name: "Mohamed Jaasir",
-                      points: 100,
-                      rank: 2,
-                      image: dummyImage,
-                    ),
-                    LeaderboardCard(
-                      name: "Mohamed Jaasir",
-                      points: 100,
-                      rank: 3,
-                      image: dummyImage,
-                    ),
-                    LeaderboardCard(
-                      name: "Mohamed Jaasir",
-                      points: 100,
-                      rank: 4,
-                      image: dummyImage,
-                    ),
-                    LeaderboardCard(
-                      name: "Siddharth",
-                      points: 100,
-                      rank: 5,
-                      image: dummyImage,
-                    ),
-                    LeaderboardCard(
-                      name: "Mohamed Jaasir",
-                      points: 100,
-                      rank: 6,
-                      image: dummyImage,
-                    ),
-                    LeaderboardCard(
-                      name: "Mohamed Jaasir",
-                      points: 100,
-                      rank: 7,
-                      image: dummyImage,
-                    ),
-                    LeaderboardCard(
-                      name: "Mohamed Jaasir",
-                      points: 100,
-                      rank: 8,
-                      image: dummyImage,
-                    ),
-                  ],
+                  physics: const ClampingScrollPhysics(),
+                  itemCount: data.length,
+                  itemBuilder: (
+                    BuildContext context,
+                    int index,
+                  ) {
+                    final content = data[index];
+                    String rnk = '${index + 1}';
+                    if (index == 0) {
+                      return Center(
+                        child: Winner(
+                          image: content.dummyImage,
+                          name: content.name,
+                          points: int.parse(content.points),
+                        ),
+                      );
+                    }
+                    return LeaderboardCard(
+                      name: content.name,
+                      points: content.points,
+                      rank: rnk,
+                      image: content.dummyImage,
+                    );
+                  },
                 ),
               ),
             ],

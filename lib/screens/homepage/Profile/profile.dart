@@ -97,6 +97,25 @@ class ProfileScreen extends StatelessWidget {
                   ]),
             ),
             Constants.gap,
+//             Expanded(
+//               child: Container(
+//                 // width: double.infinity,
+//                 alignment: Alignment.center,
+//                 padding:
+//                     EdgeInsets.all(MediaQuery.of(context).size.width * 0.1),
+//                 decoration: const BoxDecoration(
+//                   borderRadius: BorderRadius.only(
+//                     topLeft: Radius.circular(24),
+//                     topRight: Radius.circular(24),
+//                   ),
+//                   color: Constants.blackColor,
+//                 ),
+//                 child: QrImageView(
+//                   data: 'Siddharth',
+//                   backgroundColor: Constants.whiteColor,
+//                 ),
+//               ),
+//             ),
             buildQrCodeContainer(context),
           ],
         ),
