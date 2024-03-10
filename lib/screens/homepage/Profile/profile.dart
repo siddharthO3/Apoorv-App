@@ -1,4 +1,3 @@
-
 import 'package:apoorv_app/providers/user_info_provider.dart';
 import 'package:apoorv_app/widgets/signup-flow/logout.dart';
 import 'package:provider/provider.dart';
@@ -7,18 +6,13 @@ import '../../../constants.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
-class ProfileScreen extends StatefulWidget {
+class ProfileScreen extends StatelessWidget {
   static const routeName = '/profile';
   const ProfileScreen({super.key});
 
   @override
-  State<ProfileScreen> createState() => _ProfileScreenState();
-}
-
-class _ProfileScreenState extends State<ProfileScreen> {
-  @override
   Widget build(BuildContext context) {
-    Provider.of<UserProvider>(context, listen: false);
+    var providerContext = context.read<UserProvider>();
     return Container(
       decoration: const BoxDecoration(
         gradient: LinearGradient(
@@ -38,12 +32,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Icon(
-                            Icons.account_circle_rounded,
-                            size: MediaQuery.of(context).size.width * 0.33,
-                            color: Constants.greenColor,
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(
+                                MediaQuery.of(context).size.width * 0.33 / 2),
+                            child: Image.network(
+                              providerContext.profilePhotoUrl!,
+                              height: MediaQuery.of(context).size.width * 0.33,
+                              width: MediaQuery.of(context).size.width * 0.33,
+                              fit: BoxFit
+                                  .cover, // You might want to add this to cover the entire circular area
+                            ),
                           ),
                           SizedBox(
                             width: MediaQuery.of(context).size.width * 0.45,
@@ -76,8 +76,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           )
                         ]),
                     Constants.gap,
-                    const Text("Dummy",
-                        style: TextStyle(
+                    Text(providerContext.userName,
+                        style: const TextStyle(
                           color: Constants.blackColor,
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
@@ -87,28 +87,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             fontWeight: FontWeight.bold,
                             color: Constants.blackColor,
                             fontSize: 16)),
-                    const Text("dummy@noreply.com",
-                        style: TextStyle(
+                    Text(providerContext.userEmail,
+                        style: const TextStyle(
                             color: Constants.blackColor, fontSize: 16)),
                     const Text("Phone",
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
                             color: Constants.blackColor)),
-                    const Text("1111111111",
-                        style: TextStyle(
+                    Text(providerContext.userPhNo,
+                        style: const TextStyle(
                             color: Constants.blackColor, fontSize: 16)),
                     // if (providerContext.fromCollege)
-                    const Column(
+                    Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Roll No',
+                        const Text('Roll No',
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 16,
                                 color: Constants.blackColor)),
-                        Text("2021BCS0000",
-                            style: TextStyle(
+                        Text(providerContext.userRollNo!,
+                            style: const TextStyle(
                                 color: Constants.blackColor, fontSize: 16)),
                       ],
                     ),
@@ -117,8 +117,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
                             color: Constants.blackColor)),
-                    const Text("IIITK",
-                        style: TextStyle(
+                    Text(providerContext.userCollegeName!,
+                        style: const TextStyle(
                             color: Constants.blackColor, fontSize: 16)),
                   ]),
             ),
@@ -137,7 +137,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   color: Constants.blackColor,
                 ),
                 child: QrImageView(
-                  data: "Nothing to see here",
+                  data: providerContext.uid,
                   backgroundColor: Constants.whiteColor,
                   // size: MediaQuery.of(context).size.width * 0.75,
                 ),

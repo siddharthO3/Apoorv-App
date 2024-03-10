@@ -164,23 +164,28 @@ class _PaymentState extends State<Payment> {
                                   MediaQuery.of(context).size.width * 0.05),
                           child: FilledButton(
                             onPressed: () async {
-                              var response = await Provider.of<UserProvider>(
-                                context,
-                                listen: false,
-                              ).doATransaction(
-                                to_uid,
-                                int.parse(amountController.text),
-                              );
+                              if (int.parse(amountController.text) > 0) {
+                                var response = await Provider.of<UserProvider>(
+                                  context,
+                                  listen: false,
+                                ).doATransaction(
+                                  to_uid,
+                                  int.parse(amountController.text),
+                                );
 
-                              if (context.mounted) {
-                                if (response['success']) {
-                                  Navigator.of(context)
-                                      .pushNamed(PaymentSuccess.routeName);
-                                } else {
-                                  dialogBuilder(context, response['message']);
-                                  showSnackbarOnScreen(
-                                      context, response['message']);
+                                if (context.mounted) {
+                                  if (response['success']) {
+                                    Navigator.of(context).pushReplacementNamed(
+                                        PaymentSuccess.routeName);
+                                  } else {
+                                    dialogBuilder(context, response['message']);
+                                    showSnackbarOnScreen(
+                                        context, response['message']);
+                                  }
                                 }
+                              } else {
+                                showSnackbarOnScreen(context,
+                                    "Amount must be greater than zero");
                               }
                             },
                             style: ButtonStyle(
@@ -212,7 +217,8 @@ class _PaymentState extends State<Payment> {
               } else {
                 Future.delayed(
                   Duration.zero,
-                  () => showSnackbarOnScreen(context, snapshot.data['message']+'in else'),
+                  () => showSnackbarOnScreen(
+                      context, snapshot.data['message'] + 'in else'),
                 );
                 return Center(child: Text(snapshot.data['message']));
               }

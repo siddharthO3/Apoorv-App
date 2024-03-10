@@ -1,4 +1,5 @@
 import 'package:apoorv_app/providers/user_info_provider.dart';
+import 'package:apoorv_app/router.dart';
 import 'package:apoorv_app/screens/signup-flow/signup.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -95,12 +96,10 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                             if (context.mounted) {
                               showSnackbarOnScreen(context, "User Signed in!");
                               Provider.of<UserProvider>(context, listen: false)
-                                  .updateEmail(auth.currentUser!.email!);
-                              Provider.of<UserProvider>(context, listen: false)
-                                  .refreshIdToken();
+                                  .refreshGoogleServiceData();
                               Navigator.of(context)
                                   .restorablePushReplacementNamed(
-                                      SignUpScreen.routeName);
+                                      Routing.routeName);
                             }
                             // BaseClient.printAuthTokenForTest();
                           }

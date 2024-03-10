@@ -1,6 +1,5 @@
 import 'package:apoorv_app/providers/user_info_provider.dart';
 import 'package:apoorv_app/screens/homepage/points/all_transactions.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
 import '../../../widgets/points-widget/qr/generate_qr.dart';
@@ -20,30 +19,30 @@ class PointsScreen extends StatefulWidget {
 }
 
 class _PointsScreenState extends State<PointsScreen> {
-  var _myFuture;
+  Future<Map<String, dynamic>>? myFuture;
   @override
   void initState() {
     super.initState();
-    _myFuture = Provider.of<UserProvider>(context, listen: false)
+  }
+
+  Future reloadPage() async {
+    myFuture = Provider.of<UserProvider>(context, listen: false)
         .getLatest2Transactions();
+    return myFuture;
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: _myFuture,
+        future: reloadPage(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.waiting:
-              // TODO: Make only first load changes or make a refresh loader for 2 seconds
-              // if(firstLoad) {
               return const Scaffold(
                 body: Center(
                   child: CircularProgressIndicator(),
                 ),
               );
-            // }
-            // else{}
 
             case ConnectionState.done:
             default:
@@ -58,10 +57,10 @@ class _PointsScreenState extends State<PointsScreen> {
                   var providerContext = context.read<UserProvider>();
                   // providerContext.refreshUID();
 
-                  var data = snapshot.data;
+                  // var data = snapshot.data;
 
-                  Future.delayed(Duration.zero,
-                      () => showSnackbarOnScreen(context, data['message']));
+                  // Future.delayed(Durations.extralong4,
+                  //     () => showSnackbarOnScreen(context, data['message']));
 
                   return Container(
                     decoration: const BoxDecoration(
@@ -135,6 +134,7 @@ class _PointsScreenState extends State<PointsScreen> {
                               child: SingleChildScrollView(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
+                                  // mainAxisAlignment: MainAxisAlignment.spaceAround,
                                   children: [
                                     const Text(
                                       "LAST TRANSACTIONS",
@@ -154,23 +154,23 @@ class _PointsScreenState extends State<PointsScreen> {
                                     if (providerContext.transactions.isNotEmpty)
                                       ...snapshot.data['transactions'],
                                     Constants.gap,
-                                    
-                                      Align(
-                                        alignment: Alignment.centerRight,
-                                        child: TextButton(
-                                          onPressed: () {
-                                            Navigator.of(context).pushNamed(
-                                                AllTransactions.routeName);
-                                          },
-                                          style: const ButtonStyle(),
-                                          child: const Text(
-                                            'View More',
-                                            style: TextStyle(fontSize: 16),
-                                            // textAlign: TextAlign.end,
-                                          ),
+
+                                    Align(
+                                      alignment: Alignment.centerRight,
+                                      child: TextButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pushNamed(
+                                              AllTransactions.routeName);
+                                        },
+                                        style: const ButtonStyle(),
+                                        child: const Text(
+                                          'View More',
+                                          style: TextStyle(fontSize: 16),
+                                          // textAlign: TextAlign.end,
                                         ),
                                       ),
-                                    
+                                    ),
+
                                     Constants.gap,
                                     // QrCode(),
 
@@ -212,11 +212,11 @@ class _PointsScreenState extends State<PointsScreen> {
                     // ),
                   );
                 } else {
-                  Future.delayed(
-                    Duration.zero,
-                    () =>
-                        showSnackbarOnScreen(context, snapshot.data['message']),
-                  );
+                  // Future.delayed(
+                  //   Duration.zero,
+                  //   () =>
+                  //       showSnackbarOnScreen(context, snapshot.data['message']),
+                  // );
                   return Center(child: Text(snapshot.data['message']));
                 }
               } else {

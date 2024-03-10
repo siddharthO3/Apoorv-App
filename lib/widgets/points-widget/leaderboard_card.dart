@@ -1,12 +1,15 @@
+import 'package:apoorv_app/providers/user_info_provider.dart';
 import 'package:flutter/material.dart';
 
 import 'package:apoorv_app/constants.dart';
+import 'package:provider/provider.dart';
 
 class LeaderboardCard extends StatelessWidget {
   final String? name;
   final int? points;
   final int? rank;
   final String? image;
+  final String? uid;
 
   const LeaderboardCard({
     super.key,
@@ -14,12 +17,25 @@ class LeaderboardCard extends StatelessWidget {
     this.points,
     this.rank,
     this.image,
+    this.uid,
   });
 
   @override
   Widget build(BuildContext context) {
     Color? color;
     double? spreadRadius;
+
+    String showRank = "";
+
+    if (rank! % 10 == 1) {
+      showRank = "${rank}st";
+    } else if (rank! % 10 == 2) {
+      showRank = "${rank}nd";
+    } else if (rank! % 10 == 3) {
+      showRank = "${rank}rd";
+    } else {
+      showRank = "${rank}th";
+    }
 
     Map<Color, Color> styleColor = {
       Constants.yellowColor: Constants.blackColor,
@@ -36,7 +52,7 @@ class LeaderboardCard extends StatelessWidget {
         break;
     }
 
-    if (name == 'Siddharth') {
+    if (uid == Provider.of<UserProvider>(context, listen: false).uid) {
       color = Constants.redColor;
       spreadRadius = 6;
     }
@@ -71,7 +87,7 @@ class LeaderboardCard extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    '$rank',
+                    showRank,
                     style: TextStyle(
                       fontSize: 20,
                       color: styleColor[color],
@@ -82,7 +98,8 @@ class LeaderboardCard extends StatelessWidget {
                   ),
                   CircleAvatar(
                     radius: 25,
-                    backgroundImage: NetworkImage(image ?? ''),
+                    foregroundImage: NetworkImage(image ?? ''),
+                    
                   ),
                 ],
               ),

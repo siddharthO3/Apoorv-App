@@ -21,7 +21,6 @@ class Profile2Screen extends StatefulWidget {
 class _Profile2ScreenState extends State<Profile2Screen> {
   var _myFuture;
   Timer? timer;
-  bool firstLoad = true;
 
   @override
   void initState() {
@@ -53,12 +52,7 @@ class _Profile2ScreenState extends State<Profile2Screen> {
         builder: (BuildContext ctx, AsyncSnapshot snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.waiting:
-              // TODO: Make only first load changes or make a refresh loader for 2 seconds
-              // if(firstLoad) {
-              firstLoad = false;
               return const ProfileScreen();
-            // }
-            // else{}
 
             case ConnectionState.done:
             default:

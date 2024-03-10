@@ -1,5 +1,7 @@
 // ignore_for_file: avoid_print
 
+import 'dart:math';
+
 import 'package:apoorv_app/api.dart';
 import 'package:apoorv_app/widgets/points-widget/transactions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -7,29 +9,29 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class UserProvider extends ChangeNotifier {
-  String userName;
-  String? userCollegeName;
-  String? userRollNo;
-  String userPhNo;
-  String? profilePhotoUrl;
-  String userEmail;
-  bool fromCollege = false;
+  String userName  = "Your Name";
+  String? userCollegeName = "IIIT Kottayam";
+  String? userRollNo = "2021BCS0000";
+  String userPhNo = "000000000";
+  String? profilePhotoUrl = 'https://t3.ftcdn.net/jpg/02/43/12/34/360_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg';
+  String userEmail = "nobody@noreply.com";
+  bool fromCollege = true;
 
   List<TransactionsWidget> transactions = [];
 
-  String uid = "";
-  String idToken = "";
+  String uid = "Nothing to see here";
+  String idToken = "somerandomidtoken";
 
   int points = 0;
 
-  UserProvider({
-    this.userName = "Full Name",
-    this.userCollegeName,
-    this.userRollNo,
-    this.userPhNo = "Phone Number",
-    this.profilePhotoUrl,
-    this.userEmail = " ",
-  });
+  // UserProvider({
+  //   this.userName = "Full Name",
+  //   this.userCollegeName,
+  //   this.userRollNo,
+  //   this.userPhNo = "Phone Number",
+  //   this.profilePhotoUrl,
+  //   this.userEmail = "",
+  // });
 
   void changeSameCollegeDetails({
     required String newUserName,
@@ -85,11 +87,24 @@ class UserProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void refreshGoogleServiceData() async {
+    refreshUID();
+    refreshIdToken();
+    updateEmail(FirebaseAuth.instance.currentUser!.email!);
+    updateProfilePhoto(FirebaseAuth.instance.currentUser!.photoURL!);
+  }
+
+  Future<Map<String, dynamic>> uploadUserData(Map<String, dynamic> args) async {
+    refreshIdToken(listen: false);
+
+    var response = await APICalls().uploadUserData(args, idToken);
+    return response;
+  }
+
   Future<Map<String, dynamic>> getUserInfo() async {
     refreshUID(listen: false);
     refreshIdToken(listen: true);
 
-    // var res = await APICalls().getUserDataAPI(uid, idToken);
     var res = await APICalls().getUserDataAPI(uid, idToken);
     print("res: $res");
     if (res['success']) {
@@ -119,9 +134,16 @@ class UserProvider extends ChangeNotifier {
 
   Future<Map<String, dynamic>> doATransaction(String to, int amount) async {
     refreshUID(listen: false);
-    var response = await APICalls().transactionAPI(uid, to, amount);
+    // refreshIdToken(listen: false);
+    var response = await APICalls().transactionAPI(
+      uid,
+      to,
+      amount,
+      // idToken,
+    );
     print("Response from provider-> $response");
     if (response['success']) {
+      // points = points - amount;
       notifyListeners();
     }
     return response;
@@ -129,23 +151,27 @@ class UserProvider extends ChangeNotifier {
 
   Future<Map<String, dynamic>> getLatest2Transactions() async {
     var res = await getUserTransactions();
-    res['transactions'] = transactions.sublist(0, 2);
+    if (transactions.isNotEmpty) {
+      res['transactions'] =
+          transactions.sublist(0, min(2, transactions.length));
+    }
     return res;
   }
 
   Future<Map<String, dynamic>> getUserTransactions() async {
     refreshIdToken(listen: false);
     var res = await APICalls().getAllTransactions(idToken, uid);
-    // print("res: ${res['transactions']}");
+    // print(res['success']);
     if (res['success']) {
       if (res['transactions'].isNotEmpty) {
+        transactions.clear();
         for (var txn in res['transactions']) {
           DateTime utcTime = DateTime.parse(txn['updatedAt']).toLocal();
           String formattedTime =
               DateFormat("MMMM d, yyyy 'at' h:mm a").format(utcTime);
           if (txn['from'] == uid) {
             transactions.add(TransactionsWidget(
-              name: txn['to'],
+              name: txn['toName'],
               date: formattedTime,
               type: 'debit',
               points: txn['transactionValue'],

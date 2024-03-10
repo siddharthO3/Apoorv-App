@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:apoorv_app/widgets/snackbar.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants.dart';
@@ -8,6 +9,8 @@ import 'package:flutter/services.dart';
 
 import '../../providers/user_info_provider.dart';
 import 'letsgo.dart';
+
+// TODO: Fix sending data into this page after refactoring from let's go
 
 class SignUpScreen extends StatefulWidget {
   static const routeName = '/sign-up-1';
@@ -42,6 +45,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   void initState() {
     super.initState();
+    Provider.of<UserProvider>(context, listen: false)
+        .refreshGoogleServiceData();
     popScreen(context);
   }
 
@@ -244,7 +249,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             ),
                             Constants.gap,
                             FilledButton(
-                              onPressed: () {
+                              onPressed: () async {
                                 // context.read<UserProvider>().changeUserName(newUserName: newUserName)
                                 Map<String, Object> args;
                                 if (_formKey.currentState!.validate()) {
@@ -257,10 +262,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                         newUserPhNo: userPhNoController.text);
                                   } else {
                                     userProvider.changeOtherCollegeDetails(
-                                        newUserName: userNameController.text,
-                                        newUserCollegeName:
-                                            userCollegeNameController.text,
-                                        newUserPhNo: userPhNoController.text);
+                                      newUserName: userNameController.text,
+                                      newUserCollegeName:
+                                          userCollegeNameController.text,
+                                      newUserPhNo: userPhNoController.text,
+                                    );
                                   }
                                   // ScaffoldMessenger.of(context).showSnackBar(
                                   //   const SnackBar(content: Text('Logging In')),
@@ -292,11 +298,22 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   }
 
                                   print(args);
-                                  print(jsonEncode(args));
+                                  var response =
+                                      await Provider.of<UserProvider>(context,
+                                              listen: false)
+                                          .uploadUserData(args);
 
-                                  Navigator.of(context).pushNamed(
-                                      LetsGoPage.routeName,
-                                      arguments: args);
+                                  if (response['success']) {
+                                    showSnackbarOnScreen(
+                                        context, response['message']);
+
+                                    Navigator.of(context).pushNamed(
+                                        LetsGoPage.routeName,
+                                        arguments: args);
+                                  } else {
+                                    showSnackbarOnScreen(
+                                        context, response['error']);
+                                  }
                                 }
                               },
                               style: ButtonStyle(
