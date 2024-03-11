@@ -117,7 +117,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         width: double.infinity,
                         child: IconButton(
                             onPressed: () => Navigator.of(context)
-                                .pushReplacementNamed(
+                                .restorablePushReplacementNamed(
                                     ShopkeeperSignupScreen.routeName),
                             icon: const Icon(Icons.shop)),
                       ),

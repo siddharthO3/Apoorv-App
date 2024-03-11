@@ -5,7 +5,6 @@ import '../../constants.dart';
 import '../../widgets/points-widget/transactions.dart';
 import '../../widgets/provider/user_info_provider.dart';
 import '../../widgets/signup-flow/qr/scan_qr.dart';
-import '../homepage/points/leaderboard.dart';
 
 class ShopkeeperPointsScreen extends StatelessWidget {
   static const routeName = '/shopkeeper-points';
@@ -47,6 +46,7 @@ class ShopkeeperPointsScreen extends StatelessWidget {
                     color: Constants.blackColor,
                   ),
                 ),
+                Constants.gap,
               ],
             ),
             // Constants.gap,

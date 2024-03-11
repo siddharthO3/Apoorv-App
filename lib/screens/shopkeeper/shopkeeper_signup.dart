@@ -1,4 +1,5 @@
 import 'package:apoorv_app/screens/shopkeeper/shopkeeper_homepage.dart';
+import 'package:apoorv_app/widgets/provider/shopkeeper_info_provider.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -14,11 +15,12 @@ class ShopkeeperSignupScreen extends StatefulWidget {
   State<ShopkeeperSignupScreen> createState() => _ShopkeeperSignupScreenState();
 }
 
-class _ShopkeeperSignupScreenState extends State<ShopkeeperSignupScreen> {
-  final TextEditingController shopkeeperEmailController =
-      TextEditingController();
-  final TextEditingController shopkeeperPassController =
-      TextEditingController();
+class _ShopkeeperSignupScreenState extends State<ShopkeeperSignupScreen>
+    with RestorationMixin {
+  final RestorableTextEditingController shopkeeperEmailController =
+      RestorableTextEditingController();
+  final RestorableTextEditingController shopkeeperPassController =
+      RestorableTextEditingController();
 
   final _formKey = GlobalKey<FormState>();
 
@@ -64,7 +66,7 @@ class _ShopkeeperSignupScreenState extends State<ShopkeeperSignupScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var userProvider = Provider.of<UserProvider>(context);
+    var shopkeeperProvider = Provider.of<ShopkeeperProvider>(context);
     return PopScope(
       canPop: popStatus,
       onPopInvoked: (bool didPop) async {
@@ -117,16 +119,16 @@ class _ShopkeeperSignupScreenState extends State<ShopkeeperSignupScreen> {
                           children: [
                             TextFormField(
                                 validator: (value) {
-                                  // bool isValid = EmailValidator.validate(value);
+                                  final bool isValid =
+                                      EmailValidator.validate(value!);
                                   if (value == null || value.isEmpty) {
                                     return "Email Required";
+                                  } else if (!isValid) {
+                                    return "Think you aced the format?";
                                   }
-                                  // else if (!isValid) {
-                                  //   return "Bruh";
-                                  // }
                                   return null;
                                 },
-                                controller: shopkeeperEmailController,
+                                controller: shopkeeperEmailController.value,
                                 decoration: InputDecoration(
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(16)),
@@ -138,7 +140,7 @@ class _ShopkeeperSignupScreenState extends State<ShopkeeperSignupScreen> {
                                 )),
                             Constants.gap,
                             TextFormField(
-                                controller: shopkeeperPassController,
+                                controller: shopkeeperPassController.value,
                                 // TODO: Fix phone number length, currently max
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
@@ -160,13 +162,16 @@ class _ShopkeeperSignupScreenState extends State<ShopkeeperSignupScreen> {
                               onPressed: () {
                                 // context.read<UserProvider>().changeUserName(newUserName: newUserName)
                                 if (_formKey.currentState!.validate()) {
-                                  userProvider.updateShopkeeper(
-                                    shopEmail: shopkeeperEmailController.text,
-                                    shopPass: shopkeeperPassController.text,
+                                  shopkeeperProvider.updateShopkeeper(
+                                    shopEmail:
+                                        shopkeeperEmailController.value.text,
+                                    shopPass:
+                                        shopkeeperPassController.value.text,
                                   );
 
-                                  Navigator.of(context).pushReplacementNamed(
-                                      ShopkeeperHomePage.routeName);
+                                  Navigator.of(context)
+                                      .restorablePushReplacementNamed(
+                                          ShopkeeperHomePage.routeName);
                                 }
                               },
                               style: ButtonStyle(
@@ -206,5 +211,16 @@ class _ShopkeeperSignupScreenState extends State<ShopkeeperSignupScreen> {
         // ),
       ),
     );
+  }
+
+  @override
+  // TODO: implement restorationId
+  String? get restorationId => "shopkeepersignup";
+
+  @override
+  void restoreState(RestorationBucket? oldBucket, bool initialRestore) {
+    registerForRestoration(shopkeeperEmailController, "shopkeeperemail");
+    registerForRestoration(shopkeeperPassController, "shopkeeperpass");
+    // TODO: implement restoreState
   }
 }

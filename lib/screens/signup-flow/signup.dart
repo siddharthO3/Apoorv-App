@@ -17,12 +17,16 @@ class SignUpScreen extends StatefulWidget {
   State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
-  final TextEditingController userNameController = TextEditingController();
-  final TextEditingController userPhNoController = TextEditingController();
-  final TextEditingController userRollNoController = TextEditingController();
-  final TextEditingController userCollegeNameController =
-      TextEditingController();
+class _SignUpScreenState extends State<SignUpScreen> with RestorationMixin {
+  final RestorableTextEditingController userNameController =
+      RestorableTextEditingController();
+  final RestorableTextEditingController userPhNoController =
+      RestorableTextEditingController();
+  final RestorableTextEditingController userRollNoController =
+      RestorableTextEditingController();
+  final RestorableTextEditingController userCollegeNameController =
+      RestorableTextEditingController();
+
 
   final _formKey = GlobalKey<FormState>();
 
@@ -35,7 +39,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     super.dispose();
   }
 
-  bool isChecked = true;
+  RestorableBool isChecked = RestorableBool(true);
 
   bool popStatus = true;
   int popCount = 0;
@@ -140,7 +144,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   }
                                   return null;
                                 },
-                                controller: userNameController,
+                                controller: userNameController.value,
                                 decoration: InputDecoration(
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(16)),
@@ -152,7 +156,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 )),
                             Constants.gap,
                             TextFormField(
-                                controller: userPhNoController,
+                                controller: userPhNoController.value,
                                 // TODO: Fix phone number length, currently max
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
@@ -175,11 +179,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                       const TextStyle(color: Colors.black),
                                 )),
                             Constants.gap,
-                            if (isChecked)
+                            if (isChecked.value)
                               Column(
                                 children: [
                                   TextFormField(
-                                      controller: userRollNoController,
+                                      controller: userRollNoController.value,
                                       validator: (value) {
                                         if (value == null ||
                                             value.isEmpty ||
@@ -205,11 +209,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   Constants.gap,
                                 ],
                               ),
-                            if (!isChecked)
+                            if (!isChecked.value)
                               Column(
                                 children: [
                                   TextFormField(
-                                      controller: userCollegeNameController,
+                                      controller:
+                                          userCollegeNameController.value,
                                       validator: (value) {
                                         if (value == null || value.isEmpty) {
                                           return "Fill your college name!";
@@ -235,12 +240,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 Transform.scale(
                                   scale: 1.2,
                                   child: Checkbox(
-                                    value: isChecked,
+                                    value: isChecked.value,
                                     onChanged: (bool? value) {
-                                      userCollegeNameController.clear();
-                                      userRollNoController.clear();
+                                      userCollegeNameController.value.clear();
+                                      userRollNoController.value.clear();
                                       setState(() {
-                                        isChecked = value!;
+                                        isChecked =
+                                            (value = false) as RestorableBool;
                                       });
                                     },
                                   ),
@@ -255,25 +261,30 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               onPressed: () {
                                 // context.read<UserProvider>().changeUserName(newUserName: newUserName)
                                 if (_formKey.currentState!.validate()) {
-                                  userProvider.fromCollege = isChecked;
-                                  if (isChecked) {
+                                  userProvider.fromCollege = isChecked.value;
+                                  if (isChecked.value) {
                                     userProvider.changeSameCollegeDetails(
-                                        newUserName: userNameController.text,
+                                        newUserName:
+                                            userNameController.value.text,
                                         newUserRollNo:
-                                            userRollNoController.text,
-                                        newUserPhNo: userPhNoController.text);
+                                            userRollNoController.value.text,
+                                        newUserPhNo:
+                                            userPhNoController.value.text);
                                   } else {
                                     userProvider.changeOtherCollegeDetails(
-                                        newUserName: userNameController.text,
+                                        newUserName:
+                                            userNameController.value.text,
                                         newUserCollegeName:
-                                            userCollegeNameController.text,
-                                        newUserPhNo: userPhNoController.text);
+                                            userCollegeNameController
+                                                .value.text,
+                                        newUserPhNo:
+                                            userPhNoController.value.text);
                                   }
                                   // ScaffoldMessenger.of(context).showSnackBar(
                                   //   const SnackBar(content: Text('Logging In')),
                                   //   );
-                                  Navigator.of(context)
-                                      .pushNamed(LetsGoPage.routeName);
+                                  Navigator.of(context).restorablePushNamed(
+                                      LetsGoPage.routeName);
                                 }
                               },
                               style: ButtonStyle(
@@ -313,5 +324,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
         // ),
       ),
     );
+  }
+
+  @override
+  // TODO: implement restorationId
+  String? get restorationId => "signupscreen";
+
+  @override
+  void restoreState(RestorationBucket? oldBucket, bool initialRestore) {
+    registerForRestoration(userNameController, "full_name");
+    registerForRestoration(userRollNoController, "roll_number");
+    registerForRestoration(userPhNoController, "phone_number");
+    registerForRestoration(userCollegeNameController, "college_name");
+    registerForRestoration(isChecked, "IIITK");
   }
 }
