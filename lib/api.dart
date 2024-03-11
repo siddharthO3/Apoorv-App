@@ -3,7 +3,6 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 
 import 'base_client.dart';
 
@@ -201,7 +200,46 @@ class APICalls {
         ),
       );
 
-      print("Transaction Query: $response");
+      print("Leaderboard Query: $response");
+
+      if (response.statusCode == 200) {
+        payload =
+            json.decode(response.toString()) as Map<String, dynamic>;
+        payload['message'] = 'User data updated for leaderboard';
+      }
+    } on DioException catch (e) {
+      if (e.type == DioExceptionType.badResponse) {
+        print("Response code: ${e.response!.statusCode}");
+        payload['error'] =
+            "${json.decode(e.response.toString())['error']}\n${e.type.name}, ${e.response!.statusCode}";
+      } else if (e.type == DioExceptionType.connectionError) {
+        payload['error'] = "${e.type.name} Connection Error";
+      } else {
+        payload['error'] =
+            "${json.decode(e.response.toString())['error']}\n${e.type.name}, ${e.response!.statusCode}";
+      }
+    } catch (e) {
+      print("Error: $e");
+      // Handle other exceptions appropriately
+      payload['success'] = false;
+      payload['error'] = e.toString();
+    }
+    return payload;
+  }
+
+  Future<Map<String, dynamic>> getFeed(String idToken) async {
+    Map<String, dynamic> payload = {};
+    try {
+      var response = await BaseClient.dio.get(
+        '/feed',
+        options: Options(
+          headers: {
+            'Authorization': idToken,
+          },
+        ),
+      );
+
+      print("Feed Query: $response");
 
       if (response.statusCode == 200) {
         payload =
