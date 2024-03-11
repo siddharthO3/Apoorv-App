@@ -5,8 +5,8 @@ import 'package:apoorv_app/screens/shopkeeper/shopkeeper_homepage.dart';
 import 'package:apoorv_app/screens/shopkeeper/shopkeeper_points.dart';
 import 'package:apoorv_app/screens/shopkeeper/shopkeeper_profile.dart';
 import 'package:apoorv_app/screens/shopkeeper/shopkeeper_signup.dart';
-import 'package:apoorv_app/screens/homepage/shop/shop.dart';
 import 'package:apoorv_app/screens/signup-flow/letsgo.dart';
+import 'package:apoorv_app/widgets/provider/shopkeeper_info_provider.dart';
 import 'package:apoorv_app/widgets/provider/user_info_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -19,8 +19,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'screens/homepage/points/leaderboard.dart';
 
-
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   runApp(const MyApp());
 }
 
@@ -40,8 +42,10 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => UserProvider(),
         ),
+        ChangeNotifierProvider(create: (context) => ShopkeeperProvider()),
       ],
       child: MaterialApp(
+        restorationScopeId: "root",
         theme: ThemeData.dark(useMaterial3: true),
         // theme: ThemeData(
         //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
@@ -66,7 +70,7 @@ class MyApp extends StatelessWidget {
           ShopkeeperSignupScreen.routeName: (context) =>
               const ShopkeeperSignupScreen(),
         },
-        initialRoute: HomePage.routeName,
+        initialRoute: WelcomeScreen.routeName,
       ),
     );
   }

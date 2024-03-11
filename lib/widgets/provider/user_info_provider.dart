@@ -8,8 +8,6 @@ class UserProvider extends ChangeNotifier {
   String? profilePhotoUrl;
   String userEmail;
   bool fromCollege = false;
-  String shopkeeperEmail;
-  String shopkeeperPassword;
 
   int points = 0;
 
@@ -20,8 +18,6 @@ class UserProvider extends ChangeNotifier {
     this.userPhNo = "Phone Number",
     this.profilePhotoUrl,
     this.userEmail = " ",
-    this.shopkeeperEmail = " ",
-    this.shopkeeperPassword = " ",
   });
 
   void changeSameCollegeDetails({
@@ -44,15 +40,6 @@ class UserProvider extends ChangeNotifier {
     userName = newUserName;
     userPhNo = newUserPhNo;
     userCollegeName = newUserCollegeName;
-    notifyListeners();
-  }
-
-  void updateShopkeeper({
-    required String shopEmail,
-    required String shopPass,
-  }) {
-    shopkeeperEmail = shopEmail;
-    shopkeeperPassword = shopPass;
     notifyListeners();
   }
 

@@ -1,4 +1,5 @@
 import 'package:apoorv_app/screens/signup-flow/welcome.dart';
+import 'package:apoorv_app/widgets/provider/shopkeeper_info_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -94,7 +95,7 @@ class ShopkeeperProfileScreen extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                             color: Constants.blackColor,
                             fontSize: 16)),
-                    Text(context.read<UserProvider>().shopkeeperEmail,
+                    Text(context.read<ShopkeeperProvider>().shopkeeperEmail,
                         style: const TextStyle(
                             color: Constants.blackColor, fontSize: 16)),
                     const Text("Password",
@@ -102,9 +103,11 @@ class ShopkeeperProfileScreen extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
                             color: Constants.blackColor)),
-                    Text(context.read<UserProvider>().shopkeeperPassword,
+                    Text(context.read<ShopkeeperProvider>().shopkeeperPassword,
                         style: const TextStyle(
                             color: Constants.blackColor, fontSize: 16)),
+
+                            // TODO: Plans to add a MAP here and the shop details 
                   ]),
             ),
           ],
