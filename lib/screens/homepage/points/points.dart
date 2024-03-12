@@ -147,9 +147,9 @@ class _PointsScreenState extends State<PointsScreen> {
                               ],
                             ),
                             Constants.gap,
-                            // Expanded(
-                              // child: Container(
-                                Container(
+                            Flexible(
+                              child: Container(
+                                // Container(
                                 alignment: Alignment.center,
                                 decoration: const BoxDecoration(
                                   color: Constants.blackColor,
@@ -161,10 +161,13 @@ class _PointsScreenState extends State<PointsScreen> {
                                 padding: EdgeInsets.all(
                                     MediaQuery.of(context).size.width * 0.05),
                                 child: SingleChildScrollView(
+                                  physics:
+                                      const AlwaysScrollableScrollPhysics(),
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
-                                    // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
                                     children: [
                                       const Text(
                                         "LAST TRANSACTIONS",
@@ -185,25 +188,30 @@ class _PointsScreenState extends State<PointsScreen> {
                                       if (providerContext
                                           .transactions.isNotEmpty)
                                         ...snapshot.data['transactions'],
-                                      Constants.gap,
+                                      // Constants.gap,
                                       Align(
                                         alignment: Alignment.centerRight,
                                         child: TextButton(
-                                          onPressed: () {
-                                            Navigator.of(context).pushNamed(
-                                                AllTransactions.routeName);
-                                          },
+                                          onPressed: providerContext
+                                                  .transactions.isNotEmpty
+                                              ? () {
+                                                  Navigator.of(context)
+                                                      .pushNamed(AllTransactions
+                                                          .routeName);
+                                                }
+                                              : null, // Disable the button if there are no transactions
                                           style: const ButtonStyle(),
                                           child: const Text(
                                             'View More ->',
                                             style: TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.bold),
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                            ),
                                             // textAlign: TextAlign.end,
                                           ),
                                         ),
                                       ),
-                                      Constants.gap,
+                                      // Constants.gap,
                                       const Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
@@ -243,7 +251,7 @@ class _PointsScreenState extends State<PointsScreen> {
                                   ),
                                 ),
                               ),
-                            // ),
+                            ),
                           ],
                         ),
                       ),

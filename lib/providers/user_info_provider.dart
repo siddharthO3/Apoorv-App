@@ -9,11 +9,12 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class UserProvider extends ChangeNotifier {
-  String userName  = "Your Name";
+  String userName = "Your Name";
   String? userCollegeName = "IIIT Kottayam";
   String? userRollNo = "2021BCS0000";
   String userPhNo = "000000000";
-  String? profilePhotoUrl = 'https://t3.ftcdn.net/jpg/02/43/12/34/360_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg';
+  String? profilePhotoUrl =
+      'https://t3.ftcdn.net/jpg/02/43/12/34/360_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg';
   String userEmail = "nobody@noreply.com";
   bool fromCollege = true;
 
@@ -163,8 +164,8 @@ class UserProvider extends ChangeNotifier {
     var res = await APICalls().getAllTransactions(idToken, uid);
     // print(res['success']);
     if (res['success']) {
+      transactions.clear();
       if (res['transactions'].isNotEmpty) {
-        transactions.clear();
         for (var txn in res['transactions']) {
           DateTime utcTime = DateTime.parse(txn['updatedAt']).toLocal();
           String formattedTime =

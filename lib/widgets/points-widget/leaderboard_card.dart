@@ -63,7 +63,7 @@ class LeaderboardCard extends StatelessWidget {
       margin: EdgeInsets.symmetric(
           horizontal: MediaQuery.of(context).size.width * 0.02),
       child: Container(
-          height: 70,
+          // height: 70,
           width: MediaQuery.of(context).size.width * 0.9,
           decoration: BoxDecoration(
             boxShadow: [
