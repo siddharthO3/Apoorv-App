@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:apoorv_app/providers/user_info_provider.dart';
 import 'package:apoorv_app/screens/homepage/points/all_transactions.dart';
+import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
 import '../../../widgets/points-widget/qr/generate_qr.dart';
@@ -27,6 +28,7 @@ class _PointsScreenState extends State<PointsScreen> {
   @override
   void initState() {
     super.initState();
+    // ScaffoldMessenger.of(context).hideCurrentSnac kBar();
     getTransactionHistory();
     if (widget.stream != null) {
       widget.stream!.listen((event) {
@@ -72,176 +74,180 @@ class _PointsScreenState extends State<PointsScreen> {
                   Provider.of<UserProvider>(context);
                   var providerContext = context.read<UserProvider>();
 
-                  return RefreshIndicator(
-                    onRefresh: () => getTransactionHistory(),
-                    child: SingleChildScrollView(
-                      physics: const AlwaysScrollableScrollPhysics(),
-                      child: Container(
-                        height: MediaQuery.of(context).size.height -
-                            kBottomNavigationBarHeight,
-                        decoration: const BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: [
-                              Constants.gradientHigh,
-                              Constants.gradientLow
-                            ],
-                            begin: Alignment.topCenter,
-                            end: Alignment.center,
-                          ),
+                  return Scaffold(
+                    resizeToAvoidBottomInset: false,
+                    floatingActionButton: FloatingActionButton(
+                      onPressed: () => getTransactionHistory(),
+                      child: const Icon(Icons.refresh_rounded),
+                    ),
+                    body: Container(
+                      // height: MediaQuery.of(context).size.height -
+                      //     kBottomNavigationBarHeight,
+                      decoration: const BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            Constants.gradientHigh,
+                            Constants.gradientLow
+                          ],
+                          begin: Alignment.topCenter,
+                          end: Alignment.center,
                         ),
-                        // color: Constants.yellowColor,
-                        child: SafeArea(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Container(
-                                margin: EdgeInsets.symmetric(
-                                    horizontal:
-                                        MediaQuery.of(context).size.width *
-                                            0.033),
-                                decoration: BoxDecoration(
-                                  color: Constants.blackColor,
-                                  // border: Border.all(
-                                  //   color: Colors.white,
-                                  // ),
-                                  borderRadius: BorderRadius.circular(30),
-                                ),
-                                child: const TextField(
-                                  decoration: InputDecoration(
-                                      border: InputBorder.none,
-                                      hintText: "Search Someone",
-                                      prefixIcon: Icon(
-                                        Icons.search,
-                                        size: 30,
-                                      )),
-                                ),
+                      ),
+                      // color: Constants.yellowColor,
+                      child: SafeArea(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              margin: EdgeInsets.symmetric(
+                                  horizontal:
+                                      MediaQuery.of(context).size.width *
+                                          0.033),
+                              decoration: BoxDecoration(
+                                color: Constants.blackColor,
+                                // border: Border.all(
+                                //   color: Colors.white,
+                                // ),
+                                borderRadius: BorderRadius.circular(30),
                               ),
-                              // Constants.gap,
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    context
-                                        .read<UserProvider>()
-                                        .points
-                                        .toString(),
-                                    style: const TextStyle(
-                                      fontSize: 72,
-                                      fontWeight: FontWeight.bold,
-                                      color: Constants.blackColor,
-                                    ),
-                                  ),
-                                  const Text(
-                                    "Points",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 36,
-                                      color: Constants.blackColor,
-                                    ),
-                                  ),
-                                ],
+                              child: const TextField(
+                                decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    hintText: "Search Someone",
+                                    prefixIcon: Icon(
+                                      Icons.search,
+                                      size: 30,
+                                    )),
+                                style: TextStyle(color: Colors.white),
                               ),
-                              Constants.gap,
-                              Expanded(
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  decoration: const BoxDecoration(
+                            ),
+                            // Constants.gap,
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  context
+                                      .read<UserProvider>()
+                                      .points
+                                      .toString(),
+                                  style: const TextStyle(
+                                    fontSize: 72,
+                                    fontWeight: FontWeight.bold,
                                     color: Constants.blackColor,
-                                    borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(24),
-                                      topRight: Radius.circular(24),
-                                    ),
                                   ),
-                                  padding: EdgeInsets.all(
-                                      MediaQuery.of(context).size.width * 0.05),
-                                  child: SingleChildScrollView(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      // mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                      children: [
-                                        const Text(
-                                          "LAST TRANSACTIONS",
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 19,
-                                          ),
+                                ),
+                                const Text(
+                                  "Points",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 36,
+                                    color: Constants.blackColor,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Constants.gap,
+                            // Expanded(
+                              // child: Container(
+                                Container(
+                                alignment: Alignment.center,
+                                decoration: const BoxDecoration(
+                                  color: Constants.blackColor,
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(24),
+                                    topRight: Radius.circular(24),
+                                  ),
+                                ),
+                                padding: EdgeInsets.all(
+                                    MediaQuery.of(context).size.width * 0.05),
+                                child: SingleChildScrollView(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    children: [
+                                      const Text(
+                                        "LAST TRANSACTIONS",
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 19,
                                         ),
-                                        if (providerContext
-                                            .transactions.isEmpty)
-                                          const Column(
-                                            children: [
-                                              Text(
-                                                  "No transactions to show here"),
-                                              Constants.gap,
-                                            ],
-                                          ),
-                                        if (providerContext
-                                            .transactions.isNotEmpty)
-                                          ...snapshot.data['transactions'],
+                                      ),
+                                      if (providerContext
+                                          .transactions.isEmpty) ...[
                                         Constants.gap,
-                                        Align(
-                                          alignment: Alignment.centerRight,
-                                          child: TextButton(
-                                            onPressed: () {
-                                              Navigator.of(context).pushNamed(
-                                                  AllTransactions.routeName);
-                                            },
-                                            style: const ButtonStyle(),
-                                            child: const Text(
-                                              'View More ->',
-                                              style: TextStyle(
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.bold),
-                                              // textAlign: TextAlign.end,
-                                            ),
+                                        const Center(
+                                          child: Text(
+                                              "No transactions to show here"),
+                                        ),
+                                        // Constants.gap,
+                                      ],
+                                      if (providerContext
+                                          .transactions.isNotEmpty)
+                                        ...snapshot.data['transactions'],
+                                      Constants.gap,
+                                      Align(
+                                        alignment: Alignment.centerRight,
+                                        child: TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pushNamed(
+                                                AllTransactions.routeName);
+                                          },
+                                          style: const ButtonStyle(),
+                                          child: const Text(
+                                            'View More ->',
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold),
+                                            // textAlign: TextAlign.end,
                                           ),
                                         ),
-                                        Constants.gap,
-                                        const Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [GenerateQR(), ScanQR()],
-                                        ),
-                                        const SizedBox(
-                                          height: 20,
-                                        ),
-                                        SizedBox(
-                                          width:
-                                              MediaQuery.of(context).size.width,
-                                          child: ElevatedButton(
-                                            onPressed: () {
-                                              Navigator.pushNamed(
-                                                context,
-                                                Leaderboard.routeName,
-                                              );
-                                            },
-                                            style: ElevatedButton.styleFrom(
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(
-                                                  24,
-                                                ),
+                                      ),
+                                      Constants.gap,
+                                      const Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [GenerateQR(), ScanQR()],
+                                      ),
+                                      const SizedBox(
+                                        height: 20,
+                                      ),
+                                      SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        child: ElevatedButton(
+                                          onPressed: () {
+                                            Navigator.pushNamed(
+                                              context,
+                                              Leaderboard.routeName,
+                                            );
+                                          },
+                                          style: ElevatedButton.styleFrom(
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(
+                                                24,
                                               ),
                                             ),
-                                            child: const Text(
-                                              "View Leaderboard",
-                                              style: TextStyle(
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
+                                          ),
+                                          child: const Text(
+                                            "View Leaderboard",
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold),
                                           ),
                                         ),
-                                      ],
-                                    ),
+                                      ),
+                                      // Constants.gap,
+                                    ],
                                   ),
                                 ),
                               ),
-                            ],
-                          ),
+                            // ),
+                          ],
                         ),
-                        // ),
                       ),
+                      // ),
                     ),
                   );
                 } else {

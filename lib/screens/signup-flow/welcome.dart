@@ -117,7 +117,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           'Sign In with Google',
                           style: TextStyle(
                             fontSize: 20,
-                            fontFamily: 'Inter',
+                            // fontFamily: 'Inter',
                             color: Colors.black,
                           ),
                         ),

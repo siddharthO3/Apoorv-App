@@ -96,7 +96,13 @@ class MyApp extends StatelessWidget {
                   MaterialStateProperty.all<Color>(Constants.whiteColor),
             ),
           ),
-          textTheme: const TextTheme(bodyLarge: TextStyle(color: Colors.black), labelLarge: TextStyle(fontWeight: FontWeight.bold)),
+          floatingActionButtonTheme: const FloatingActionButtonThemeData(
+            backgroundColor: Constants.redColor,
+            foregroundColor: Constants.whiteColor,
+          ),
+          textTheme: const TextTheme(
+              bodyLarge: TextStyle(color: Colors.black),
+              labelLarge: TextStyle(fontWeight: FontWeight.bold)),
         ),
         restorationScopeId: "root",
         // theme: ThemeData(

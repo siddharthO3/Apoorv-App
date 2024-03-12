@@ -20,6 +20,7 @@ class _FeedScreenState extends State<FeedScreen> {
   @override
   void initState() {
     super.initState();
+    // ScaffoldMessenger.of(context).hideCurrentSnackBar();
     _updateFeedData();
   }
 
@@ -54,121 +55,121 @@ class _FeedScreenState extends State<FeedScreen> {
                   var providerContext = context.read<UserProvider>();
 
                   var data = snapshot.data['body'] as List;
-                  return RefreshIndicator(
-                    onRefresh: () => _updateFeedData(),
-                    child: SingleChildScrollView(
-                      physics: const AlwaysScrollableScrollPhysics(),
-                      child: SizedBox(
-                        width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height - kBottomNavigationBarHeight,
-                        child: Column(
-                          children: [
-                            Container(
-                              width: double.infinity,
-                              height: MediaQuery.of(context).size.height / 4,
-                              decoration: const BoxDecoration(
-                                  gradient: LinearGradient(
-                                    colors: [
-                                      Constants.gradientHigh,
-                                      Constants.gradientLow
-                                    ],
-                                    begin: Alignment.topCenter,
-                                    end: Alignment.center,
-                                  ),
-                                  borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(30),
-                                    bottomRight: Radius.circular(30),
-                                  )),
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal:
-                                        MediaQuery.of(context).size.width * 0.07),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Flexible(
-                                          child: Text(
-                                            "Welcome,\n${providerContext.userName}",
-                                            style: const TextStyle(
-                                              color: Constants.blackColor,
-                                              fontSize: 36,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                            softWrap: true,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Image.asset(
-                                      "assets/images/Apoorv-logo.png",
-                                      height:
-                                          MediaQuery.of(context).size.height / 5.9,
-                                      width: MediaQuery.of(context).size.width / 4,
-                                    ),
+                  return Scaffold(
+                    floatingActionButton: FloatingActionButton(
+                      onPressed: () => _updateFeedData(),
+                      child: const Icon(Icons.refresh_rounded),
+                    ),
+                    body: SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      // height: MediaQuery.of(context).size.height -
+                      //     kBottomNavigationBarHeight,
+                      child: Column(
+                        children: [
+                          Container(
+                            width: double.infinity,
+                            height: MediaQuery.of(context).size.height / 4,
+                            decoration: const BoxDecoration(
+                                gradient: LinearGradient(
+                                  colors: [
+                                    Constants.gradientHigh,
+                                    Constants.gradientLow
                                   ],
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.center,
                                 ),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            // const Align(
-                            //   alignment: AlignmentDirectional.topStart,
-                            //   child: Padding(
-                            //     padding: EdgeInsets.only(left: 10.0),
-                            //     child: Text(
-                            //       "Feed",
-                            //       style: TextStyle(
-                            //         color: Constants.whiteColor,
-                            //         fontSize: 30,
-                            //       ),
-                            //     ),
-                            //   ),
-                            // ),
-                      
-                            Container(
+                                borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(30),
+                                  bottomRight: Radius.circular(30),
+                                )),
+                            child: Padding(
                               padding: EdgeInsets.symmetric(
                                   horizontal:
-                                      MediaQuery.of(context).size.width * 0.05),
-                              width: double.infinity,
-                              child: const Text(
-                                "Feed",
-                                style: TextStyle(
-                                  color: Constants.whiteColor,
-                                  fontSize: 30,
-                                ),
-                                textAlign: TextAlign.left,
+                                      MediaQuery.of(context).size.width * 0.07),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Flexible(
+                                        child: Text(
+                                          "Welcome,\n${providerContext.userName.split(' ')[0]}",
+                                          style: const TextStyle(
+                                            color: Constants.blackColor,
+                                            fontSize: 36,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                          softWrap: true,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Image.asset(
+                                    "assets/images/Apoorv-logo.png",
+                                    height: MediaQuery.of(context).size.height /
+                                        5.9,
+                                    width:
+                                        MediaQuery.of(context).size.width / 4,
+                                  ),
+                                ],
                               ),
                             ),
-                            Constants.gap,
-                            // ListView.builder( {
-                      
-                            Expanded(
-                              child: ListView.builder(
-                                  itemCount: data.length,
-                                  itemBuilder: (BuildContext context, int i) {
-                                    if (data[i]['imageUrl'] != null) {
-                                      return SingleFeed(
-                                        title:
-                                            "${data[i]['title']}\n${data[i]['text']}",
-                                        priority: data[i]['priority'],
-                                        imageUrl: data[i]['imageUrl'],
-                                      );
-                                    } else {
-                                      return SingleFeed(
-                                        title:
-                                            "${data[i]['title']}\n${data[i]['text']}",
-                                        priority: data[i]['priority'],
-                                      );
-                                    }
-                                  }),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal:
+                                    MediaQuery.of(context).size.width * 0.05),
+                            width: double.infinity,
+                            child: const Text(
+                              "Feed",
+                              style: TextStyle(
+                                color: Constants.whiteColor,
+                                fontSize: 30,
+                              ),
+                              textAlign: TextAlign.left,
                             ),
-                          ],
-                        ),
+                          ),
+                          Constants.gap,
+                          // ListView.builder( {
+                          if (data.isEmpty)
+                            const Expanded(
+                              child: Center(
+                                child: Text(
+                                  "Wow, such empty",
+                                  style: TextStyle(fontSize: 24),
+                                ),
+                              ),
+                            ),
+
+                          Expanded(
+                            child: ListView.builder(
+                                itemCount: data.length,
+                                itemBuilder: (BuildContext context, int i) {
+                                  if (data[i]['imageUrl'] != null) {
+                                    return SingleFeed(
+                                      title:
+                                          "${data[i]['title']}\n${data[i]['text']}",
+                                      priority: data[i]['priority'],
+                                      imageUrl: data[i]['imageUrl'],
+                                    );
+                                  } else {
+                                    return SingleFeed(
+                                      title:
+                                          "${data[i]['title']}\n${data[i]['text']}",
+                                      priority: data[i]['priority'],
+                                    );
+                                  }
+                                }),
+                          ),
+                          // Constants.gap,
+                        ],
                       ),
                     ),
                   );

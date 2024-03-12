@@ -77,19 +77,21 @@ class LeaderboardCard extends StatelessWidget {
             border: Border.all(
               color: color ?? Colors.grey.shade300,
             ),
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(24),
             color: color ?? Colors.grey.shade300,
           ),
           child: ListTile(
               title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            // crossAxisAlignment: CrossAxisAlignment.,
             children: [
               Row(
                 children: [
                   Text(
                     showRank,
                     style: TextStyle(
-                      fontSize: 20,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
                       color: styleColor[color],
                     ),
                   ),
@@ -97,7 +99,7 @@ class LeaderboardCard extends StatelessWidget {
                     width: 10,
                   ),
                   CircleAvatar(
-                    radius: 25,
+                    radius: 22,
                     foregroundImage: NetworkImage(image ?? ''),
                     
                   ),
@@ -106,16 +108,16 @@ class LeaderboardCard extends StatelessWidget {
               Text(
                 name!,
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: 16,
                   color: styleColor[color],
                 ),
               ),
               Row(
                 children: [
                   Text(
-                    '$points',
+                    '$points ',
                     style: TextStyle(
-                      fontSize: 20,
+                      fontSize: 16,
                       color: styleColor[color],
                     ),
                   ),

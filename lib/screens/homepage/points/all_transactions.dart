@@ -69,7 +69,7 @@ class AllTransactions extends StatelessWidget {
                               fontWeight: FontWeight.w600),
                         ),
                         const Text(
-                          "Please refresh the page to update the leaderboard",
+                          "Please refresh the page to update your transactions!",
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 14,

@@ -1,4 +1,5 @@
 import 'package:apoorv_app/api.dart';
+import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -25,6 +26,12 @@ class _LeaderboardState extends State<Leaderboard> {
   }
 
   Future<void> getLeaderboardUpdates() async {
+    await Future.delayed(
+      Duration(seconds: 2),
+      () {
+        var s = "";
+      },
+    );
     setState(() {
       _myFuture =
           APICalls().getLeaderboard(context.read<UserProvider>().idToken);
@@ -74,7 +81,10 @@ class _LeaderboardState extends State<Leaderboard> {
 
                   return Scaffold(
                       backgroundColor: const Color.fromRGBO(18, 18, 18, 1),
-                      body: RefreshIndicator(
+                      body: CustomMaterialIndicator(
+                        
+                        indicatorBuilder: (context, controller) =>
+                            Image.asset("assets/images/phoenix_74.png"),
                         onRefresh: () => getLeaderboardUpdates(),
                         child: SingleChildScrollView(
                           physics: const AlwaysScrollableScrollPhysics(),
@@ -148,8 +158,7 @@ class _LeaderboardState extends State<Leaderboard> {
                                   const Center(child: Text("No winner's yet")),
                                 Center(
                                     child: Winner(
-                                  image:
-                                      "https://lh3.googleusercontent.com/a/ACg8ocI98DmbWUvGIcbJv0NzywJ9ONDEqFhmpLTc-Ewv_e83=s96-c",
+                                  image: data[0]['profileImage'],
                                   name: data[0]['fullName'],
                                   points: data[0]['points'],
                                   uid: data[0]['uid'],

@@ -60,17 +60,18 @@ class _PaymentState extends State<Payment> {
   @override
   void initState() {
     super.initState();
-    var to_uid = "123457";
-    Provider.of<ReceiverProvider>(context, listen: false).setUID(to_uid);
+    // var to_uid = "123457";
+    // Provider.of<ReceiverProvider>(context, listen: false).setUID(to_uid);
     _myFuture = Provider.of<ReceiverProvider>(context, listen: false)
         .setReceiverData(context);
   }
 
   @override
   Widget build(BuildContext context) {
-    // var to_uid = ModalRoute.of(context)!.settings.arguments as String?;
+    var to_uid = ModalRoute.of(context)!.settings.arguments as String;
 
-    var to_uid = "123457";
+    // var to_uid = "123457";
+
     // var to_user = {
     //   "uid": "123457",
     //   "name": "AbraCAdabra",
@@ -166,7 +167,7 @@ class _PaymentState extends State<Payment> {
                                         border: UnderlineInputBorder(),
                                         hintText: '0',
                                       ),
-                                      style: const TextStyle(fontSize: 72),
+                                      style: const TextStyle(fontSize: 72, color: Colors.white),
                                     ),
                                   ),
                                   const Text(

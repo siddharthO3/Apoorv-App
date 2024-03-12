@@ -178,7 +178,7 @@ class UserProvider extends ChangeNotifier {
             ));
           } else if (txn['to'] == uid) {
             transactions.add(TransactionsWidget(
-              name: txn['to'],
+              name: txn['fromName'],
               date: formattedTime,
               type: 'credit',
               points: txn['transactionValue'],

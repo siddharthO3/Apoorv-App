@@ -2,6 +2,7 @@ import 'package:apoorv_app/screens/homepage/Transactions/payment.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
+import '../../signup-flow/qr_helper.dart';
 
 class ScanQR extends StatelessWidget {
   const ScanQR({super.key});
@@ -10,8 +11,8 @@ class ScanQR extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // ShowCentreDialog(context).scanQRDialog();
-        Navigator.of(context).pushNamed(Payment.routeName);
+        ShowCentreDialog(context).scanQRDialog();
+        // Navigator.of(context).pushNamed(Payment.routeName);
       },
       child: Card(
         color: Constants.yellowColor,
