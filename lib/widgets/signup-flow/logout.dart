@@ -16,10 +16,6 @@ class LogoutButton extends StatelessWidget {
         await GoogleSignIn().signOut();
 
         if (context.mounted) {
-          // Navigator.of(context).pushNamedAndRemoveUntil(
-          //     WelcomeScreen.routeName, (route) => false);
-
-          // TODO: When navigation fixed, then use this:
           Navigator.of(context)
               .restorablePushReplacementNamed(WelcomeScreen.routeName);
         }
@@ -33,7 +29,7 @@ class LogoutButton extends StatelessWidget {
         child: Text(
           "Logout",
           textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 16),
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
       ),
     );

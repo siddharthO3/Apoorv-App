@@ -53,7 +53,7 @@ class _HomePageState extends State<HomePage> {
   List screens = [
     ()=> const FeedScreen(),
     ()=> const MapsScreen(),
-    ()=> const PointsScreen(),
+    ()=> PointsScreen(stream: st.stream),
     ()=> const Profile2Screen(),
   ];
   @override

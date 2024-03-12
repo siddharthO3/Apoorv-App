@@ -102,62 +102,93 @@ class _PaymentState extends State<Payment> {
                       // title: const IconButton(onPressed: null, icon: Icon(Icons.arrow_back)),
                       ),
                   body: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: EdgeInsets.only(
+                      left: MediaQuery.of(context).size.width * 0.05,
+                      right: MediaQuery.of(context).size.width * 0.05,
+                      bottom: MediaQuery.of(context).size.height * 0.05,
+                    ),
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Icon(
-                          Icons.circle,
-                          size: MediaQuery.of(context).size.width * 0.33,
-                          color: Constants.yellowColor,
-                        ),
+                        SizedBox(),
                         Column(
                           children: [
+                            // Icon(
+                            //   Icons.circle,
+                            // size: MediaQuery.of(context).size.width * 0.5,
+                            //   color: Constants.yellowColor,
+                            // ),
+                            // ClipRRect(
+                            //   borderRadius: BorderRadius.circular(
+                            //       MediaQuery.of(context).size.width * 0.33 / 2),
+                            //   child: Image.network(
+                            //     context
+                            //         .read<ReceiverProvider>()
+                            //         .profilePhotoUrl!,
+                            //     height: MediaQuery.of(context).size.width * 0.33,
+                            //     width: MediaQuery.of(context).size.width * 0.33,
+                            //   ),
+                            // ),
+                            CircleAvatar(
+                              backgroundImage: NetworkImage(
+                                context
+                                    .read<ReceiverProvider>()
+                                    .profilePhotoUrl!,
+                              ),
+                              radius: MediaQuery.of(context).size.width*0.2,
+                            ),
+                            Constants.gap,
+                            Constants.gap,
                             Text(
                               "Paying ${context.read<ReceiverProvider>().userName}",
-                              style: const TextStyle(fontSize: 20),
+                              style: const TextStyle(fontSize: 24),
                             ),
                             Text(
                               context.read<ReceiverProvider>().userEmail,
-                              style: const TextStyle(fontSize: 12),
+                              style: const TextStyle(fontSize: 20),
+                            ),
+                            SizedBox(
+                              // width: 178,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  SizedBox(
+                                    width: 160,
+                                    child: TextField(
+                                      controller: amountController,
+                                      keyboardType: TextInputType.number,
+                                      inputFormatters: [
+                                        LengthLimitingTextInputFormatter(4),
+                                        FilteringTextInputFormatter.digitsOnly,
+                                      ],
+                                      decoration: const InputDecoration(
+                                        border: UnderlineInputBorder(),
+                                        hintText: '0',
+                                      ),
+                                      style: const TextStyle(fontSize: 72),
+                                    ),
+                                  ),
+                                  const Text(
+                                    "pts",
+                                    style: TextStyle(
+                                      fontSize: 48,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ],
                         ),
-                        SizedBox(
-                          width: 178,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              SizedBox(
-                                width: 120,
-                                child: TextField(
-                                  controller: amountController,
-                                  keyboardType: TextInputType.number,
-                                  inputFormatters: [
-                                    LengthLimitingTextInputFormatter(4),
-                                    FilteringTextInputFormatter.digitsOnly,
-                                  ],
-                                  decoration: const InputDecoration(
-                                      border: UnderlineInputBorder(),
-                                      hintText: '0'),
-                                  style: const TextStyle(fontSize: 50),
-                                ),
-                              ),
-                              const Text(
-                                "pts",
-                                style: TextStyle(fontSize: 35),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          width: 120,
-                          child: TextFormField(
-                            decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
-                                labelText: 'Add Note'),
-                          ),
-                        ),
+                        // SizedBox(
+                        //   width: 120,
+                        //   child: TextFormField(
+                        //     decoration: const InputDecoration(
+                        //         border: OutlineInputBorder(),
+                        //         labelText: 'Add Note'),
+                        //   ),
+                        // ),
                         Padding(
                           padding: EdgeInsets.symmetric(
                               horizontal:
@@ -175,6 +206,12 @@ class _PaymentState extends State<Payment> {
 
                                 if (context.mounted) {
                                   if (response['success']) {
+                                    Provider.of<ReceiverProvider>(context,
+                                            listen: false)
+                                        .setAmount(
+                                      int.parse(amountController.text),
+                                    );
+
                                     Navigator.of(context).pushReplacementNamed(
                                         PaymentSuccess.routeName);
                                   } else {
@@ -184,8 +221,8 @@ class _PaymentState extends State<Payment> {
                                   }
                                 }
                               } else {
-                                showSnackbarOnScreen(context,
-                                    "Amount must be greater than zero");
+                                showSnackbarOnScreen(
+                                    context, "Amount must be positive!");
                               }
                             },
                             style: ButtonStyle(

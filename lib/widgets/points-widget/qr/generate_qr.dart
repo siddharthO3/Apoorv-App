@@ -10,7 +10,7 @@ class GenerateQR extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: ()=> ShowCentreDialog(context).qrDialog(),
+      onTap: () => ShowCentreDialog(context).qrDialog(),
       child: Card(
         color: Constants.yellowColor,
         child: SizedBox(
@@ -24,8 +24,12 @@ class GenerateQR extends StatelessWidget {
                 size: MediaQuery.of(context).size.width * 0.25,
                 color: Colors.black,
               ),
-              const Text('SHOW', style: TextStyle(color: Colors.black)),
-              const Text('QR CODE', style: TextStyle(color: Colors.black)),
+              const Text('SHOW',
+                  style: TextStyle(
+                      color: Colors.black, fontWeight: FontWeight.bold)),
+              const Text('QR CODE',
+                  style: TextStyle(
+                      color: Colors.black, fontWeight: FontWeight.bold)),
             ],
           ),
         ),

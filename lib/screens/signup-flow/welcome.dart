@@ -1,6 +1,5 @@
 import 'package:apoorv_app/providers/user_info_provider.dart';
 import 'package:apoorv_app/router.dart';
-import 'package:apoorv_app/screens/signup-flow/signup.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

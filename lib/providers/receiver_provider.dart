@@ -10,13 +10,7 @@ class ReceiverProvider extends ChangeNotifier {
 
   String uid = "";
 
-  int points = 0;
-
-  // ReceiverProvider({
-  //   this.userName = "Full Name",
-  //   this.profilePhotoUrl,
-  //   this.userEmail = "example@noreply.com",
-  // });
+  int? amount;
 
   void updateProfilePhoto(String pf) {
     profilePhotoUrl = pf;
@@ -34,6 +28,10 @@ class ReceiverProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void setAmount(int amt) {
+    amount = amt;
+  }
+
   void setUID(String newUID) {
     uid = newUID;
     notifyListeners();
@@ -41,7 +39,8 @@ class ReceiverProvider extends ChangeNotifier {
 
   Future<Map<String, dynamic>> setReceiverData(BuildContext context) async {
     Provider.of<UserProvider>(context, listen: false).refreshIdToken();
-    var response = await APICalls().getUserDataAPI(uid, context.read<UserProvider>().idToken);
+    var response = await APICalls()
+        .getUserDataAPI(uid, context.read<UserProvider>().idToken);
 
     var retValue = {'success': false};
 
@@ -51,6 +50,8 @@ class ReceiverProvider extends ChangeNotifier {
         name: response['fullName'],
         email: response['email'],
       );
+
+      updateProfilePhoto(response['photoUrl']);
 
       retValue['success'] = true;
       // notifyListeners();

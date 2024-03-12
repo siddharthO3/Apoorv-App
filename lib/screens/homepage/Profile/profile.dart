@@ -14,6 +14,7 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var providerContext = context.read<UserProvider>();
     return Container(
+      height: MediaQuery.of(context).size.height - kBottomNavigationBarHeight,
       decoration: const BoxDecoration(
         gradient: LinearGradient(
           colors: [Constants.gradientHigh, Constants.gradientLow],

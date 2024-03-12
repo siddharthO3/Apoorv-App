@@ -20,7 +20,7 @@ class Routing extends StatefulWidget {
 
 class _RoutingState extends State<Routing> {
   Future<int> getStartupPage(BuildContext context) async {
-    var userProvider = Provider.of<UserProvider>(context, listen: false);
+    Provider.of<UserProvider>(context, listen: false);
 
     if (FirebaseAuth.instance.currentUser == null) {
       return 0;
@@ -42,10 +42,10 @@ class _RoutingState extends State<Routing> {
     if (!usrResponse['success']) {
       return 1;
     } else if (usrResponse['success']) {
+      
       // print(context.read<UserProvider>().);
-      var prov;
+      var prov = Provider.of<UserProvider>(context, listen: false);
       if (usrResponse['fromCollege']) {
-        prov = Provider.of<UserProvider>(context, listen: false);
 
         prov.changeSameCollegeDetails(
           newUserName: usrResponse['fullName'],
@@ -53,13 +53,12 @@ class _RoutingState extends State<Routing> {
           newUserPhNo: usrResponse['phone'],
         );
 
-        prov.updateProfilePhoto(usrResponse['photoUrl']);
-        prov.updatePoints(usrResponse['points']);
-        prov.updateEmail(usrResponse['email']);
-        prov.refreshUID();
-        prov.refreshIdToken();
+        // prov.updateProfilePhoto(usrResponse['photoUrl']);
+        // prov.updatePoints(usrResponse['points']);
+        // prov.updateEmail(usrResponse['email']);
+        // prov.refreshUID();
+        // prov.refreshIdToken();
       } else {
-        prov = Provider.of<UserProvider>(context, listen: false);
 
         prov.changeOtherCollegeDetails(
           newUserName: usrResponse['fullName'],
@@ -67,12 +66,12 @@ class _RoutingState extends State<Routing> {
           newUserPhNo: usrResponse['phone'],
         );
 
+      }
         prov.updateProfilePhoto(usrResponse['photoUrl']);
         prov.updatePoints(usrResponse['points']);
         prov.updateEmail(usrResponse['email']);
         prov.refreshUID();
         prov.refreshIdToken();
-      }
 
       return 2;
     }
@@ -121,7 +120,7 @@ class _RoutingState extends State<Routing> {
               return Scaffold(
                   body: Center(child: Text(snapshot.error.toString())));
             } else if (snapshot.hasData) {
-              print(snapshot.data);
+              // print(snapshot.data);
               var userProgress = snapshot.data;
               if (userProgress == 0) {
                 // If no Firebase auth currentuser, then call welcomeScreen()

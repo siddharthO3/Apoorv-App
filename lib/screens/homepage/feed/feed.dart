@@ -20,13 +20,17 @@ class _FeedScreenState extends State<FeedScreen> {
   @override
   void initState() {
     super.initState();
-    _myFuture = APICalls().getFeed(context.read<UserProvider>().idToken);
+    _updateFeedData();
+  }
+
+  Future<void> _updateFeedData() async {
+    setState(() {
+      _myFuture = APICalls().getFeed(context.read<UserProvider>().idToken);
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    // const String name = "Roronoa Zoro";
-
     return FutureBuilder(
         future: _myFuture,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -50,116 +54,122 @@ class _FeedScreenState extends State<FeedScreen> {
                   var providerContext = context.read<UserProvider>();
 
                   var data = snapshot.data['body'] as List;
-                  return SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height,
-                    child: Column(
-                      children: [
-                        Container(
-                          width: double.infinity,
-                          height: MediaQuery.of(context).size.height / 4,
-                          decoration: const BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: [
-                                  Constants.gradientHigh,
-                                  Constants.gradientLow
-                                ],
-                                begin: Alignment.topCenter,
-                                end: Alignment.center,
-                              ),
-                              borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(30),
-                                bottomRight: Radius.circular(30),
-                              )),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                               Padding(
-                                padding: const EdgeInsets.only(
-                                  left: 19,
-                                ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                  return RefreshIndicator(
+                    onRefresh: () => _updateFeedData(),
+                    child: SingleChildScrollView(
+                      physics: const AlwaysScrollableScrollPhysics(),
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height - kBottomNavigationBarHeight,
+                        child: Column(
+                          children: [
+                            Container(
+                              width: double.infinity,
+                              height: MediaQuery.of(context).size.height / 4,
+                              decoration: const BoxDecoration(
+                                  gradient: LinearGradient(
+                                    colors: [
+                                      Constants.gradientHigh,
+                                      Constants.gradientLow
+                                    ],
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.center,
+                                  ),
+                                  borderRadius: BorderRadius.only(
+                                    bottomLeft: Radius.circular(30),
+                                    bottomRight: Radius.circular(30),
+                                  )),
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal:
+                                        MediaQuery.of(context).size.width * 0.07),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Flexible(
-                                      child: Text(
-                                        "Welcome,\n${providerContext.userName}",
-                                        style: const TextStyle(
-                                          color: Constants.blackColor,
-                                          fontSize: 26,
-                                          fontWeight: FontWeight.w700,
+                                    Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Flexible(
+                                          child: Text(
+                                            "Welcome,\n${providerContext.userName}",
+                                            style: const TextStyle(
+                                              color: Constants.blackColor,
+                                              fontSize: 36,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                            softWrap: true,
+                                          ),
                                         ),
-                                      ),
+                                      ],
+                                    ),
+                                    Image.asset(
+                                      "assets/images/Apoorv-logo.png",
+                                      height:
+                                          MediaQuery.of(context).size.height / 5.9,
+                                      width: MediaQuery.of(context).size.width / 4,
                                     ),
                                   ],
                                 ),
                               ),
-                              Image.asset(
-                                "assets/images/Apoorv-logo.png",
-                                height:
-                                    MediaQuery.of(context).size.height / 5.9,
-                                width: MediaQuery.of(context).size.width / 4,
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        // const Align(
-                        //   alignment: AlignmentDirectional.topStart,
-                        //   child: Padding(
-                        //     padding: EdgeInsets.only(left: 10.0),
-                        //     child: Text(
-                        //       "Feed",
-                        //       style: TextStyle(
-                        //         color: Constants.whiteColor,
-                        //         fontSize: 30,
-                        //       ),
-                        //     ),
-                        //   ),
-                        // ),
-
-                        Container(
-                          padding: EdgeInsets.symmetric(
-                              horizontal:
-                                  MediaQuery.of(context).size.width * 0.05),
-                          width: double.infinity,
-                          child: const Text(
-                            "Feed",
-                            style: TextStyle(
-                              color: Constants.whiteColor,
-                              fontSize: 30,
                             ),
-                            textAlign: TextAlign.left,
-                          ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            // const Align(
+                            //   alignment: AlignmentDirectional.topStart,
+                            //   child: Padding(
+                            //     padding: EdgeInsets.only(left: 10.0),
+                            //     child: Text(
+                            //       "Feed",
+                            //       style: TextStyle(
+                            //         color: Constants.whiteColor,
+                            //         fontSize: 30,
+                            //       ),
+                            //     ),
+                            //   ),
+                            // ),
+                      
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal:
+                                      MediaQuery.of(context).size.width * 0.05),
+                              width: double.infinity,
+                              child: const Text(
+                                "Feed",
+                                style: TextStyle(
+                                  color: Constants.whiteColor,
+                                  fontSize: 30,
+                                ),
+                                textAlign: TextAlign.left,
+                              ),
+                            ),
+                            Constants.gap,
+                            // ListView.builder( {
+                      
+                            Expanded(
+                              child: ListView.builder(
+                                  itemCount: data.length,
+                                  itemBuilder: (BuildContext context, int i) {
+                                    if (data[i]['imageUrl'] != null) {
+                                      return SingleFeed(
+                                        title:
+                                            "${data[i]['title']}\n${data[i]['text']}",
+                                        priority: data[i]['priority'],
+                                        imageUrl: data[i]['imageUrl'],
+                                      );
+                                    } else {
+                                      return SingleFeed(
+                                        title:
+                                            "${data[i]['title']}\n${data[i]['text']}",
+                                        priority: data[i]['priority'],
+                                      );
+                                    }
+                                  }),
+                            ),
+                          ],
                         ),
-                        // const SizedBox(
-                        //   height: 20,
-                        // ),
-                        // ListView.builder( {
-                        Expanded(
-                          child: ListView.builder(
-                              itemCount: data.length,
-                              itemBuilder: (BuildContext context, int i) {
-                                if (data[i]['imageUrl'] != null) {
-                                  return SingleFeed(
-                                    title:
-                                        "${data[i]['title']}\n${data[i]['text']}",
-                                    priority: data[i]['priority'],
-                                    imageUrl: data[i]['imageUrl'],
-                                  );
-                                } else {
-                                  return SingleFeed(
-                                    title:
-                                        "${data[i]['title']}\n${data[i]['text']}",
-                                    priority: data[i]['priority'],
-                                  );
-                                }
-                              }),
-                        ),
-                      ],
+                      ),
                     ),
                   );
                 } else {

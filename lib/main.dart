@@ -1,3 +1,5 @@
+import 'package:apoorv_app/constants.dart';
+
 import 'base_client.dart';
 import 'providers/receiver_provider.dart';
 import 'router.dart';
@@ -69,7 +71,33 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-        theme: ThemeData.dark(useMaterial3: true),
+        // theme: ThemeData.dark(useMaterial3: true).copyWith(),
+        theme: ThemeData(
+          fontFamily: 'Raleway',
+          brightness: Brightness.dark,
+          textButtonTheme: TextButtonThemeData(
+            style: ButtonStyle(
+              foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+            ),
+          ),
+          filledButtonTheme: FilledButtonThemeData(
+            style: ButtonStyle(
+              backgroundColor:
+                  MaterialStateProperty.all<Color>(Constants.redColor),
+              foregroundColor:
+                  MaterialStateProperty.all<Color>(Constants.whiteColor),
+            ),
+          ),
+          elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ButtonStyle(
+              backgroundColor:
+                  MaterialStateProperty.all<Color>(Constants.redColor),
+              foregroundColor:
+                  MaterialStateProperty.all<Color>(Constants.whiteColor),
+            ),
+          ),
+          textTheme: const TextTheme(bodyLarge: TextStyle(color: Colors.black), labelLarge: TextStyle(fontWeight: FontWeight.bold)),
+        ),
         restorationScopeId: "root",
         // theme: ThemeData(
         //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
@@ -84,7 +112,7 @@ class MyApp extends StatelessWidget {
           ProfileScreen.routeName: (context) => const ProfileScreen(),
           Profile2Screen.routeName: (context) => const Profile2Screen(),
           Leaderboard.routeName: (context) => const Leaderboard(),
-          LetsGoPage.routeName: (context) => LetsGoPage(),
+          LetsGoPage.routeName: (context) => const LetsGoPage(),
           Payment.routeName: (context) => const Payment(),
           PaymentSuccess.routeName: (context) => const PaymentSuccess(),
           AllTransactions.routeName: (context) => const AllTransactions(),

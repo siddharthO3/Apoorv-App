@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:apoorv_app/widgets/snackbar.dart';
 import 'package:provider/provider.dart';
 
@@ -9,8 +7,6 @@ import 'package:flutter/services.dart';
 
 import '../../providers/user_info_provider.dart';
 import 'letsgo.dart';
-
-// TODO: Fix sending data into this page after refactoring from let's go
 
 class SignUpScreen extends StatefulWidget {
   static const routeName = '/sign-up-1';
@@ -297,22 +293,24 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     };
                                   }
 
-                                  print(args);
+                                  // print(args);
                                   var response =
                                       await Provider.of<UserProvider>(context,
                                               listen: false)
                                           .uploadUserData(args);
 
-                                  if (response['success']) {
-                                    showSnackbarOnScreen(
-                                        context, response['message']);
+                                  if (context.mounted) {
+                                    if (response['success']) {
+                                      showSnackbarOnScreen(
+                                          context, response['message']);
 
-                                    Navigator.of(context).pushNamed(
-                                        LetsGoPage.routeName,
-                                        arguments: args);
-                                  } else {
-                                    showSnackbarOnScreen(
-                                        context, response['error']);
+                                      Navigator.of(context).pushNamed(
+                                          LetsGoPage.routeName,
+                                          arguments: args);
+                                    } else {
+                                      showSnackbarOnScreen(
+                                          context, response['error']);
+                                    }
                                   }
                                 }
                               },
