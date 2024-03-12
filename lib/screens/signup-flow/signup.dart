@@ -27,7 +27,6 @@ class _SignUpScreenState extends State<SignUpScreen> with RestorationMixin {
   final RestorableTextEditingController userCollegeNameController =
       RestorableTextEditingController();
 
-
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -140,13 +139,13 @@ class _SignUpScreenState extends State<SignUpScreen> with RestorationMixin {
                         child: Column(
                           children: [
                             TextFormField(
+                                controller: userNameController.value,
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
                                     return "Only Letters!";
                                   }
                                   return null;
                                 },
-                                controller: userNameController.value,
                                 decoration: InputDecoration(
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(16)),
@@ -247,8 +246,7 @@ class _SignUpScreenState extends State<SignUpScreen> with RestorationMixin {
                                       userCollegeNameController.value.clear();
                                       userRollNoController.value.clear();
                                       setState(() {
-                                        isChecked =
-                                            (value = false) as RestorableBool;
+                                        isChecked.value = value ?? true;
                                       });
                                     },
                                   ),

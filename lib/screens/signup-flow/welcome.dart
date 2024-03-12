@@ -83,7 +83,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         ),
                         child: FilledButton.icon(
                           onPressed: () => Navigator.of(context)
-                              .pushReplacementNamed(SignUpScreen.routeName),
+                              .restorablePushReplacementNamed(
+                                  SignUpScreen.routeName),
                           style: ButtonStyle(
                               backgroundColor: MaterialStateProperty.all<Color>(
                                   Colors.transparent)),

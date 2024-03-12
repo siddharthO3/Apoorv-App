@@ -1,18 +1,5 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(const RefreshIndicatorExampleApp());
-
-class RefreshIndicatorExampleApp extends StatelessWidget {
-  const RefreshIndicatorExampleApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: RefreshIndicatorExample(),
-    );
-  }
-}
-
 class RefreshIndicatorExample extends StatefulWidget {
   const RefreshIndicatorExample({super.key});
 
