@@ -13,6 +13,7 @@ class WelcomeScreen extends StatefulWidget{
 class _WelcomeScreenState extends State<WelcomeScreen>{
 
   bool popStatus = true;
+  int popCount=0;
 
   @override
   void initState() {
@@ -29,25 +30,14 @@ class _WelcomeScreenState extends State<WelcomeScreen>{
 
   void showAppCloseConfirmation (BuildContext context){
     final snackBar = SnackBar(
-        content: Text("Do you want to exit? Confirm and click back"),
+        content: Text("Press back again to exit"),
         backgroundColor: Colors.white,
-        action: SnackBarAction(
-          label: 'Yes',
-          onPressed: (){
-            ScaffoldMessenger.of(context).hideCurrentSnackBar();
-            setState(() {
-              popStatus=true;
-            });
-
-          },
-        ),
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
 
   Widget build(BuildContext context) {
-    int count=0;
     return PopScope(child:
     Scaffold(
       body: Padding(
@@ -73,8 +63,12 @@ class _WelcomeScreenState extends State<WelcomeScreen>{
                       borderRadius: BorderRadius.all(Radius.circular(50)),
                     ),
                     child: FilledButton.icon(
-                      onPressed: () => Navigator.of(context)
-                          .pushReplacementNamed(SignUpScreen.routeName),
+                      onPressed: () {
+                        ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                        Navigator.of(context)
+                          .pushReplacementNamed(SignUpScreen.routeName);
+
+                      },
                       style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(
                               Colors.transparent)),
@@ -106,7 +100,13 @@ class _WelcomeScreenState extends State<WelcomeScreen>{
         if (didPop) {
           return;
         }
-        showAppCloseConfirmation(context);
+        popCount+=1;
+        if (popCount==1){
+          showAppCloseConfirmation(context);
+          setState(() {
+            popStatus = true;
+          });
+        }
       },
     );
 
