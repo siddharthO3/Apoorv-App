@@ -19,13 +19,13 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> with RestorationMixin {
   final RestorableTextEditingController userNameController =
-      RestorableTextEditingController();
+  RestorableTextEditingController();
   final RestorableTextEditingController userPhNoController =
-      RestorableTextEditingController();
+  RestorableTextEditingController();
   final RestorableTextEditingController userRollNoController =
-      RestorableTextEditingController();
+  RestorableTextEditingController();
   final RestorableTextEditingController userCollegeNameController =
-      RestorableTextEditingController();
+  RestorableTextEditingController();
 
   final _formKey = GlobalKey<FormState>();
 
@@ -41,7 +41,7 @@ class _SignUpScreenState extends State<SignUpScreen> with RestorationMixin {
   RestorableBool isChecked = RestorableBool(true);
 
   bool popStatus = true;
-  int popCount = 0;
+  int count = 0;
 
   @override
   void initState() {
@@ -73,11 +73,11 @@ class _SignUpScreenState extends State<SignUpScreen> with RestorationMixin {
         if (didPop) {
           return;
         }
-        popCount+=1;
-        if(popCount==1){
+        count+=1;
+        if (count==1){
           showAppCloseConfirmation(context);
           setState(() {
-            popStatus=true;
+            popStatus = true;
           });
         }
       },
@@ -151,7 +151,7 @@ class _SignUpScreenState extends State<SignUpScreen> with RestorationMixin {
                                   fillColor: Constants.yellowColor,
                                   hintText: "Full Name",
                                   hintStyle:
-                                      const TextStyle(color: Colors.black),
+                                  const TextStyle(color: Colors.black),
                                 )),
                             Constants.gap,
                             TextFormField(
@@ -175,7 +175,7 @@ class _SignUpScreenState extends State<SignUpScreen> with RestorationMixin {
                                   fillColor: Constants.yellowColor,
                                   hintText: 'Phone Number',
                                   hintStyle:
-                                      const TextStyle(color: Colors.black),
+                                  const TextStyle(color: Colors.black),
                                 )),
                             Constants.gap,
                             if (isChecked.value)
@@ -188,7 +188,7 @@ class _SignUpScreenState extends State<SignUpScreen> with RestorationMixin {
                                             value.isEmpty ||
                                             !RegExp(r"(2020|2021|2022|2023)(bcs|bec|bcy|bds)0\d{3}")
                                                 .hasMatch(
-                                                    value.toLowerCase())) {
+                                                value.toLowerCase())) {
                                           return "You know the format";
                                         }
                                         return null;
@@ -196,9 +196,9 @@ class _SignUpScreenState extends State<SignUpScreen> with RestorationMixin {
                                       decoration: InputDecoration(
                                         border: OutlineInputBorder(
                                             borderSide:
-                                                const BorderSide(width: 50),
+                                            const BorderSide(width: 50),
                                             borderRadius:
-                                                BorderRadius.circular(16)),
+                                            BorderRadius.circular(16)),
                                         filled: true,
                                         fillColor: Constants.yellowColor,
                                         hintText: 'Roll Number',
@@ -213,7 +213,7 @@ class _SignUpScreenState extends State<SignUpScreen> with RestorationMixin {
                                 children: [
                                   TextFormField(
                                       controller:
-                                          userCollegeNameController.value,
+                                      userCollegeNameController.value,
                                       validator: (value) {
                                         if (value == null || value.isEmpty) {
                                           return "Fill your college name!";
@@ -223,7 +223,7 @@ class _SignUpScreenState extends State<SignUpScreen> with RestorationMixin {
                                       decoration: InputDecoration(
                                         border: OutlineInputBorder(
                                             borderRadius:
-                                                BorderRadius.circular(16)),
+                                            BorderRadius.circular(16)),
                                         filled: true,
                                         fillColor: Constants.yellowColor,
                                         hintText: "College Name",
@@ -263,20 +263,20 @@ class _SignUpScreenState extends State<SignUpScreen> with RestorationMixin {
                                   if (isChecked.value) {
                                     userProvider.changeSameCollegeDetails(
                                         newUserName:
-                                            userNameController.value.text,
+                                        userNameController.value.text,
                                         newUserRollNo:
-                                            userRollNoController.value.text,
+                                        userRollNoController.value.text,
                                         newUserPhNo:
-                                            userPhNoController.value.text);
+                                        userPhNoController.value.text);
                                   } else {
                                     userProvider.changeOtherCollegeDetails(
                                         newUserName:
-                                            userNameController.value.text,
+                                        userNameController.value.text,
                                         newUserCollegeName:
-                                            userCollegeNameController
-                                                .value.text,
+                                        userCollegeNameController
+                                            .value.text,
                                         newUserPhNo:
-                                            userPhNoController.value.text);
+                                        userPhNoController.value.text);
                                   }
                                   // ScaffoldMessenger.of(context).showSnackBar(
                                   //   const SnackBar(content: Text('Logging In')),
@@ -287,11 +287,11 @@ class _SignUpScreenState extends State<SignUpScreen> with RestorationMixin {
                               },
                               style: ButtonStyle(
                                   backgroundColor:
-                                      MaterialStateProperty.all<Color>(
-                                          Constants.redColor),
+                                  MaterialStateProperty.all<Color>(
+                                      Constants.redColor),
                                   foregroundColor:
-                                      MaterialStateProperty.all<Color>(
-                                          Colors.white)),
+                                  MaterialStateProperty.all<Color>(
+                                      Colors.white)),
                               child: Container(
                                 height: 48,
                                 alignment: Alignment.center,
