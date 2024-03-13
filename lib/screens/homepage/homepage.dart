@@ -18,7 +18,7 @@ class _HomePageState extends State<HomePage> {
   int currentPageIndex = 0;
 
   bool popStatus = true;
-  int popCount=0;
+  int popCount = 0;
 
   @override
   void initState() {
@@ -65,10 +65,10 @@ class _HomePageState extends State<HomePage> {
           return;
         }
         popCount+=1;
-        if (popCount==1){
+        if(popCount == 1){
           showAppCloseConfirmation(context);
           setState(() {
-            popStatus=true;
+            popStatus = true;
           });
         }
       },

@@ -33,6 +33,7 @@ class _ShopkeeperSignupScreenState extends State<ShopkeeperSignupScreen>
 
   bool isChecked = true;
   bool popStatus = true;
+  int popCount = 0;
 
   @override
   void initState() {
@@ -49,19 +50,16 @@ class _ShopkeeperSignupScreenState extends State<ShopkeeperSignupScreen>
 
   void showAppCloseConfirmation(BuildContext context) {
     final snackBar = SnackBar(
-      content: Text("Do you want to exit? Confirm and click back"),
+      content: Text("Press back again to exit"),
       backgroundColor: Colors.white,
-      action: SnackBarAction(
-        label: 'Yes',
-        onPressed: () {
-          ScaffoldMessenger.of(context).hideCurrentSnackBar();
-          setState(() {
-            popStatus = true;
-          });
-        },
-      ),
     );
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    popCount+=1;
+    if (popCount == 1){
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      setState(() {
+        popStatus = true;
+      });
+    }
   }
 
   @override
