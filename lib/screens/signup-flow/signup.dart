@@ -38,6 +38,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   bool isChecked = true;
 
   bool popStatus = true;
+  int popCount = 0;
 
   @override
   void initState() {
@@ -54,18 +55,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   void showAppCloseConfirmation (BuildContext context){
     final snackBar = SnackBar(
-      content: Text("Do you want to exit? Confirm and click back"),
+      content: Text("Press back again to exit"),
       backgroundColor: Colors.white,
-      action: SnackBarAction(
-        label: 'Yes',
-        onPressed: (){
-          ScaffoldMessenger.of(context).hideCurrentSnackBar();
-          setState(() {
-            popStatus=true;
-          });
-
-        },
-      ),
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
@@ -265,6 +256,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 // ScaffoldMessenger.of(context).showSnackBar(
                                 //   const SnackBar(content: Text('Logging In')),
                                 //   );
+                                ScaffoldMessenger.of(context).hideCurrentSnackBar();
                                 Navigator.of(context)
                                     .pushNamed(LetsGoPage.routeName);
                               }
@@ -311,7 +303,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
         if (didPop) {
           return;
         }
-        showAppCloseConfirmation(context);
+        popCount+=1;
+        if(popCount==1){
+          showAppCloseConfirmation(context);
+          setState(() {
+            popStatus=true;
+          });
+        }
       },
     );
   }
