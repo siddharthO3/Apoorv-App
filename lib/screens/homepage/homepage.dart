@@ -18,7 +18,7 @@ class _HomePageState extends State<HomePage> {
   int currentPageIndex = 0;
 
   bool popStatus = true;
-  int popCount=0;
+  int popCount = 0;
 
   @override
   void initState() {
@@ -49,67 +49,68 @@ class _HomePageState extends State<HomePage> {
   ];
   @override
   Widget build(BuildContext context) {
-    return PopScope(child: Scaffold(
-      resizeToAvoidBottomInset: false,
-      // appBar: AppBar(
-      //   titleTextStyle: const TextStyle(color: Constants.yellowColor),
-      //   // automaticallyImplyLeading: false,
-      //   centerTitle: true,
-      //   title: const Text(
-      //     "APOORV 2K24",
-      //     style: TextStyle(fontSize: 32),
-      //   ),
-      //   leading: Image.asset(
-      //     'assets/images/phoenix_74.png',
-      //     fit: BoxFit.fitHeight,
-      //   ),
-      // ),
-      body: screens[currentPageIndex],
-      bottomNavigationBar: NavigationBar(
-        onDestinationSelected: (int index) {
-          setState(() {
-            currentPageIndex = index;
-          });
-        },
-        indicatorColor: Constants.redColor,
-        selectedIndex: currentPageIndex,
-        destinations: const <Widget>[
-          NavigationDestination(
-            selectedIcon: Icon(Icons.home),
-            icon: Icon(Icons.home_outlined),
-            label: 'Home',
-          ),
-          NavigationDestination(
-            selectedIcon: Icon(Icons.map),
-            icon: Icon(Icons.map_outlined),
-            label: 'Maps',
-          ),
-          NavigationDestination(
-            selectedIcon: Icon(Icons.stars),
-            icon: Icon(Icons.stars_outlined),
-            label: 'Points',
-          ),
-          NavigationDestination(
-            selectedIcon: Icon(Icons.account_circle),
-            icon: Icon(Icons.account_circle_outlined),
-            label: 'Profile',
-          ),
-        ],
-      ),
-    ),
+    return PopScope(
       canPop: popStatus,
-      onPopInvoked: (bool didPop) async{
+      onPopInvoked: (bool didPop) async {
         if (didPop) {
           return;
         }
         popCount+=1;
-        if (popCount==1){
+        if(popCount == 1){
           showAppCloseConfirmation(context);
           setState(() {
-            popStatus=true;
+            popStatus = true;
           });
         }
       },
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        // appBar: AppBar(
+        //   titleTextStyle: const TextStyle(color: Constants.yellowColor),
+        //   // automaticallyImplyLeading: false,
+        //   centerTitle: true,
+        //   title: const Text(
+        //     "APOORV 2K24",
+        //     style: TextStyle(fontSize: 32),
+        //   ),
+        //   leading: Image.asset(
+        //     'assets/images/phoenix_74.png',
+        //     fit: BoxFit.fitHeight,
+        //   ),
+        // ),
+        body: screens[currentPageIndex],
+        bottomNavigationBar: NavigationBar(
+          onDestinationSelected: (int index) {
+            setState(() {
+              currentPageIndex = index;
+            });
+          },
+          indicatorColor: Constants.redColor,
+          selectedIndex: currentPageIndex,
+          destinations: const <Widget>[
+            NavigationDestination(
+              selectedIcon: Icon(Icons.home),
+              icon: Icon(Icons.home_outlined),
+              label: 'Home',
+            ),
+            NavigationDestination(
+              selectedIcon: Icon(Icons.map),
+              icon: Icon(Icons.map_outlined),
+              label: 'Maps',
+            ),
+            NavigationDestination(
+              selectedIcon: Icon(Icons.stars),
+              icon: Icon(Icons.stars_outlined),
+              label: 'Points',
+            ),
+            NavigationDestination(
+              selectedIcon: Icon(Icons.account_circle),
+              icon: Icon(Icons.account_circle_outlined),
+              label: 'Profile',
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
