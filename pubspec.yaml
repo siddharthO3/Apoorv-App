@@ -40,8 +40,12 @@ dependencies:
   firebase_auth: ^4.17.4
   flutter_svg: ^2.0.10+1
   qr_flutter: ^4.1.0
+  google_fonts: ^6.1.0
   mobile_scanner: ^4.0.1
   provider: ^6.1.2
+  email_validator: ^2.1.17
+  fast_immutable_collections: ^10.1.2
+  custom_refresh_indicator: ^3.0.0
 
 dev_dependencies:
   flutter_test:

@@ -1,17 +1,17 @@
+import 'package:apoorv_app/screens/shopkeeper/shopkeeper_signup.dart';
 import 'package:apoorv_app/screens/signup-flow/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../constants.dart';
 
-class WelcomeScreen extends StatefulWidget{
+class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});
   static const routeName = '/welcome';
   _WelcomeScreenState createState() => _WelcomeScreenState();
 }
 
-class _WelcomeScreenState extends State<WelcomeScreen>{
-
+class _WelcomeScreenState extends State<WelcomeScreen> {
   bool popStatus = true;
   int popCount=0;
 
@@ -21,21 +21,20 @@ class _WelcomeScreenState extends State<WelcomeScreen>{
     popScreen(context);
   }
 
-  Future <void> popScreen(BuildContext context) async{
+  Future<void> popScreen(BuildContext context) async {
     popStatus = await Navigator.maybePop(context);
     if (mounted) {
       setState(() {});
     }
   }
 
-  void showAppCloseConfirmation (BuildContext context){
+  void showAppCloseConfirmation(BuildContext context) {
     final snackBar = SnackBar(
         content: Text("Press back again to exit"),
         backgroundColor: Colors.white,
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
-
 
   Widget build(BuildContext context) {
     return PopScope(child:
@@ -109,6 +108,5 @@ class _WelcomeScreenState extends State<WelcomeScreen>{
         }
       },
     );
-
   }
 }

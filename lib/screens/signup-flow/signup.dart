@@ -1,3 +1,5 @@
+import '../../../constants.dart';
+import '../homepage/homepage.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants.dart';
@@ -15,12 +17,15 @@ class SignUpScreen extends StatefulWidget {
   State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
-  final TextEditingController userNameController = TextEditingController();
-  final TextEditingController userPhNoController = TextEditingController();
-  final TextEditingController userRollNoController = TextEditingController();
-  final TextEditingController userCollegeNameController =
-      TextEditingController();
+class _SignUpScreenState extends State<SignUpScreen> with RestorationMixin {
+  final RestorableTextEditingController userNameController =
+      RestorableTextEditingController();
+  final RestorableTextEditingController userPhNoController =
+      RestorableTextEditingController();
+  final RestorableTextEditingController userRollNoController =
+      RestorableTextEditingController();
+  final RestorableTextEditingController userCollegeNameController =
+      RestorableTextEditingController();
 
   final _formKey = GlobalKey<FormState>();
 
@@ -33,7 +38,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     super.dispose();
   }
 
-  bool isChecked = true;
+  RestorableBool isChecked = RestorableBool(true);
 
   bool popStatus = true;
   int popCount = 0;
@@ -44,21 +49,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
     popScreen(context);
   }
 
-  Future <void> popScreen(BuildContext context) async{
+  Future<void> popScreen(BuildContext context) async {
     popStatus = await Navigator.maybePop(context);
     if (mounted) {
       setState(() {});
     }
   }
 
-  void showAppCloseConfirmation (BuildContext context){
+  void showAppCloseConfirmation(BuildContext context) {
     final snackBar = SnackBar(
       content: Text("Press back again to exit"),
       backgroundColor: Colors.white,
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
-
 
   @override
   Widget build(BuildContext context) {

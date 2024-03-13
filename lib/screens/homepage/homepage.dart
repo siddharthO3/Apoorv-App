@@ -26,14 +26,14 @@ class _HomePageState extends State<HomePage> {
     popScreen(context);
   }
 
-  Future <void> popScreen(BuildContext context) async{
+  Future<void> popScreen(BuildContext context) async {
     popStatus = await Navigator.maybePop(context);
     if (mounted) {
       setState(() {});
     }
   }
 
-  void showAppCloseConfirmation (BuildContext context){
+  void showAppCloseConfirmation(BuildContext context) {
     final snackBar = SnackBar(
       content: Text("Press back again to exit"),
       backgroundColor: Colors.white,
@@ -44,7 +44,7 @@ class _HomePageState extends State<HomePage> {
   List screens = [
     const FeedScreen(),
     const MapsScreen(),
-    const PointsScreen(),
+    PointsScreen(),
     const ProfileScreen(),
   ];
   @override
@@ -111,6 +111,5 @@ class _HomePageState extends State<HomePage> {
         }
       },
     );
-
   }
 }
