@@ -302,9 +302,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                       showSnackbarOnScreen(
                                           context, response['message']);
 
-                                      Navigator.of(context).pushNamed(
-                                          LetsGoPage.routeName,
-                                          arguments: args);
+                                      Navigator.of(context)
+                                          .restorablePushReplacementNamed(
+                                              LetsGoPage.routeName);
                                     } else {
                                       showSnackbarOnScreen(
                                           context, response['error']);
