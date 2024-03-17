@@ -204,9 +204,4 @@ class UserProvider extends ChangeNotifier {
       'error': res['error'],
     };
   }
-
-  // Future<Map<String, dynamic>> getSearchList() async
-  // {
-
-  // }
 }

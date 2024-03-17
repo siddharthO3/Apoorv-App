@@ -12,6 +12,16 @@ class ReceiverProvider extends ChangeNotifier {
 
   int? amount;
 
+  bool fromSearch = false;
+
+  void resetProvider() {
+    fromSearch = false;
+    userName = "John Doe";
+    profilePhotoUrl = null;
+    userEmail = "example@noreply.com";
+    uid = "";
+  }
+
   void updateProfilePhoto(String pf) {
     profilePhotoUrl = pf;
     notifyListeners();
@@ -35,6 +45,15 @@ class ReceiverProvider extends ChangeNotifier {
   void setUID(String newUID) {
     uid = newUID;
     notifyListeners();
+  }
+
+  void setReceiverDataFromSearch(Map<String, dynamic> args) {
+    fromSearch = true;
+
+    uid = args['uid'];
+    userName = args['fullName'];
+    userEmail = args['email'];
+    updateProfilePhoto(args['profileImage']);
   }
 
   Future<Map<String, dynamic>> setReceiverData(BuildContext context) async {

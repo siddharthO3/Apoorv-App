@@ -51,7 +51,7 @@ class _HomePageState extends State<HomePage> {
   ];
   @override
   Widget build(BuildContext context) {
-    BaseClient.printAuthTokenForTest();
+    // BaseClient.printAuthTokenForTest();
     return PopScope(
       canPop: popStatus,
       onPopInvoked: (bool didPop) async {

@@ -55,24 +55,41 @@ class _PaymentState extends State<Payment> {
 
   final TextEditingController amountController = TextEditingController();
 
-  var _myFuture;
+  Future<Map<String, dynamic>>? _myFuture;
 
   var isProcessing = false;
 
   @override
   void initState() {
     super.initState();
-    var to_uid = "123457";
-    Provider.of<ReceiverProvider>(context, listen: false).setUID(to_uid);
-    _myFuture = Provider.of<ReceiverProvider>(context, listen: false)
-        .setReceiverData(context);
+    if (context.read<ReceiverProvider>().fromSearch) {
+      _myFuture = Future.value({'success': true});
+    } else {
+      var to_uid = "123457";
+      Provider.of<ReceiverProvider>(context, listen: false).setUID(to_uid);
+      _myFuture = Provider.of<ReceiverProvider>(context, listen: false)
+          .setReceiverData(context);
+    }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    amountController.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    // var to_uid = ModalRoute.of(context)!.settings.arguments as String;
+    // var args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
 
-    var to_uid = "123457";
+    // String to_uid;
+
+    // if(args['fromScan'])
+    // {
+    //   to_uid = args['uid'];
+    // }
+
+    // var to_uid = "123457";
 
     // var to_user = {
     //   "uid": "123457",
@@ -98,7 +115,7 @@ class _PaymentState extends State<Payment> {
                 body: Center(child: Text(snapshot.error.toString())),
               );
             } else if (snapshot.hasData) {
-              print(snapshot.data);
+              // print(snapshot.data);
               if (snapshot.data['success']) {
                 return Scaffold(
                   appBar: AppBar(
@@ -192,7 +209,9 @@ class _PaymentState extends State<Payment> {
                                             context,
                                             listen: false,
                                           ).doATransaction(
-                                            to_uid,
+                                            context
+                                                .read<ReceiverProvider>()
+                                                .uid,
                                             int.parse(amountController.text),
                                           );
                                           setState(() {

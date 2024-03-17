@@ -53,13 +53,16 @@ class ShowCentreDialog {
                 Map<String, dynamic> response =
                     await Provider.of<UserProvider>(context, listen: false)
                         .getUserInfo();
-                if (response['success']) {
-                  Provider.of<ReceiverProvider>(context, listen: false)
-                      .setUID(code!);
-                  Navigator.of(context)
-                      .popAndPushNamed(Payment.routeName, arguments: code);
-                } else {
-                  showSnackbarOnScreen(context, "Try again");
+                if (context.mounted) {
+                  if (response['success']) {
+                    Provider.of<ReceiverProvider>(context, listen: false)
+                        .resetProvider();
+                    Provider.of<ReceiverProvider>(context, listen: false)
+                        .setUID(code!);
+                    Navigator.of(context).popAndPushNamed(Payment.routeName);
+                  } else {
+                    showSnackbarOnScreen(context, "Try again");
+                  }
                 }
                 // ScaffoldMessenger.of(context)
                 //     .showSnackBar(SnackBar(content: Text(code!)));

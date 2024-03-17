@@ -101,6 +101,7 @@ class _PaymentSuccessState extends State<PaymentSuccess> {
                   Constants.gap,
                   FilledButton(
                     onPressed: () {
+                      Provider.of<ReceiverProvider>(context, listen: false).resetProvider();
                       Navigator.of(context).popUntil((route) => route.isFirst);
                     },
                     style: ButtonStyle(
