@@ -33,8 +33,7 @@ class _LeaderboardState extends State<Leaderboard> {
       },
     );
     setState(() {
-      _myFuture =
-          APICalls().getLeaderboard(context.read<UserProvider>().idToken);
+      _myFuture = APICalls().getLeaderboard(context.read<UserProvider>().idToken);
     });
   }
 
@@ -64,13 +63,11 @@ class _LeaderboardState extends State<Leaderboard> {
 
                   var data = snapshot.data['results'] as List;
 
-                  // print(data[0]['profileImage']);
-
                   if (data.length == 1) {
                     Future.delayed(
                         Duration.zero,
-                        () => showSnackbarOnScreen(
-                            context, "Looks like you are the only one here!"));
+                        () =>
+                            showSnackbarOnScreen(context, "Looks like you are the only one here!"));
                   }
                   if (data[0]['uid'] == providerContext.uid) {
                     Future.delayed(
@@ -80,175 +77,111 @@ class _LeaderboardState extends State<Leaderboard> {
                   }
 
                   return Scaffold(
-                      backgroundColor: const Color.fromRGBO(18, 18, 18, 1),
-                      body: CustomMaterialIndicator(
-                        
-                        indicatorBuilder: (context, controller) =>
-                            Image.asset("assets/images/phoenix_74.png"),
-                        onRefresh: () => getLeaderboardUpdates(),
-                        child: SingleChildScrollView(
-                          physics: const AlwaysScrollableScrollPhysics(),
-                          child: SizedBox(
-                            height: MediaQuery.of(context).size.height,
-                            child: SafeArea(
-                                child: Column(
-                              children: [
-                                Container(
-                                  decoration: const BoxDecoration(
-                                    borderRadius: BorderRadius.only(
-                                      bottomRight: Radius.circular(20),
-                                      bottomLeft: Radius.circular(20),
-                                    ),
-                                    gradient: LinearGradient(
-                                      colors: [
-                                        Constants.gradientHigh,
-                                        Constants.gradientLow
-                                      ],
-                                      begin: Alignment.topCenter,
-                                      end: Alignment.bottomCenter,
-                                    ),
+                    backgroundColor: const Color.fromRGBO(18, 18, 18, 1),
+                    body: CustomMaterialIndicator(
+                      indicatorBuilder: (context, controller) =>
+                          Image.asset("assets/images/phoenix_74.png"),
+                      onRefresh: () => getLeaderboardUpdates(),
+                      child: SingleChildScrollView(
+                        physics: const AlwaysScrollableScrollPhysics(),
+                        child: SizedBox(
+                          height: MediaQuery.of(context).size.height,
+                          child: SafeArea(
+                              child: Column(
+                            children: [
+                              Container(
+                                decoration: const BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                    bottomRight: Radius.circular(20),
+                                    bottomLeft: Radius.circular(20),
                                   ),
-                                  padding: const EdgeInsets.all(20.0),
-                                  width: MediaQuery.of(context).size.width,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      InkWell(
-                                        child: const Icon(
-                                          Icons.arrow_back_outlined,
-                                          size: 30,
-                                          color: Colors.black,
-                                        ),
-                                        onTap: () {
-                                          Navigator.pop(context);
-                                        },
+                                  gradient: LinearGradient(
+                                    colors: [Constants.gradientHigh, Constants.gradientLow],
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter,
+                                  ),
+                                ),
+                                padding: const EdgeInsets.all(20.0),
+                                width: MediaQuery.of(context).size.width,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    InkWell(
+                                      child: const Icon(
+                                        Icons.arrow_back_outlined,
+                                        size: 30,
+                                        color: Colors.black,
                                       ),
-                                      const Text(
-                                        "Leaderboard",
-                                        style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 24,
-                                          fontWeight: FontWeight.w700,
-                                        ),
+                                      onTap: () {
+                                        Navigator.pop(context);
+                                      },
+                                    ),
+                                    const Text(
+                                      "Leaderboard",
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 24,
+                                        fontWeight: FontWeight.w700,
                                       ),
-                                      Constants.gap,
-                                      const Text(
-                                        "The leaderboard will be displayed till 5pm until the auction starts",
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w600),
-                                      ),
-                                      const Text(
-                                        "Please refresh the page to update the leaderboard",
-                                        style: TextStyle(
+                                    ),
+                                    Constants.gap,
+                                    const Text(
+                                      "The leaderboard will be displayed till 5pm until the auction starts",
+                                      style: TextStyle(
                                           color: Colors.black,
                                           fontSize: 14,
-                                          fontWeight: FontWeight.w600,
-                                        ),
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                    const Text(
+                                      "Please refresh the page to update the leaderboard",
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w600,
                                       ),
-                                    ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              if (data.isEmpty) const Center(child: Text("No winner's yet")),
+                              Center(
+                                  child: Winner(
+                                image: data[0]['profileImage'],
+                                name: data[0]['fullName'],
+                                points: data[0]['points'],
+                                uid: data[0]['uid'],
+                              )),
+                              Expanded(
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: MediaQuery.of(context).size.width * 0.03,
+                                  ),
+                                  child: ListView.builder(
+                                    itemBuilder: (context, i) => LeaderboardCard(
+                                      name: data[i + 1]['fullName'],
+                                      image: data[i + 1]['profileImage'],
+                                      points: data[i + 1]['points'],
+                                      rank: i + 2,
+                                      uid: data[i + 1]['uid'],
+                                    ),
+                                    itemCount: data.length - 1,
                                   ),
                                 ),
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                if (data.isEmpty)
-                                  const Center(child: Text("No winner's yet")),
-                                Center(
-                                    child: Winner(
-                                  image: data[0]['profileImage'],
-                                  name: data[0]['fullName'],
-                                  points: data[0]['points'],
-                                  uid: data[0]['uid'],
-                                )),
-                                Expanded(
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal:
-                                          MediaQuery.of(context).size.width *
-                                              0.03,
-                                    ),
-                                    child: ListView.builder(
-                                      itemBuilder: (context, i) =>
-                                          LeaderboardCard(
-                                        name: data[i + 1]['fullName'],
-                                        image: data[i + 1]['profileImage'],
-                                        points: data[i + 1]['points'],
-                                        rank: i + 2,
-                                        uid: data[i + 1]['uid'],
-                                      ),
-                                      itemCount: data.length - 1,
-                                    ),
-                                    // child: ListView(
-                                    //   // shrinkWrap: true,
-                                    //   children: [
-                                    //     const SizedBox(
-                                    //       height: 20,
-                                    //     ),
-                                    //     LeaderboardCard(
-                                    //       name: "Mohamed Jaasir",
-                                    //       points: 100,
-                                    //       rank: 2,
-                                    //       image: dummyImage,
-                                    //     ),
-                                    //     LeaderboardCard(
-                                    //       name: "Mohamed Jaasir",
-                                    //       points: 100,
-                                    //       rank: 3,
-                                    //       image: dummyImage,
-                                    //     ),
-                                    //     LeaderboardCard(
-                                    //       name: "Mohamed Jaasir",
-                                    //       points: 100,
-                                    //       rank: 4,
-                                    //       image: dummyImage,
-                                    //     ),
-                                    //     LeaderboardCard(
-                                    //       name: "Siddharth",
-                                    //       points: 100,
-                                    //       rank: 5,
-                                    //       image: dummyImage,
-                                    //     ),
-                                    //     LeaderboardCard(
-                                    //       name: "Mohamed Jaasir",
-                                    //       points: 100,
-                                    //       rank: 6,
-                                    //       image: dummyImage,
-                                    //     ),
-                                    //     LeaderboardCard(
-                                    //       name: "Mohamed Jaasir",
-                                    //       points: 100,
-                                    //       rank: 7,
-                                    //       image: dummyImage,
-                                    //     ),
-                                    //     LeaderboardCard(
-                                    //       name: "Mohamed Jaasir",
-                                    //       points: 100,
-                                    //       rank: 8,
-                                    //       image: dummyImage,
-                                    //     ),
-                                    //   ],
-                                    // ),
-                                    // child: ListView.builder(itemBuilder: (context, index) => LeaderboardCard(),itemCount: ,),
-                                  ),
-                                ),
-                              ],
-                            )),
-                          ),
+                              ),
+                            ],
+                          )),
                         ),
-                      ));
+                      ),
+                    ),
+                  );
                 } else {
-                  // Future.delayed(
-                  //   Duration.zero,
-                  //   () =>
-                  //       showSnackbarOnScreen(context, snapshot.data['message']),
-                  // );
                   return Center(child: Text(snapshot.data['message']));
                 }
               } else {
-                return const Scaffold(body: Text('No data'));
+                return const Scaffold(body: Center(child: Text('No data')));
               }
           }
         });

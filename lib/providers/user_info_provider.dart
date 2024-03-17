@@ -10,7 +10,7 @@ import 'package:intl/intl.dart';
 
 class UserProvider extends ChangeNotifier {
   String userName = "Your Name";
-  String? userCollegeName = "IIIT Kottayam";
+  String userCollegeName = "IIIT Kottayam";
   String? userRollNo = "2021BCS0000";
   String userPhNo = "000000000";
   String? profilePhotoUrl =
@@ -56,6 +56,7 @@ class UserProvider extends ChangeNotifier {
     userPhNo = newUserPhNo;
     userCollegeName = newUserCollegeName;
     fromCollege = false;
+    userRollNo = null;
     notifyListeners();
   }
 
@@ -136,6 +137,12 @@ class UserProvider extends ChangeNotifier {
   Future<Map<String, dynamic>> doATransaction(String to, int amount) async {
     refreshUID(listen: false);
     // refreshIdToken(listen: false);
+    await Future.delayed(
+      const Duration(seconds: 2),
+      () {
+        var s = "";
+      },
+    );
     var response = await APICalls().transactionAPI(
       uid,
       to,
@@ -144,7 +151,6 @@ class UserProvider extends ChangeNotifier {
     );
     print("Response from provider-> $response");
     if (response['success']) {
-      // points = points - amount;
       notifyListeners();
     }
     return response;
@@ -186,8 +192,8 @@ class UserProvider extends ChangeNotifier {
             ));
           }
         }
-        notifyListeners();
       }
+      notifyListeners();
       return {
         'success': res['success'],
         'message': res['message'],
@@ -198,4 +204,9 @@ class UserProvider extends ChangeNotifier {
       'error': res['error'],
     };
   }
+
+  // Future<Map<String, dynamic>> getSearchList() async
+  // {
+
+  // }
 }

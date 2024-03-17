@@ -203,8 +203,7 @@ class APICalls {
       print("Leaderboard Query: $response");
 
       if (response.statusCode == 200) {
-        payload =
-            json.decode(response.toString()) as Map<String, dynamic>;
+        payload = json.decode(response.toString()) as Map<String, dynamic>;
         payload['message'] = 'User data updated for leaderboard';
       }
     } on DioException catch (e) {
@@ -242,8 +241,7 @@ class APICalls {
       print("Feed Query: $response");
 
       if (response.statusCode == 200) {
-        payload =
-            json.decode(response.toString()) as Map<String, dynamic>;
+        payload = json.decode(response.toString()) as Map<String, dynamic>;
         payload['message'] = 'User data updated for transaction';
       }
     } on DioException catch (e) {
@@ -265,4 +263,31 @@ class APICalls {
     }
     return payload;
   }
+
+  // Future<Map<String, dynamic>> getUsers(String query, String idToken) async {
+  //   Map<String, dynamic> payload = {};
+  //   try {
+  //     var response = await BaseClient.dio.get(
+  //       '/user-list/?search-key=$query&num=3',
+  //       options: Options(
+  //         headers: {
+  //           'Authorization': idToken,
+  //         },
+  //       ),
+  //     );
+  //     print(response);
+  //     payload = json.decode(response.toString());
+  //     payload['message'] = "Users fetched";
+  //   } on DioException catch (e) {
+  //     payload['success'] = false;
+  //     if (e.type == DioExceptionType.connectionError) {
+  //       payload['error'] = "Connection Error";
+  //       print("Connection Error in getting users list");
+  //     } else if (e.response!.statusCode == 500) {
+  //       print(e.response!.statusMessage);
+  //       payload['error'] = e.response!.statusMessage;
+  //     }
+  //   }
+  //   return payload;
+  // }
 }

@@ -9,7 +9,7 @@ import '../../providers/user_info_provider.dart';
 import 'letsgo.dart';
 
 class SignUpScreen extends StatefulWidget {
-  static const routeName = '/sign-up-1';
+  static const routeName = '/sign-up';
   const SignUpScreen({super.key});
 
   @override
@@ -37,6 +37,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   bool isChecked = true;
 
   bool popStatus = true;
+  int popCount = 0;
 
   @override
   void initState() {
@@ -54,18 +55,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   void showAppCloseConfirmation(BuildContext context) {
-    final snackBar = SnackBar(
-      content: const Text("Do you want to exit? Confirm and click back"),
+    const snackBar = SnackBar(
+      content: Text("Press back again to exit"),
       backgroundColor: Colors.white,
-      action: SnackBarAction(
-        label: 'Yes',
-        onPressed: () {
-          ScaffoldMessenger.of(context).hideCurrentSnackBar();
-          setState(() {
-            popStatus = true;
-          });
-        },
-      ),
     );
     ScaffoldMessenger.of(context).clearSnackBars();
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -82,7 +74,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
         if (didPop) {
           return;
         }
-        showAppCloseConfirmation(context);
+        popCount += 1;
+        if (popCount == 1) {
+          showAppCloseConfirmation(context);
+          setState(() {
+            popStatus = true;
+          });
+        }
       },
       child: Scaffold(
         body: SafeArea(

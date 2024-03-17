@@ -57,20 +57,22 @@ class _PaymentState extends State<Payment> {
 
   var _myFuture;
 
+  var isProcessing = false;
+
   @override
   void initState() {
     super.initState();
-    // var to_uid = "123457";
-    // Provider.of<ReceiverProvider>(context, listen: false).setUID(to_uid);
+    var to_uid = "123457";
+    Provider.of<ReceiverProvider>(context, listen: false).setUID(to_uid);
     _myFuture = Provider.of<ReceiverProvider>(context, listen: false)
         .setReceiverData(context);
   }
 
   @override
   Widget build(BuildContext context) {
-    var to_uid = ModalRoute.of(context)!.settings.arguments as String;
+    // var to_uid = ModalRoute.of(context)!.settings.arguments as String;
 
-    // var to_uid = "123457";
+    var to_uid = "123457";
 
     // var to_user = {
     //   "uid": "123457",
@@ -111,32 +113,16 @@ class _PaymentState extends State<Payment> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        SizedBox(),
+                        const SizedBox(),
                         Column(
                           children: [
-                            // Icon(
-                            //   Icons.circle,
-                            // size: MediaQuery.of(context).size.width * 0.5,
-                            //   color: Constants.yellowColor,
-                            // ),
-                            // ClipRRect(
-                            //   borderRadius: BorderRadius.circular(
-                            //       MediaQuery.of(context).size.width * 0.33 / 2),
-                            //   child: Image.network(
-                            //     context
-                            //         .read<ReceiverProvider>()
-                            //         .profilePhotoUrl!,
-                            //     height: MediaQuery.of(context).size.width * 0.33,
-                            //     width: MediaQuery.of(context).size.width * 0.33,
-                            //   ),
-                            // ),
                             CircleAvatar(
                               backgroundImage: NetworkImage(
                                 context
                                     .read<ReceiverProvider>()
                                     .profilePhotoUrl!,
                               ),
-                              radius: MediaQuery.of(context).size.width*0.2,
+                              radius: MediaQuery.of(context).size.width * 0.2,
                             ),
                             Constants.gap,
                             Constants.gap,
@@ -149,7 +135,6 @@ class _PaymentState extends State<Payment> {
                               style: const TextStyle(fontSize: 20),
                             ),
                             SizedBox(
-                              // width: 178,
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -167,7 +152,8 @@ class _PaymentState extends State<Payment> {
                                         border: UnderlineInputBorder(),
                                         hintText: '0',
                                       ),
-                                      style: const TextStyle(fontSize: 72, color: Colors.white),
+                                      style: const TextStyle(
+                                          fontSize: 72, color: Colors.white),
                                     ),
                                   ),
                                   const Text(
@@ -182,71 +168,86 @@ class _PaymentState extends State<Payment> {
                             ),
                           ],
                         ),
-                        // SizedBox(
-                        //   width: 120,
-                        //   child: TextFormField(
-                        //     decoration: const InputDecoration(
-                        //         border: OutlineInputBorder(),
-                        //         labelText: 'Add Note'),
-                        //   ),
-                        // ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal:
-                                  MediaQuery.of(context).size.width * 0.05),
-                          child: FilledButton(
-                            onPressed: () async {
-                              if (int.parse(amountController.text) > 0) {
-                                var response = await Provider.of<UserProvider>(
-                                  context,
-                                  listen: false,
-                                ).doATransaction(
-                                  to_uid,
-                                  int.parse(amountController.text),
-                                );
+                        Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal:
+                                      MediaQuery.of(context).size.width * 0.05),
+                              child: FilledButton(
+                                onPressed: isProcessing
+                                    ? null
+                                    : () async {
+                                        if (amountController.text.isNotEmpty &&
+                                            int.parse(amountController.text) >
+                                                0) {
+                                          if (!isProcessing) {
+                                            setState(() {
+                                              isProcessing = true;
+                                            });
+                                          }
+                                          var response =
+                                              await Provider.of<UserProvider>(
+                                            context,
+                                            listen: false,
+                                          ).doATransaction(
+                                            to_uid,
+                                            int.parse(amountController.text),
+                                          );
+                                          setState(() {
+                                            isProcessing = false;
+                                          });
 
-                                if (context.mounted) {
-                                  if (response['success']) {
-                                    Provider.of<ReceiverProvider>(context,
-                                            listen: false)
-                                        .setAmount(
-                                      int.parse(amountController.text),
-                                    );
+                                          if (context.mounted) {
+                                            if (response['success']) {
+                                              Provider.of<ReceiverProvider>(
+                                                      context,
+                                                      listen: false)
+                                                  .setAmount(
+                                                int.parse(
+                                                    amountController.text),
+                                              );
 
-                                    Navigator.of(context).pushReplacementNamed(
-                                        PaymentSuccess.routeName);
-                                  } else {
-                                    dialogBuilder(context, response['message']);
-                                    showSnackbarOnScreen(
-                                        context, response['message']);
-                                  }
-                                }
-                              } else {
-                                showSnackbarOnScreen(
-                                    context, "Amount must be positive!");
-                              }
-                            },
-                            style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                        Constants.redColor),
-                                foregroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                        Constants.whiteColor)),
-                            child: Container(
-                              height: 48,
-                              alignment: Alignment.center,
-                              child: Container(
-                                height: 48,
-                                alignment: Alignment.center,
-                                child: const Text(
-                                  'Continue',
-                                  style: TextStyle(fontSize: 20),
-                                  textAlign: TextAlign.center,
+                                              Navigator.of(context)
+                                                  .pushReplacementNamed(
+                                                      PaymentSuccess.routeName);
+                                            } else {
+                                              dialogBuilder(
+                                                  context, response['message']);
+                                              showSnackbarOnScreen(
+                                                  context, response['message']);
+                                            }
+                                          }
+                                        } else {
+                                          showSnackbarOnScreen(context,
+                                              "Amount must be positive!");
+                                        }
+                                      },
+                                // style: ButtonStyle(
+                                //     backgroundColor:
+                                //         MaterialStateProperty.all<Color>(
+                                //             Constants.redColor),
+                                //     foregroundColor:
+                                //         MaterialStateProperty.all<Color>(
+                                //             Constants.whiteColor)),
+                                child: Container(
+                                  height: 48,
+                                  alignment: Alignment.center,
+                                  child: Container(
+                                    height: 48,
+                                    alignment: Alignment.center,
+                                    child: const Text(
+                                      'Continue',
+                                      style: TextStyle(fontSize: 20),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
+                            if (isProcessing) const CircularProgressIndicator(),
+                          ],
                         ),
                       ],
                     ),

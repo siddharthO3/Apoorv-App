@@ -196,8 +196,9 @@ class _PointsScreenState extends State<PointsScreen> {
                                                   .transactions.isNotEmpty
                                               ? () {
                                                   Navigator.of(context)
-                                                      .pushNamed(AllTransactions
-                                                          .routeName);
+                                                      .restorablePushNamed(
+                                                          AllTransactions
+                                                              .routeName);
                                                 }
                                               : null, // Disable the button if there are no transactions
                                           style: const ButtonStyle(),

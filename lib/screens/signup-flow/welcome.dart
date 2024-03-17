@@ -17,6 +17,7 @@ class WelcomeScreen extends StatefulWidget {
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
   bool popStatus = true;
+  int popCount = 0;
 
   @override
   void initState() {
@@ -32,18 +33,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   }
 
   void showAppCloseConfirmation(BuildContext context) {
-    final snackBar = SnackBar(
-      content: const Text("Do you want to exit? Confirm and click back"),
+    const snackBar = SnackBar(
+      content: Text("Press back again to exit"),
       backgroundColor: Colors.white,
-      action: SnackBarAction(
-        label: 'Yes',
-        onPressed: () {
-          ScaffoldMessenger.of(context).hideCurrentSnackBar();
-          setState(() {
-            popStatus = true;
-          });
-        },
-      ),
     );
     ScaffoldMessenger.of(context).clearSnackBars();
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -58,7 +50,13 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         if (didPop) {
           return;
         }
-        showAppCloseConfirmation(context);
+        popCount += 1;
+        if (popCount == 1) {
+          showAppCloseConfirmation(context);
+          setState(() {
+            popStatus = true;
+          });
+        }
       },
       child: Scaffold(
         body: Padding(

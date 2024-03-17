@@ -2,6 +2,7 @@ import 'package:apoorv_app/providers/user_info_provider.dart';
 import 'package:flutter/material.dart';
 
 import 'package:apoorv_app/constants.dart';
+import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
 class LeaderboardCard extends StatelessWidget {
@@ -101,15 +102,18 @@ class LeaderboardCard extends StatelessWidget {
                   CircleAvatar(
                     radius: 22,
                     foregroundImage: NetworkImage(image ?? ''),
-                    
                   ),
                 ],
               ),
-              Text(
-                name!,
-                style: TextStyle(
-                  fontSize: 16,
-                  color: styleColor[color],
+              const SizedBox(width: 16),
+              Expanded(
+                child: Text(
+                  name!,
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: styleColor[color],
+                  ),
+                  softWrap: true,
                 ),
               ),
               Row(

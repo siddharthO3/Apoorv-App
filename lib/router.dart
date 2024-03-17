@@ -42,11 +42,9 @@ class _RoutingState extends State<Routing> {
     if (!usrResponse['success']) {
       return 1;
     } else if (usrResponse['success']) {
-      
       // print(context.read<UserProvider>().);
       var prov = Provider.of<UserProvider>(context, listen: false);
       if (usrResponse['fromCollege']) {
-
         prov.changeSameCollegeDetails(
           newUserName: usrResponse['fullName'],
           newUserRollNo: usrResponse['rollNumber'],
@@ -59,19 +57,17 @@ class _RoutingState extends State<Routing> {
         // prov.refreshUID();
         // prov.refreshIdToken();
       } else {
-
         prov.changeOtherCollegeDetails(
           newUserName: usrResponse['fullName'],
           newUserCollegeName: usrResponse['collegeName'],
           newUserPhNo: usrResponse['phone'],
         );
-
       }
-        prov.updateProfilePhoto(usrResponse['photoUrl']);
-        prov.updatePoints(usrResponse['points']);
-        prov.updateEmail(usrResponse['email']);
-        prov.refreshUID();
-        prov.refreshIdToken();
+      prov.updateProfilePhoto(usrResponse['photoUrl']);
+      prov.updatePoints(usrResponse['points']);
+      prov.updateEmail(usrResponse['email']);
+      prov.refreshUID();
+      prov.refreshIdToken();
 
       return 2;
     }

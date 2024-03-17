@@ -1,6 +1,7 @@
 import 'package:apoorv_app/screens/homepage/Maps/maps.dart';
 import 'package:apoorv_app/screens/homepage/Profile/profile_2.dart';
 
+import '../../base_client.dart';
 import '../../constants.dart';
 import 'points/points.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,7 @@ class _HomePageState extends State<HomePage> {
   int currentPageIndex = 0;
 
   bool popStatus = true;
+  int popCount = 0;
 
   @override
   void initState() {
@@ -33,39 +35,36 @@ class _HomePageState extends State<HomePage> {
   }
 
   void showAppCloseConfirmation(BuildContext context) {
-    final snackBar = SnackBar(
-      content: const Text("Do you want to exit? Confirm and click back"),
+    const snackBar = SnackBar(
+      content: Text("Press back again to exit"),
       backgroundColor: Colors.white,
-      action: SnackBarAction(
-        label: 'Yes',
-        onPressed: () {
-          ScaffoldMessenger.of(context).hideCurrentSnackBar();
-          setState(() {
-            popStatus = true;
-          });
-        },
-      ),
     );
     ScaffoldMessenger.of(context).clearSnackBars();
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
   List screens = [
-    ()=> const FeedScreen(),
-    ()=> const MapsScreen(),
-    ()=> PointsScreen(stream: st.stream),
-    ()=> const Profile2Screen(),
+    () => const FeedScreen(),
+    () => const MapsScreen(),
+    () => PointsScreen(stream: st.stream),
+    () => const Profile2Screen(),
   ];
   @override
   Widget build(BuildContext context) {
-    // BaseClient.printAuthTokenForTest();
+    BaseClient.printAuthTokenForTest();
     return PopScope(
       canPop: popStatus,
       onPopInvoked: (bool didPop) async {
         if (didPop) {
           return;
         }
-        showAppCloseConfirmation(context);
+        popCount += 1;
+        if (popCount == 1) {
+          showAppCloseConfirmation(context);
+          setState(() {
+            popStatus = true;
+          });
+        }
       },
       child: Scaffold(
         resizeToAvoidBottomInset: false,

@@ -35,6 +35,8 @@ Future<void> main() async {
   );
 
   BaseClient(dotenv.get('BASE_URL'));
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp]);
   // FirebaseAuth.instance.authStateChanges().listen((User? user) {
   //   if (user == null) {
   //     print('User is currently signed out!');
@@ -71,7 +73,6 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-        // theme: ThemeData.dark(useMaterial3: true).copyWith(),
         theme: ThemeData(
           fontFamily: 'Raleway',
           brightness: Brightness.dark,
@@ -104,7 +105,7 @@ class MyApp extends StatelessWidget {
               bodyLarge: TextStyle(color: Colors.black),
               labelLarge: TextStyle(fontWeight: FontWeight.bold)),
         ),
-        restorationScopeId: "root",
+        // restorationScopeId: "root",
         // theme: ThemeData(
         //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         //   useMaterial3: true,

@@ -64,7 +64,7 @@ class ProfileScreen extends StatelessWidget {
                                   child: SizedBox(
                                     width: double.infinity,
                                     child: Text(
-                                      "Points Balance: ${context.read<UserProvider>().points}",
+                                      "Apoorv Coins: ${context.read<UserProvider>().points}",
                                       textAlign: TextAlign.center,
                                       // style: TextStyle(fontSize: 16),
                                     ),
@@ -99,28 +99,34 @@ class ProfileScreen extends StatelessWidget {
                     Text(providerContext.userPhNo,
                         style: const TextStyle(
                             color: Constants.blackColor, fontSize: 16)),
-                    // if (providerContext.fromCollege)
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text('Roll No',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                                color: Constants.blackColor)),
-                        Text(providerContext.userRollNo!,
-                            style: const TextStyle(
-                                color: Constants.blackColor, fontSize: 16)),
-                      ],
-                    ),
+                    if (providerContext.fromCollege) ...[
+                      const Text('Roll No',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                              color: Constants.blackColor)),
+                      Text(providerContext.userRollNo!,
+                          style: const TextStyle(
+                              color: Constants.blackColor, fontSize: 16)),
+                    ],
                     const Text('College',
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
                             color: Constants.blackColor)),
-                    Text(providerContext.userCollegeName!,
+                    Text(providerContext.userCollegeName,
                         style: const TextStyle(
                             color: Constants.blackColor, fontSize: 16)),
+                    if (!providerContext.fromCollege) ...[
+                      const Text('',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                              color: Constants.blackColor)),
+                      const Text('',
+                          style: TextStyle(
+                              color: Constants.blackColor, fontSize: 16)),
+                    ],
                   ]),
             ),
             Constants.gap,

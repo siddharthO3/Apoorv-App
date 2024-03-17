@@ -126,13 +126,6 @@ class _Profile2ScreenState extends State<Profile2Screen> {
                                                   .cover, // You might want to add this to cover the entire circular area
                                             ),
                                           ),
-
-                                          // Icon(
-                                          //   Icons.account_circle_rounded,
-                                          //   size: MediaQuery.of(ctx).size.width *
-                                          //       0.33,
-                                          //   color: Constants.greenColor,
-                                          // ),
                                           SizedBox(
                                             width:
                                                 MediaQuery.of(ctx).size.width *
@@ -156,7 +149,7 @@ class _Profile2ScreenState extends State<Profile2Screen> {
                                                   child: SizedBox(
                                                     width: double.infinity,
                                                     child: Text(
-                                                      "Points Balance: ${providerContext.points}",
+                                                      "Apoorv Coins: ${providerContext.points}",
                                                       textAlign:
                                                           TextAlign.center,
                                                       style: const TextStyle(
@@ -196,47 +189,38 @@ class _Profile2ScreenState extends State<Profile2Screen> {
                                         style: const TextStyle(
                                             color: Constants.blackColor,
                                             fontSize: 16)),
-                                    if (providerContext.fromCollege)
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          const Text('Roll No',
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 16,
-                                                  color: Constants.blackColor)),
-                                          Text(providerContext.userRollNo!,
-                                              style: const TextStyle(
-                                                  color: Constants.blackColor,
-                                                  fontSize: 16)),
-                                        ],
-                                      ),
+                                    if (providerContext.fromCollege) ...[
+                                      const Text('Roll No',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16,
+                                              color: Constants.blackColor)),
+                                      Text(providerContext.userRollNo!,
+                                          style: const TextStyle(
+                                            color: Constants.blackColor,
+                                            fontSize: 16,
+                                          )),
+                                    ],
                                     const Text('College',
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             fontSize: 16,
                                             color: Constants.blackColor)),
-                                    Text(providerContext.userCollegeName!,
+                                    Text(providerContext.userCollegeName,
                                         style: const TextStyle(
                                             color: Constants.blackColor,
                                             fontSize: 16)),
-                                    if (!providerContext.fromCollege)
-                                      const Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text('',
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 16,
-                                                  color: Constants.blackColor)),
-                                          Text('',
-                                              style: TextStyle(
-                                                  color: Constants.blackColor,
-                                                  fontSize: 16)),
-                                        ],
-                                      ),
+                                    if (!providerContext.fromCollege) ...[
+                                      const Text('',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16,
+                                              color: Constants.blackColor)),
+                                      const Text('',
+                                          style: TextStyle(
+                                              color: Constants.blackColor,
+                                              fontSize: 16)),
+                                    ],
                                   ]),
                             ),
                             Constants.gap,
