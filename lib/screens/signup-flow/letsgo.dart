@@ -60,18 +60,70 @@ class _LetsGoPageState extends State<LetsGoPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Image.asset('assets/images/people_800.png'),
+              Expanded(child: Image.asset('assets/images/people_800.png')),
               const Text(
-                "Let's Explore The \nApp",
+                "Let's Explore \nThe App",
                 style: TextStyle(
                     fontSize: 36,
                     color: Constants.yellowColor,
                     fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
-              const Text(
-                  "Lorem ipsum dolor sit amet consectetur. A gravida eros aliquam sed condimentum. Etiam vitae sit scelerisque a eget integer. Quis in dolor amet velit pretium sed vestibulum. Urna ullamcorper eu egestas egestas amet id.",
-                  textAlign: TextAlign.center),
+              const Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Your one-stop shop for everything Apoorv!\n"
+                    "",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 17,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  Text(
+                    "\u2022  Earn points by playing games",
+                    textAlign: TextAlign.start,
+                    style: TextStyle(
+                      fontSize: 16,
+                    ),
+                  ),
+                  Text(
+                    "\u2022  Exchange points with friends and climb up the\n "
+                    "   leaderboard",
+                    style: TextStyle(
+                      fontSize: 16,
+                    ),
+                    textAlign: TextAlign.start,
+                  ),
+                  Text(
+                    "\u2022  Explore the campus with an interactive virtual\n"
+                    "   Map",
+                    style: TextStyle(
+                      fontSize: 16,
+                    ),
+                    textAlign: TextAlign.start,
+                  ),
+                  Text(
+                    "\u2022 Stay updated with the latest Apoorv related\n"
+                    "   news and event schedules",
+                    style: TextStyle(
+                      fontSize: 16,
+                    ),
+                    textAlign: TextAlign.start,
+                  ),
+                  Text(
+                    "\n"
+                    "Made with ❤ by team apoorv"
+                    "\n",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
               FilledButton(
                 onPressed: () async {
                   Navigator.of(context)
@@ -96,6 +148,7 @@ class _LetsGoPageState extends State<LetsGoPage> {
                   ),
                 ),
               ),
+              Constants.gap,
             ],
           ),
         ),

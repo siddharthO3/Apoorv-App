@@ -127,7 +127,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             TextFormField(
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return "Only Letters!";
+                                    return "Full name is required";
                                   }
                                   return null;
                                 },
@@ -147,7 +147,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 // TODO: Fix phone number length, currently max
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return "Only Numbers!";
+                                    return "Phone number is required";
+                                  } else if (value.length != 10) {
+                                    return "Phone number must be exactly 10 digits long";
                                   }
                                   return null;
                                 },

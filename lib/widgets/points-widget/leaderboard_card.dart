@@ -28,14 +28,18 @@ class LeaderboardCard extends StatelessWidget {
 
     String showRank = "";
 
-    if (rank! % 10 == 1) {
-      showRank = "${rank}st";
-    } else if (rank! % 10 == 2) {
-      showRank = "${rank}nd";
-    } else if (rank! % 10 == 3) {
-      showRank = "${rank}rd";
-    } else {
+    if ((rank! / 10) % 10 == 1) {
       showRank = "${rank}th";
+    } else {
+      if (rank! % 10 == 1) {
+        showRank = "${rank}st";
+      } else if (rank! % 10 == 2) {
+        showRank = "${rank}nd";
+      } else if (rank! % 10 == 3) {
+        showRank = "${rank}rd";
+      } else {
+        showRank = "${rank}th";
+      }
     }
 
     Map<Color, Color> styleColor = {

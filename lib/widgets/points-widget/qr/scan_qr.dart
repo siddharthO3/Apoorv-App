@@ -11,8 +11,8 @@ class ScanQR extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // ShowCentreDialog(context).scanQRDialog();
-        Navigator.of(context).pushNamed(Payment.routeName);
+        ShowCentreDialog(context).scanQRDialog();
+        // Navigator.of(context).pushNamed(Payment.routeName);
       },
       child: Card(
         color: Constants.yellowColor,

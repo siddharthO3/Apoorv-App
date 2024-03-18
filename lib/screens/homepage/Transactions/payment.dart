@@ -65,8 +65,8 @@ class _PaymentState extends State<Payment> {
     if (context.read<ReceiverProvider>().fromSearch) {
       _myFuture = Future.value({'success': true});
     } else {
-      var to_uid = "123457";
-      Provider.of<ReceiverProvider>(context, listen: false).setUID(to_uid);
+      // var to_uid = "123457";
+      // Provider.of<ReceiverProvider>(context, listen: false).setUID(to_uid);
       _myFuture = Provider.of<ReceiverProvider>(context, listen: false)
           .setReceiverData(context);
     }
