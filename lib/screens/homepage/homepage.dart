@@ -52,7 +52,7 @@ class _HomePageState extends State<HomePage> {
 
   List screens = [
     const FeedScreen(),
-    const MapsScreen(),
+     MapsScreen(),
     PointsScreen(),
     const ProfileScreen(),
   ];
