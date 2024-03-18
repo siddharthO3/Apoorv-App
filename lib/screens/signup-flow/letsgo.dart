@@ -17,7 +17,7 @@ class LetsGoPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Image.asset('assets/images/people_800.png'),
+            Expanded(child: Image.asset('assets/images/people_800.png')),
             const Text(
               "Let's Explore The \nApp",
               style: TextStyle(
@@ -26,7 +26,7 @@ class LetsGoPage extends StatelessWidget {
                   fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
-            Column(
+            const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
@@ -39,14 +39,14 @@ class LetsGoPage extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
                 Text(
-                  "-  Earn points by playing games",
+                  "\u2022  Earn points by playing games",
                   textAlign: TextAlign.start,
                   style: TextStyle(
                     fontSize: 16,
                   ),
                 ),
                 Text(
-                  "-  Exchange points with friends and climb up the\n "
+                  "\u2022  Exchange points with friends and climb up the\n "
                   "   leaderboard",
                   style: TextStyle(
                     fontSize: 16,
@@ -54,7 +54,7 @@ class LetsGoPage extends StatelessWidget {
                   textAlign: TextAlign.start,
                 ),
                 Text(
-                  "-  Explore the campus with an interactive virtual\n"
+                  "\u2022  Explore the campus with an interactive virtual\n"
                   "   Map",
                   style: TextStyle(
                     fontSize: 16,
@@ -62,9 +62,9 @@ class LetsGoPage extends StatelessWidget {
                   textAlign: TextAlign.start,
                 ),
                 Text(
-                  "-  Stay updated with the latest Apoorv related\n"
+                  "\u2022 Stay updated with the latest Apoorv related\n"
                   "   news and event schedules",
-                 style: TextStyle(
+                  style: TextStyle(
                     fontSize: 16,
                   ),
                   textAlign: TextAlign.start,
@@ -83,7 +83,8 @@ class LetsGoPage extends StatelessWidget {
             ),
             FilledButton(
               onPressed: () {
-                Navigator.popUntil(context, ModalRoute.withName(WelcomeScreen.routeName));
+                Navigator.popUntil(
+                    context, ModalRoute.withName(WelcomeScreen.routeName));
                 Navigator.of(context).pushNamed(HomePage.routeName);
               },
               style: ButtonStyle(
@@ -101,6 +102,7 @@ class LetsGoPage extends StatelessWidget {
                 ),
               ),
             ),
+            Constants.gap,
           ],
         ),
       ),
