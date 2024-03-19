@@ -3,48 +3,49 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../../constants.dart';
 
+Future<void> dialogBuilder(BuildContext context, {String? dialog, Function? onFailedPayment}) {
+  return showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: const Text(
+          'Payment Failed',
+          style: TextStyle(
+            color: Constants.blackColor,
+            fontWeight: FontWeight.bold,
+          ),
+          textAlign: TextAlign.center,
+        ),
+        backgroundColor: Constants.yellowColor,
+        actionsAlignment: MainAxisAlignment.center,
+        actions: <Widget>[
+          TextButton(
+            style: TextButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                textStyle: Theme.of(context).textTheme.labelLarge,
+                backgroundColor: Constants.blackColor),
+            child: const Text(
+              'Try Again',
+              style: TextStyle(color: Constants.whiteColor),
+            ),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
+
 class Payment extends StatelessWidget {
   static const routeName = '/Payment';
   const Payment({super.key});
 
   @override
   Widget build(BuildContext context) {
-    Future<void> dialogBuilder(BuildContext context) {
-      return showDialog<void>(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text(
-              'Payment Failed',
-              style: TextStyle(
-                color: Constants.blackColor,
-                fontWeight: FontWeight.bold,
-              ),
-              textAlign: TextAlign.center,
-            ),
-            backgroundColor: Constants.yellowColor,
-            actionsAlignment: MainAxisAlignment.center,
-            actions: <Widget>[
-              TextButton(
-                style: TextButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    textStyle: Theme.of(context).textTheme.labelLarge,
-                    backgroundColor: Constants.blackColor),
-                child: const Text(
-                  'Try Again',
-                  style: TextStyle(color: Constants.whiteColor),
-                ),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          );
-        },
-      );
-    }
 
     return Scaffold(
       appBar: AppBar(

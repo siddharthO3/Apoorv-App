@@ -7,7 +7,6 @@ import 'package:apoorv_app/screens/shopkeeper/shopkeeper_points.dart';
 import 'package:apoorv_app/screens/shopkeeper/shopkeeper_profile.dart';
 import 'package:apoorv_app/screens/shopkeeper/shopkeeper_signup.dart';
 import 'package:apoorv_app/screens/signup-flow/letsgo.dart';
-import 'package:apoorv_app/widgets/Maps-Page/Landing_page.dart';
 import 'package:apoorv_app/widgets/provider/shopkeeper_info_provider.dart';
 import 'package:apoorv_app/widgets/provider/user_info_provider.dart';
 import 'package:provider/provider.dart';

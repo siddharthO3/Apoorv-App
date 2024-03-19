@@ -81,7 +81,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         child: FilledButton.icon(
                           onPressed: () => Navigator.of(context)
                               .restorablePushReplacementNamed(
-                                  SignUpScreen.routeName),
+                              SignUpScreen.routeName),
                           style: ButtonStyle(
                               backgroundColor: MaterialStateProperty.all<Color>(
                                   Colors.transparent)),
@@ -109,7 +109,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         child: IconButton(
                             onPressed: () => Navigator.of(context)
                                 .restorablePushReplacementNamed(
-                                    ShopkeeperSignupScreen.routeName),
+                                ShopkeeperSignupScreen.routeName),
                             icon: const Icon(Icons.shop)),
                       ),
                     ],

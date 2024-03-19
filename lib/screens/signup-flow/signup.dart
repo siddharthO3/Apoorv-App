@@ -1,17 +1,13 @@
-import '../../../constants.dart';
-import '../homepage/homepage.dart';
-import 'package:provider/provider.dart';
-
-import '../../constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-import '../../widgets/provider/user_info_provider.dart';
+import 'package:provider/provider.dart';
+import 'package:apoorv_app/widgets/provider/user_info_provider.dart';
+import '../../../constants.dart';
 import 'letsgo.dart';
 
 class SignUpScreen extends StatefulWidget {
   static const routeName = '/sign-up-1';
-  const SignUpScreen({super.key});
+  const SignUpScreen({Key? key}) : super(key: key);
 
   @override
   State<SignUpScreen> createState() => _SignUpScreenState();
@@ -19,13 +15,13 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> with RestorationMixin {
   final RestorableTextEditingController userNameController =
-  RestorableTextEditingController();
+      RestorableTextEditingController();
   final RestorableTextEditingController userPhNoController =
-  RestorableTextEditingController();
+      RestorableTextEditingController();
   final RestorableTextEditingController userRollNoController =
-  RestorableTextEditingController();
+      RestorableTextEditingController();
   final RestorableTextEditingController userCollegeNameController =
-  RestorableTextEditingController();
+      RestorableTextEditingController();
 
   final _formKey = GlobalKey<FormState>();
 
@@ -57,7 +53,7 @@ class _SignUpScreenState extends State<SignUpScreen> with RestorationMixin {
   }
 
   void showAppCloseConfirmation(BuildContext context) {
-    final snackBar = SnackBar(
+    final snackBar = const SnackBar(
       content: Text("Press back again to exit"),
       backgroundColor: Colors.white,
     );
@@ -73,8 +69,8 @@ class _SignUpScreenState extends State<SignUpScreen> with RestorationMixin {
         if (didPop) {
           return;
         }
-        count+=1;
-        if (count==1){
+        count += 1;
+        if (count == 1) {
           showAppCloseConfirmation(context);
           setState(() {
             popStatus = true;
@@ -82,19 +78,6 @@ class _SignUpScreenState extends State<SignUpScreen> with RestorationMixin {
         }
       },
       child: Scaffold(
-        // appBar: AppBar(
-        //     centerTitle: true,
-        //     title: RichText(
-        //       text: const TextSpan(
-        //         children: [
-        //           TextSpan(text: 'Stage '),
-        //           TextSpan(
-        //               text: ' 1', style: TextStyle(color: Constants.redColor)),
-        //           TextSpan(text: ' of 3'),
-        //         ],
-        //         style: TextStyle(fontSize: 24),
-        //       ),
-        //     )),
         body: SafeArea(
           child: Padding(
             padding: EdgeInsets.symmetric(
@@ -137,74 +120,79 @@ class _SignUpScreenState extends State<SignUpScreen> with RestorationMixin {
                         child: Column(
                           children: [
                             TextFormField(
-                                controller: userNameController.value,
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return "Only Letters!";
-                                  }
-                                  return null;
-                                },
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(16)),
-                                  filled: true,
-                                  fillColor: Constants.yellowColor,
-                                  hintText: "Full Name",
-                                  hintStyle:
-                                  const TextStyle(color: Colors.black),
-                                )),
+                              controller: userNameController.value,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return "Full name is required";
+                                }
+                                return null;
+                              },
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(16)),
+                                filled: true,
+                                fillColor: Constants.yellowColor,
+                                hintText: "Full Name",
+                                hintStyle:
+                                    const TextStyle(color: Colors.black),
+                              ),
+                            ),
                             Constants.gap,
                             TextFormField(
-                                controller: userPhNoController.value,
-                                // TODO: Fix phone number length, currently max
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return "Only Numbers!";
-                                  }
-                                  return null;
-                                },
-                                keyboardType: TextInputType.phone,
-                                inputFormatters: [
-                                  LengthLimitingTextInputFormatter(10),
-                                  FilteringTextInputFormatter.digitsOnly,
-                                ],
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(16)),
-                                  filled: true,
-                                  fillColor: Constants.yellowColor,
-                                  hintText: 'Phone Number',
-                                  hintStyle:
-                                  const TextStyle(color: Colors.black),
-                                )),
+                              controller: userPhNoController.value,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return "Phone number is required";
+                                } else if (value.length != 10) {
+                                  return "Phone number must be exactly 10 digits long";
+                                }
+                                return null;
+                              },
+                              keyboardType: TextInputType.phone,
+                              inputFormatters: [
+                                LengthLimitingTextInputFormatter(10),
+                                FilteringTextInputFormatter.digitsOnly,
+                              ],
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(16)),
+                                filled: true,
+                                fillColor: Constants.yellowColor,
+                                hintText: 'Phone Number',
+                                hintStyle:
+                                    const TextStyle(color: Colors.black),
+                              ),
+                            ),
                             Constants.gap,
                             if (isChecked.value)
                               Column(
                                 children: [
                                   TextFormField(
-                                      controller: userRollNoController.value,
-                                      validator: (value) {
-                                        if (value == null ||
-                                            value.isEmpty ||
-                                            !RegExp(r"(2020|2021|2022|2023)(bcs|bec|bcy|bds)0\d{3}")
-                                                .hasMatch(
-                                                value.toLowerCase())) {
-                                          return "You know the format";
-                                        }
-                                        return null;
-                                      },
-                                      decoration: InputDecoration(
-                                        border: OutlineInputBorder(
-                                            borderSide:
-                                            const BorderSide(width: 50),
-                                            borderRadius:
-                                            BorderRadius.circular(16)),
-                                        filled: true,
-                                        fillColor: Constants.yellowColor,
-                                        hintText: 'Roll Number',
-                                        hintStyle: const TextStyle(
-                                            color: Colors.black),
-                                      )),
+                                    controller: userRollNoController.value,
+                                    validator: (value) {
+                                      if (value == null ||
+                                          value.isEmpty ||
+                                          !RegExp(
+                                                  r"(2020|2021|2022|2023)(bcs|bec|bcy|bds)0\d{3}")
+                                              .hasMatch(
+                                                  value.toLowerCase())) {
+                                        return "You know the format";
+                                      }
+                                      return null;
+                                    },
+                                    decoration: InputDecoration(
+                                      border: OutlineInputBorder(
+                                          borderSide:
+                                              const BorderSide(width: 50),
+                                          borderRadius:
+                                              BorderRadius.circular(16)),
+                                      filled: true,
+                                      fillColor: Constants.yellowColor,
+                                      hintText: 'Roll Number',
+                                      hintStyle: const TextStyle(
+                                          color: Colors.black),
+                                    ),
+                                  ),
                                   Constants.gap,
                                 ],
                               ),
@@ -212,24 +200,25 @@ class _SignUpScreenState extends State<SignUpScreen> with RestorationMixin {
                               Column(
                                 children: [
                                   TextFormField(
-                                      controller:
-                                      userCollegeNameController.value,
-                                      validator: (value) {
-                                        if (value == null || value.isEmpty) {
-                                          return "Fill your college name!";
-                                        }
-                                        return null;
-                                      },
-                                      decoration: InputDecoration(
-                                        border: OutlineInputBorder(
-                                            borderRadius:
-                                            BorderRadius.circular(16)),
-                                        filled: true,
-                                        fillColor: Constants.yellowColor,
-                                        hintText: "College Name",
-                                        hintStyle: const TextStyle(
-                                            color: Colors.black),
-                                      )),
+                                    controller:
+                                        userCollegeNameController.value,
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return "Fill your college name!";
+                                      }
+                                      return null;
+                                    },
+                                    decoration: InputDecoration(
+                                      border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(16)),
+                                      filled: true,
+                                      fillColor: Constants.yellowColor,
+                                      hintText: "College Name",
+                                      hintStyle: const TextStyle(
+                                          color: Colors.black),
+                                    ),
+                                  ),
                                   Constants.gap,
                                 ],
                               ),
@@ -249,49 +238,46 @@ class _SignUpScreenState extends State<SignUpScreen> with RestorationMixin {
                                     },
                                   ),
                                 ),
-                                const Text(
-                                    style: TextStyle(fontSize: 17),
-                                    "From IIIT Kottayam"),
+                                Text(
+                                  "From IIIT Kottayam",
+                                  style: TextStyle(fontSize: 17),
+                                ),
                               ],
                             ),
                             Constants.gap,
                             FilledButton(
                               onPressed: () {
-                                // context.read<UserProvider>().changeUserName(newUserName: newUserName)
                                 if (_formKey.currentState!.validate()) {
                                   userProvider.fromCollege = isChecked.value;
                                   if (isChecked.value) {
                                     userProvider.changeSameCollegeDetails(
                                         newUserName:
-                                        userNameController.value.text,
+                                            userNameController.value.text,
                                         newUserRollNo:
-                                        userRollNoController.value.text,
+                                            userRollNoController.value.text,
                                         newUserPhNo:
-                                        userPhNoController.value.text);
+                                            userPhNoController.value.text);
                                   } else {
                                     userProvider.changeOtherCollegeDetails(
                                         newUserName:
-                                        userNameController.value.text,
+                                            userNameController.value.text,
                                         newUserCollegeName:
-                                        userCollegeNameController
-                                            .value.text,
+                                            userCollegeNameController
+                                                .value.text,
                                         newUserPhNo:
-                                        userPhNoController.value.text);
+                                            userPhNoController.value.text);
                                   }
-                                  // ScaffoldMessenger.of(context).showSnackBar(
-                                  //   const SnackBar(content: Text('Logging In')),
-                                  //   );
-                                  Navigator.of(context).restorablePushNamed(
-                                      LetsGoPage.routeName);
+                                  Navigator.of(context)
+                                      .restorablePushNamed(LetsGoPage.routeName);
                                 }
                               },
                               style: ButtonStyle(
                                   backgroundColor:
-                                  MaterialStateProperty.all<Color>(
-                                      Constants.redColor),
+                                      MaterialStateProperty.all<Color>(
+                                          Constants.redColor),
                                   foregroundColor:
-                                  MaterialStateProperty.all<Color>(
-                                      Colors.white)),
+                                      MaterialStateProperty.all<Color>(
+                                          Colors.white)),
                               child: Container(
                                 height: 48,
                                 alignment: Alignment.center,
@@ -319,13 +305,11 @@ class _SignUpScreenState extends State<SignUpScreen> with RestorationMixin {
             }),
           ),
         ),
-        // ),
       ),
     );
   }
 
   @override
-  // TODO: implement restorationId
   String? get restorationId => "signupscreen";
 
   @override
