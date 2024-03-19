@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../../../constants.dart';
 
@@ -37,12 +36,10 @@ class FeedList extends StatelessWidget {
               leading: Image.asset("assets/images/Apoorv.png"),
               title: Text(
                 body,
-                style: GoogleFonts.raleway(
-                  textStyle: TextStyle(
-                    color: txtColor,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w700,
-                  ),
+                style: TextStyle(
+                  color: txtColor,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w700,
                 ),
               ),
             ),
@@ -65,12 +62,10 @@ class FeedList extends StatelessWidget {
               leading: Image.asset("assets/images/Apoorv.png"),
               title: Text(
                 body,
-                style: GoogleFonts.raleway(
-                  textStyle: TextStyle(
-                    color: txtColor,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w700,
-                  ),
+                style: TextStyle(
+                  color: txtColor,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w700,
                 ),
               ),
             ),
@@ -91,7 +86,7 @@ class FeedList extends StatelessWidget {
                   height: 290,
                   margin: const EdgeInsets.only(
                     bottom: 20,
-                ),
+                  ),
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       image: image!.image,

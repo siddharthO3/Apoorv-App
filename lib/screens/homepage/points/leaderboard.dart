@@ -5,7 +5,6 @@ import '../../../widgets/points-widget/leaderboard_card.dart';
 import 'package:apoorv_app/constants.dart';
 import '../../../widgets/points-widget/winner.dart';
 import '../../../utils/dummy_data/Leader_board_data.dart';
-import '../../../utils/Models/Linput.dart';
 
 final List data = ldata;
 

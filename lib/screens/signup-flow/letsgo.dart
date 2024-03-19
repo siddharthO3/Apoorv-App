@@ -1,5 +1,4 @@
 import 'package:apoorv_app/screens/homepage/homepage.dart';
-import 'package:apoorv_app/screens/signup-flow/signup.dart';
 import 'package:apoorv_app/screens/signup-flow/welcome.dart';
 import 'package:flutter/material.dart';
 import '../../../constants.dart';

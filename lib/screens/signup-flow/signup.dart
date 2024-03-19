@@ -1,6 +1,3 @@
-import 'package:apoorv_app/screens/homepage/homepage.dart';
-import 'package:apoorv_app/screens/signup-flow/signup.dart';
-import 'package:apoorv_app/screens/signup-flow/welcome.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -56,7 +53,7 @@ class _SignUpScreenState extends State<SignUpScreen> with RestorationMixin {
   }
 
   void showAppCloseConfirmation(BuildContext context) {
-    final snackBar = SnackBar(
+    final snackBar = const SnackBar(
       content: Text("Press back again to exit"),
       backgroundColor: Colors.white,
     );
