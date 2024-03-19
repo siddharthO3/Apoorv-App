@@ -4,17 +4,21 @@ import 'package:flutter/material.dart';
 
 import '../../../utils/dummy_data/mock_data.dart';
 
-class MapsScreen extends StatelessWidget {
+class MapsScreen extends StatefulWidget {
   MapsScreen({
     super.key,
   });
 
+  @override
+  State<MapsScreen> createState() => _MapsScreenState();
+}
+
+class _MapsScreenState extends State<MapsScreen> {
   final List Dummy = dummy;
 
   @override
   Widget build(BuildContext context) {
     return Material(
-      child: Expanded(
         child: ListView.builder(
             itemCount: Dummy.length,
             itemBuilder: (BuildContext context, int index) {
@@ -42,7 +46,7 @@ class MapsScreen extends StatelessWidget {
                 ],
               );
             }),
-      ),
+      
     );
   }
 }

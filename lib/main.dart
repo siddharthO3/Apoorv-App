@@ -73,7 +73,7 @@ class MyApp extends StatelessWidget {
               const ShopkeeperSignupScreen(),
         },
         // initialRoute: WelcomeScreen.routeName,
-        home:LandingPage(),
+        home:MapsScreen(),
       ),
     );
   }
