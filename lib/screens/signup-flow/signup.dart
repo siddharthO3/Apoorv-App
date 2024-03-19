@@ -1,4 +1,5 @@
 import 'package:apoorv_app/widgets/snackbar.dart';
+import 'package:apoorv_app/widgets/spinning_apoorv.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants.dart';
@@ -24,6 +25,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
       TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
+
+  bool isProcessing = false;
 
   @override
   void dispose() {
@@ -144,7 +147,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             Constants.gap,
                             TextFormField(
                                 controller: userPhNoController,
-                                // TODO: Fix phone number length, currently max
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
                                     return "Phone number is required";
@@ -245,93 +247,101 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             ),
                             Constants.gap,
                             FilledButton(
-                              onPressed: () async {
-                                // context.read<UserProvider>().changeUserName(newUserName: newUserName)
-                                Map<String, Object> args;
-                                if (_formKey.currentState!.validate()) {
-                                  userProvider.fromCollege = isChecked;
-                                  if (isChecked) {
-                                    userProvider.changeSameCollegeDetails(
-                                        newUserName: userNameController.text,
-                                        newUserRollNo:
-                                            userRollNoController.text,
-                                        newUserPhNo: userPhNoController.text);
-                                  } else {
-                                    userProvider.changeOtherCollegeDetails(
-                                      newUserName: userNameController.text,
-                                      newUserCollegeName:
-                                          userCollegeNameController.text,
-                                      newUserPhNo: userPhNoController.text,
-                                    );
-                                  }
-                                  // ScaffoldMessenger.of(context).showSnackBar(
-                                  //   const SnackBar(content: Text('Logging In')),
-                                  //   );
-                                  if (isChecked) {
-                                    args = {
-                                      'fromCollege': isChecked,
-                                      'role': "user",
-                                      'fullName': userNameController.text,
-                                      'rollNumber': userRollNoController.text,
-                                      'phone': userPhNoController.text,
-                                      'collegeName': 'IIIT Kottayam',
-                                      'email': context
-                                          .read<UserProvider>()
-                                          .userEmail,
-                                    };
-                                  } else {
-                                    args = {
-                                      'fromCollege': isChecked,
-                                      'role': "user",
-                                      'fullName': userNameController.text,
-                                      'phone': userPhNoController.text,
-                                      'collegeName':
-                                          userCollegeNameController.text,
-                                      'email': context
-                                          .read<UserProvider>()
-                                          .userEmail,
-                                    };
-                                  }
+                              onPressed: isProcessing
+                                  ? null
+                                  : () async {
+                                      if (!isProcessing) {
+                                        setState(() {
+                                          isProcessing = true;
+                                        });
+                                      }
+                                      Map<String, Object> args;
+                                      if (_formKey.currentState!.validate()) {
+                                        userProvider.fromCollege = isChecked;
+                                        if (isChecked) {
+                                          userProvider.changeSameCollegeDetails(
+                                              newUserName:
+                                                  userNameController.text,
+                                              newUserRollNo:
+                                                  userRollNoController.text,
+                                              newUserPhNo:
+                                                  userPhNoController.text);
+                                        } else {
+                                          userProvider
+                                              .changeOtherCollegeDetails(
+                                            newUserName:
+                                                userNameController.text,
+                                            newUserCollegeName:
+                                                userCollegeNameController.text,
+                                            newUserPhNo:
+                                                userPhNoController.text,
+                                          );
+                                        }
+                                        // ScaffoldMessenger.of(context).showSnackBar(
+                                        //   const SnackBar(content: Text('Logging In')),
+                                        //   );
+                                        if (isChecked) {
+                                          args = {
+                                            'fromCollege': isChecked,
+                                            'role': "user",
+                                            'fullName': userNameController.text,
+                                            'rollNumber':
+                                                userRollNoController.text,
+                                            'phone': userPhNoController.text,
+                                            'collegeName': 'IIIT Kottayam',
+                                            'email': context
+                                                .read<UserProvider>()
+                                                .userEmail,
+                                          };
+                                        } else {
+                                          args = {
+                                            'fromCollege': isChecked,
+                                            'role': "user",
+                                            'fullName': userNameController.text,
+                                            'phone': userPhNoController.text,
+                                            'collegeName':
+                                                userCollegeNameController.text,
+                                            'email': context
+                                                .read<UserProvider>()
+                                                .userEmail,
+                                          };
+                                        }
 
-                                  // print(args);
-                                  var response =
-                                      await Provider.of<UserProvider>(context,
-                                              listen: false)
-                                          .uploadUserData(args);
+                                        // print(args);
+                                        var response =
+                                            await Provider.of<UserProvider>(
+                                                    context,
+                                                    listen: false)
+                                                .uploadUserData(args);
 
-                                  if (context.mounted) {
-                                    if (response['success']) {
-                                      showSnackbarOnScreen(
-                                          context, response['message']);
+                                        if (context.mounted) {
+                                          if (response['success']) {
+                                            showSnackbarOnScreen(
+                                                context, response['message']);
 
-                                      Navigator.of(context)
-                                          .restorablePushReplacementNamed(
-                                              LetsGoPage.routeName);
-                                    } else {
-                                      showSnackbarOnScreen(
-                                          context, response['error']);
-                                    }
-                                  }
-                                }
-                              },
-                              style: ButtonStyle(
-                                  backgroundColor:
-                                      MaterialStateProperty.all<Color>(
-                                          Constants.redColor),
-                                  foregroundColor:
-                                      MaterialStateProperty.all<Color>(
-                                          Colors.white)),
+                                            Navigator.of(context)
+                                                .restorablePushReplacementNamed(
+                                                    LetsGoPage.routeName);
+                                          } else {
+                                            showSnackbarOnScreen(
+                                                context, response['error']);
+                                          }
+                                        }
+                                      }
+                                    },
                               child: Container(
                                 height: 48,
                                 alignment: Alignment.center,
                                 child: Container(
                                   height: 48,
                                   alignment: Alignment.center,
-                                  child: const Text(
-                                    'Continue',
-                                    style: TextStyle(fontSize: 20),
-                                    textAlign: TextAlign.center,
-                                  ),
+                                  child: isProcessing
+                                      ? const SpinningApoorv()
+                                      : const Text(
+                                          'Continue',
+                                          style: TextStyle(fontSize: 20),
+                                          textAlign: TextAlign.center,
+                                        ),
                                 ),
                               ),
                             ),

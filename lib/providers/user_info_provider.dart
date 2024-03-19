@@ -108,7 +108,7 @@ class UserProvider extends ChangeNotifier {
     refreshIdToken(listen: true);
 
     var res = await APICalls().getUserDataAPI(uid, idToken);
-    print("res: $res");
+    // print("res: $res");
     if (res['success']) {
       if (res['fromCollege']) {
         changeSameCollegeDetails(
@@ -128,10 +128,7 @@ class UserProvider extends ChangeNotifier {
       updatePoints(res['points']);
       notifyListeners();
     }
-    return {
-      'success': res['success'],
-      'message': res['message'],
-    };
+    return res;
   }
 
   Future<Map<String, dynamic>> doATransaction(String to, int amount) async {

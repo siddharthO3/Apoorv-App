@@ -1,7 +1,6 @@
 import 'package:apoorv_app/screens/homepage/Maps/maps.dart';
 import 'package:apoorv_app/screens/homepage/Profile/profile_2.dart';
 
-import '../../base_client.dart';
 import '../../constants.dart';
 import 'points/points.dart';
 import 'package:flutter/material.dart';

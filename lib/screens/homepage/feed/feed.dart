@@ -51,7 +51,6 @@ class _FeedScreenState extends State<FeedScreen> {
                   body: Center(child: Text(snapshot.error.toString())),
                 );
               } else if (snapshot.hasData) {
-                print("Feed page data in hasData: ${snapshot.data}");
                 if (snapshot.data['error'] != null) {
                   var e = snapshot.data['error'] as String;
                   var message = "";
@@ -169,19 +168,22 @@ class _FeedScreenState extends State<FeedScreen> {
                             child: ListView.builder(
                                 itemCount: data.length,
                                 itemBuilder: (BuildContext context, int i) {
+                                  var message = data[i]['title'];
+                                  if (data[i]['text'] != null) {
+                                    message =
+                                        "${data[i]['title']}\n${data[i]['text']}";
+                                  }
                                   if (data[i]['imageUrl'] != null) {
                                     return SingleFeed(
                                       index: i,
-                                      title:
-                                          "${data[i]['title']}\n${data[i]['text']}",
+                                      title: message,
                                       priority: data[i]['priority'],
                                       imageUrl: data[i]['imageUrl'],
                                     );
                                   } else {
                                     return SingleFeed(
                                       index: i,
-                                      title:
-                                          "${data[i]['title']}\n${data[i]['text']}",
+                                      title: message,
                                       priority: data[i]['priority'],
                                     );
                                   }

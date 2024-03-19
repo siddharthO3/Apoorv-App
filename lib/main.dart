@@ -16,7 +16,6 @@ import 'package:provider/provider.dart';
 
 import 'firebase_options.dart';
 import 'screens/homepage/homepage.dart';
-import 'screens/homepage/Profile/profile.dart';
 import 'screens/homepage/points/points.dart';
 import 'screens/signup-flow/signup.dart';
 import 'screens/signup-flow/welcome.dart';
@@ -87,8 +86,15 @@ class MyApp extends StatelessWidget {
           ),
           filledButtonTheme: FilledButtonThemeData(
             style: ButtonStyle(
-              backgroundColor:
-                  MaterialStateProperty.all<Color>(Constants.redColor),
+              backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                (Set<MaterialState> states) {
+                  if (states.contains(MaterialState.disabled)) {
+                    return const Color(0xff494949);
+                  } else {
+                    return Constants.redColor;
+                  }
+                },
+              ),
               foregroundColor:
                   MaterialStateProperty.all<Color>(Constants.whiteColor),
             ),
@@ -120,7 +126,6 @@ class MyApp extends StatelessWidget {
           SignUpScreen.routeName: (context) => const SignUpScreen(),
           HomePage.routeName: (context) => const HomePage(),
           PointsScreen.routeName: (context) => const PointsScreen(),
-          ProfileScreen.routeName: (context) => const ProfileScreen(),
           Profile2Screen.routeName: (context) => const Profile2Screen(),
           Leaderboard.routeName: (context) => const Leaderboard(),
           LetsGoPage.routeName: (context) => const LetsGoPage(),

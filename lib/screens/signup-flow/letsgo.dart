@@ -1,5 +1,6 @@
 import 'package:apoorv_app/screens/homepage/homepage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import '../../constants.dart';
 
 class LetsGoPage extends StatefulWidget {
@@ -54,102 +55,107 @@ class _LetsGoPageState extends State<LetsGoPage> {
         }
       },
       child: Scaffold(
-        body: Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: MediaQuery.of(context).size.width * 0.05),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Expanded(child: Image.asset('assets/images/people_800.png')),
-              const Text(
-                "Let's Explore \nThe App",
-                style: TextStyle(
-                    fontSize: 36,
-                    color: Constants.yellowColor,
-                    fontWeight: FontWeight.bold),
-                textAlign: TextAlign.center,
-              ),
-              const Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Your one-stop shop for everything Apoorv!\n"
-                    "",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 17,
+        body: SafeArea(
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: MediaQuery.of(context).size.width * 0.05),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Expanded(child: Image.asset('assets/images/people_800.png')),
+                const Text(
+                  "Let's Explore \nThe App",
+                  style: TextStyle(
+                      fontSize: 36,
+                      color: Constants.yellowColor,
+                      fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
+                ),
+                const Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Your one-stop shop for everything Apoorv!\n"
+                      "",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 17,
+                      ),
+                      textAlign: TextAlign.center,
                     ),
-                    textAlign: TextAlign.center,
-                  ),
-                  Text(
-                    "\u2022  Earn points by playing games",
-                    textAlign: TextAlign.start,
-                    style: TextStyle(
-                      fontSize: 16,
+                    Text(
+                      "\u2022  Earn points by playing games",
+                      textAlign: TextAlign.start,
+                      style: TextStyle(
+                        fontSize: 16,
+                      ),
                     ),
-                  ),
-                  Text(
-                    "\u2022  Exchange points with friends and climb up the\n "
-                    "   leaderboard",
-                    style: TextStyle(
-                      fontSize: 16,
+                    Text(
+                      "\u2022  Exchange points with friends and climb up the\n "
+                      "   leaderboard",
+                      style: TextStyle(
+                        fontSize: 16,
+                      ),
+                      textAlign: TextAlign.start,
                     ),
-                    textAlign: TextAlign.start,
-                  ),
-                  Text(
-                    "\u2022  Explore the campus with an interactive virtual\n"
-                    "   Map",
-                    style: TextStyle(
-                      fontSize: 16,
+                    Text(
+                      "\u2022  Explore the campus with an interactive virtual\n"
+                      "   Map",
+                      style: TextStyle(
+                        fontSize: 16,
+                      ),
+                      textAlign: TextAlign.start,
                     ),
-                    textAlign: TextAlign.start,
-                  ),
-                  Text(
-                    "\u2022 Stay updated with the latest Apoorv related\n"
-                    "   news and event schedules",
-                    style: TextStyle(
-                      fontSize: 16,
+                    Text(
+                      "\u2022 Stay updated with the latest Apoorv related\n"
+                      "   news and event schedules",
+                      style: TextStyle(
+                        fontSize: 16,
+                      ),
+                      textAlign: TextAlign.start,
                     ),
-                    textAlign: TextAlign.start,
-                  ),
-                  Text(
-                    "\n"
-                    "Made with ❤ by team apoorv"
-                    "\n",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
+                    SizedBox(
+                      width: double.infinity,
+                      child: Text(
+                        "\n"
+                        "Made with ❤ by Team Apoorv"
+                        "\n",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                        textAlign: TextAlign.end,
+                      ),
                     ),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-              ),
-              FilledButton(
-                onPressed: () async {
-                  Navigator.of(context)
-                      .restorablePushReplacementNamed(HomePage.routeName);
-                },
-                style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all<Color>(Constants.redColor),
-                    foregroundColor:
-                        MaterialStateProperty.all<Color>(Colors.white)),
-                child: Container(
-                  height: 48,
-                  alignment: Alignment.center,
+                  ],
+                ),
+                FilledButton(
+                  onPressed: () async {
+                    Navigator.of(context)
+                        .restorablePushReplacementNamed(HomePage.routeName);
+                  },
+                  style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(Constants.redColor),
+                      foregroundColor:
+                          MaterialStateProperty.all<Color>(Colors.white)),
                   child: Container(
                     height: 48,
                     alignment: Alignment.center,
-                    child: const Text(
-                      'Continue',
-                      style: TextStyle(fontSize: 20),
-                      textAlign: TextAlign.center,
+                    child: Container(
+                      height: 48,
+                      alignment: Alignment.center,
+                      child: const Text(
+                        'Continue',
+                        style: TextStyle(fontSize: 20),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Constants.gap,
-            ],
+                Constants.gap,
+              ],
+            ),
           ),
         ),
       ),

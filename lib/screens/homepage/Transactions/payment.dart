@@ -150,93 +150,90 @@ class _PaymentState extends State<Payment> {
                             ),
                           ],
                         ),
-                        Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal:
-                                      MediaQuery.of(context).size.width * 0.05),
-                              child: FilledButton(
-                                onPressed: isProcessing
-                                    ? null
-                                    : () async {
-                                        if (amountController.text.isNotEmpty &&
-                                            int.parse(amountController.text) >
-                                                0) {
-                                          if (!isProcessing) {
-                                            setState(() {
-                                              isProcessing = true;
-                                            });
-                                          }
-                                          var response =
-                                              await Provider.of<UserProvider>(
-                                            context,
-                                            listen: false,
-                                          ).doATransaction(
-                                            context
-                                                .read<ReceiverProvider>()
-                                                .uid,
+                        // Stack(
+                        //   alignment: Alignment.center,
+                        //   children: [
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal:
+                                  MediaQuery.of(context).size.width * 0.05),
+                          child: FilledButton(
+                            onPressed: isProcessing
+                                ? null
+                                : () async {
+                                    if (amountController.text.isNotEmpty &&
+                                        int.parse(amountController.text) > 0) {
+                                      if (!isProcessing) {
+                                        setState(() {
+                                          isProcessing = true;
+                                        });
+                                      }
+                                      var response =
+                                          await Provider.of<UserProvider>(
+                                        context,
+                                        listen: false,
+                                      ).doATransaction(
+                                        context.read<ReceiverProvider>().uid,
+                                        int.parse(amountController.text),
+                                      );
+                                      setState(() {
+                                        isProcessing = false;
+                                      });
+
+                                      if (context.mounted) {
+                                        if (response['success']) {
+                                          Provider.of<ReceiverProvider>(context,
+                                                  listen: false)
+                                              .setAmount(
                                             int.parse(amountController.text),
                                           );
-                                          setState(() {
-                                            isProcessing = false;
-                                          });
 
-                                          if (context.mounted) {
-                                            if (response['success']) {
-                                              Provider.of<ReceiverProvider>(
-                                                      context,
-                                                      listen: false)
-                                                  .setAmount(
-                                                int.parse(
-                                                    amountController.text),
-                                              );
-
-                                              Navigator.of(context)
-                                                  .pushReplacementNamed(
-                                                      PaymentSuccess.routeName);
-                                            } else {
-                                              dialogBuilder(
-                                                context,
-                                                message: response['message'],
-                                                function: () =>
-                                                    Navigator.of(context).pop(),
-                                              );
-                                              showSnackbarOnScreen(
-                                                  context, response['message']);
-                                            }
-                                          }
+                                          Navigator.of(context)
+                                              .pushReplacementNamed(
+                                                  PaymentSuccess.routeName);
                                         } else {
-                                          showSnackbarOnScreen(context,
-                                              "Amount must be positive!");
+                                          dialogBuilder(
+                                            context,
+                                            message: response['message'],
+                                            function: () =>
+                                                Navigator.of(context).pop(),
+                                          );
+                                          showSnackbarOnScreen(
+                                              context, response['message']);
                                         }
-                                      },
-                                // style: ButtonStyle(
-                                //     backgroundColor:
-                                //         MaterialStateProperty.all<Color>(
-                                //             Constants.redColor),
-                                //     foregroundColor:
-                                //         MaterialStateProperty.all<Color>(
-                                //             Constants.whiteColor)),
-                                child: Container(
-                                  height: 48,
-                                  alignment: Alignment.center,
-                                  child: Container(
-                                    height: 48,
-                                    alignment: Alignment.center,
-                                    child: const Text(
-                                      'Continue',
-                                      style: TextStyle(fontSize: 20),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                ),
+                                      }
+                                    } else {
+                                      showSnackbarOnScreen(
+                                          context, "Amount must be positive!");
+                                    }
+                                  },
+                            // style: ButtonStyle(
+                            //   backgroundColor: MaterialStateProperty.all<Color>(
+                            //       Constants.redColor),
+                            //   foregroundColor: MaterialStateProperty.all<Color>(
+                            //       Constants.whiteColor),
+                              
+                            // ),
+                            child: Container(
+                              height: 48,
+                              alignment: Alignment.center,
+                              child: Container(
+                                height: 48,
+                                alignment: Alignment.center,
+                                child: isProcessing
+                                    ? const SpinningApoorv()
+                                    : const Text(
+                                        'Continue',
+                                        style: TextStyle(fontSize: 20),
+                                        textAlign: TextAlign.center,
+                                      ),
                               ),
                             ),
-                            if (isProcessing) const CircularProgressIndicator(),
-                          ],
+                          ),
                         ),
+                        // if (isProcessing) const CircularProgressIndicator(),
+                        // ],
+                        // ),
                       ],
                     ),
                   ),

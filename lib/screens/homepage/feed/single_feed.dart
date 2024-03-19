@@ -26,7 +26,10 @@ class SingleFeed extends StatelessWidget {
     var border;
     if (priority) {
       border = RoundedRectangleBorder(
-        side: const BorderSide(color: Constants.redColor, width: 5.0),
+        side: const BorderSide(
+          color: Constants.redColorAlt,
+          width: 5.0,
+        ),
         borderRadius: BorderRadius.circular(24),
       );
     }

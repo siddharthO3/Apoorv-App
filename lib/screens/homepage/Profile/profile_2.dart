@@ -1,14 +1,13 @@
 import 'dart:async';
 
 import 'package:apoorv_app/providers/user_info_provider.dart';
-import 'package:apoorv_app/screens/homepage/Profile/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 import '../../../constants.dart';
+import '../../../widgets/dialog.dart';
 import '../../../widgets/signup-flow/logout.dart';
-import '../../../widgets/snackbar.dart';
 import '../../../widgets/spinning_apoorv.dart';
 
 class Profile2Screen extends StatefulWidget {
@@ -53,25 +52,34 @@ class _Profile2ScreenState extends State<Profile2Screen> {
         builder: (BuildContext ctx, AsyncSnapshot snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.waiting:
-              return const ProfileScreen();
+              return const Scaffold(body: Center(child: SpinningApoorv()));
 
             case ConnectionState.done:
             default:
               if (snapshot.hasError) {
-                return Scaffold(
-                  body: Center(child: Text(snapshot.error.toString())),
-                );
+                var message =
+                    "There was a connection error! Check your connection and try again";
+
+                Future.delayed(
+                    const Duration(seconds: 1),
+                    () =>
+                        dialogBuilder(context, message: message, function: () {
+                          _updateProfileData();
+                          Navigator.of(context).pop();
+                        }));
+
+                return const Scaffold(body: Center(child: SpinningApoorv()));
               } else if (snapshot.hasData) {
-                print(snapshot.data);
+                print("Error in snapshot data: ${snapshot.error}");
+                print("Data in snapshot data: ${snapshot.data}");
+                // print(snapshot.data);
                 if (snapshot.data['success']) {
                   Provider.of<UserProvider>(ctx);
                   var providerContext = ctx.read<UserProvider>();
-                  // providerContext.refreshUID();
 
-                  var data = snapshot.data;
 
-                  Future.delayed(Duration.zero,
-                      () => showSnackbarOnScreen(ctx, data['message']));
+                  // Future.delayed(Duration.zero,
+                  //     () => showSnackbarOnScreen(ctx, data['message']));
 
                   return Scaffold(
                     floatingActionButton: FloatingActionButton(
@@ -251,11 +259,6 @@ class _Profile2ScreenState extends State<Profile2Screen> {
                     ),
                   );
                 } else {
-                  Future.delayed(
-                    Duration.zero,
-                    () =>
-                        showSnackbarOnScreen(context, snapshot.data['message']),
-                  );
                   return Center(child: Text(snapshot.data['message']));
                 }
               } else {

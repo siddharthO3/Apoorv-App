@@ -24,24 +24,21 @@ class APICalls {
             json.decode(response.toString())["user"] as Map<String, dynamic>;
         print(payload);
         payload['success'] = true;
-        payload['message'] = 'User data updated for users';
+        payload['message'] = 'Your user data has been updated';
       }
     } on DioException catch (e) {
       print("Response code: ${e.response!.statusCode}");
       print(e.message);
       if (e.type == DioExceptionType.badResponse) {
-        payload['message'] =
-            "${e.type.name}, index: ${e.type.index}: ${e.response!.statusCode}";
+        payload['error'] = "${e.type.name} ${e.response!.statusCode}";
       } else if (e.type == DioExceptionType.connectionError) {
-        payload['message'] = "${e.type.name}, index: ${e.type.index}";
-        // return [false, "Error code: ${e.response!.statusCode}, with index: ${e.type.name}"];
+        payload['error'] = "${e.type.name} Connection error";
       } else {
-        payload['message'] =
+        payload['error'] =
             "Unhandled/Unknown Error, with name: ${e.type.name}";
       }
       payload['success'] = false;
     }
-    print(payload);
     return payload;
   }
 
@@ -235,8 +232,6 @@ class APICalls {
         ),
       );
 
-      // print("Feed Query: $response");
-
       if (response.statusCode == 200) {
         payload = json.decode(response.toString()) as Map<String, dynamic>;
         payload['message'] = 'User data updated for transaction';
@@ -244,8 +239,7 @@ class APICalls {
     } on DioException catch (e) {
       if (e.type == DioExceptionType.badResponse) {
         print("Response code: ${e.response!.statusCode}");
-        payload['error'] =
-            "${json.decode(e.response.toString())['error']}";
+        payload['error'] = "${json.decode(e.response.toString())['error']}";
       } else if (e.type == DioExceptionType.connectionError) {
         payload['error'] = "${e.type.name} Connection Error";
       } else {
@@ -273,8 +267,9 @@ class APICalls {
           },
         ),
       );
-      
-      print("Response at time: ${DateTime.now()} with search query: $query -> $response");
+
+      print(
+          "Response at time: ${DateTime.now()} with search query: $query -> $response");
 
       payload = json.decode(response.toString());
       payload['message'] = "Users fetched";

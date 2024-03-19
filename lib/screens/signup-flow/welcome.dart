@@ -19,6 +19,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   bool popStatus = true;
   int popCount = 0;
 
+  bool isProcessing = false;
+
   @override
   void initState() {
     super.initState();
@@ -85,40 +87,61 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         borderRadius: BorderRadius.all(Radius.circular(50)),
                       ),
                       child: FilledButton.icon(
-                        onPressed: () async {
-                          await signInWithGoogle(context);
-                          var auth = FirebaseAuth.instance;
-                          if (auth.currentUser != null) {
-                            //TODO: Check context.mounted if it works
-                            if (context.mounted) {
-                              showSnackbarOnScreen(context, "User Signed in!");
-                              Provider.of<UserProvider>(context, listen: false)
-                                  .refreshGoogleServiceData();
-                              Navigator.of(context)
-                                  .restorablePushReplacementNamed(
-                                      Routing.routeName);
-                            }
-                            // BaseClient.printAuthTokenForTest();
-                          }
-                        },
+                        onPressed: isProcessing
+                            ? null
+                            : () async {
+                                if (!isProcessing) {
+                                  setState(() {
+                                    isProcessing = true;
+                                  });
+                                }
+                                try {
+                                  await signInWithGoogle(context);
+                                  var auth = FirebaseAuth.instance;
+                                  if (auth.currentUser != null) {
+                                    if (context.mounted) {
+                                      showSnackbarOnScreen(
+                                          context, "User Signed in!");
+                                      Provider.of<UserProvider>(context,
+                                              listen: false)
+                                          .refreshGoogleServiceData();
+                                      Navigator.of(context)
+                                          .restorablePushReplacementNamed(
+                                              Routing.routeName);
+                                    }
+                                  }
+                                } catch (e) {
+                                  showSnackbarOnScreen(
+                                      context, "Choose a Google account");
+                                  setState(() {
+                                    isProcessing = false;
+                                  });
+                                }
+                              },
                         style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all<Color>(
                                 Colors.transparent)),
                         icon: SizedBox(
                           height: 64,
-                          child: Image.asset(
-                            'assets/images/google.png',
-                            fit: BoxFit.contain,
-                          ),
+                          child: isProcessing
+                              ? null
+                              : Image.asset(
+                                  'assets/images/google.png',
+                                  fit: BoxFit.contain,
+                                ),
                         ),
-                        label: const Text(
-                          'Sign In with Google',
-                          style: TextStyle(
-                            fontSize: 20,
-                            // fontFamily: 'Inter',
-                            color: Colors.black,
-                          ),
-                        ),
+                        label: isProcessing
+                            ? const CircularProgressIndicator(
+                                color: Constants.redColorAlt,
+                              )
+                            : const Text(
+                                'Sign In with Google',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  // fontFamily: 'Inter',
+                                  color: Colors.black,
+                                ),
+                              ),
                       ),
                     ),
                   )
