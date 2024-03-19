@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants.dart';
-import '../../widgets/provider/user_info_provider.dart';
 
 class ShopkeeperSignupScreen extends StatefulWidget {
   static const routeName = '/shopkeeper-sign-up-1';
@@ -49,7 +48,7 @@ class _ShopkeeperSignupScreenState extends State<ShopkeeperSignupScreen>
   }
 
   void showAppCloseConfirmation(BuildContext context) {
-    final snackBar = SnackBar(
+    const snackBar = SnackBar(
       content: Text("Press back again to exit"),
       backgroundColor: Colors.white,
     );
@@ -119,7 +118,7 @@ class _ShopkeeperSignupScreenState extends State<ShopkeeperSignupScreen>
                                 validator: (value) {
                                   final bool isValid =
                                       EmailValidator.validate(value!);
-                                  if (value == null || value.isEmpty) {
+                                  if (value.isEmpty) {
                                     return "Email Required";
                                   } else if (!isValid) {
                                     return "Think you aced the format?";

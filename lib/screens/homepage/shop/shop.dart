@@ -4,7 +4,6 @@ import '../../../../constants.dart';
 // import 'package:apoorv_app/screens/homepage/Profile/profile.dart';
 import 'package:apoorv_app/widgets/product-card/product_card.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 // import 'package:flutter/services.dart';
 
 final List Data = data;
@@ -30,11 +29,9 @@ class ShopScreen extends StatelessWidget {
                     alignment: Alignment.topLeft,
                     child: Text(
                       "Limited Time Offers",
-                      style: GoogleFonts.lora(
-                        textStyle: const TextStyle(
-                          color: Constants.yellowColor,
-                          fontSize: 28.5,
-                        ),
+                      style: const TextStyle(
+                        color: Constants.yellowColor,
+                        fontSize: 28.5,
                       ),
                     ),
                   ),
@@ -65,11 +62,9 @@ class ShopScreen extends StatelessWidget {
                         padding: const EdgeInsets.only(left: 30),
                         child: Text(
                           "Deals",
-                          style: GoogleFonts.lora(
-                            textStyle: const TextStyle(
-                              color: Constants.yellowColor,
-                              fontSize: 28.5,
-                            ),
+                          style: const TextStyle(
+                            color: Constants.yellowColor,
+                            fontSize: 28.5,
                           ),
                         ),
                       ),
@@ -77,11 +72,9 @@ class ShopScreen extends StatelessWidget {
                         padding: const EdgeInsets.only(right: 20),
                         child: Text(
                           "View all",
-                          style: GoogleFonts.lora(
-                            textStyle: const TextStyle(
-                              color: Constants.yellowColor,
-                              fontSize: 28.5,
-                            ),
+                          style: const TextStyle(
+                            color: Constants.yellowColor,
+                            fontSize: 28.5,
                           ),
                         ),
                       ),

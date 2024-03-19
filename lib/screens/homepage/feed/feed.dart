@@ -1,11 +1,10 @@
 import 'package:apoorv_app/widgets/Feed_Page/feed_list.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../constants.dart';
 import '../../../utils/dummy_data/mock_data.dart';
-import '../../../utils/Models/Feed.dart';
 
+// ignore: non_constant_identifier_names
 final List Dummy = dummy;
 
 class FeedScreen extends StatelessWidget {
@@ -17,7 +16,7 @@ class FeedScreen extends StatelessWidget {
 
     return SafeArea(
       child: Material(
-        child: Container(
+        child: SizedBox(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           child: Column(
@@ -38,8 +37,8 @@ class FeedScreen extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(
+                    const Padding(
+                      padding: EdgeInsets.only(
                         left: 19,
                       ),
                       child: Column(
@@ -49,12 +48,10 @@ class FeedScreen extends StatelessWidget {
                           Flexible(
                             child: Text(
                               "Welcome,\n$name",
-                              style: GoogleFonts.poppins(
-                                textStyle: const TextStyle(
-                                  color: Constants.blackColor,
-                                  fontSize: 26,
-                                  fontWeight: FontWeight.w700,
-                                ),
+                              style: TextStyle(
+                                color: Constants.blackColor,
+                                fontSize: 26,
+                                fontWeight: FontWeight.w700,
                               ),
                             ),
                           ),
@@ -72,17 +69,15 @@ class FeedScreen extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              Align(
+              const Align(
                 alignment: AlignmentDirectional.topStart,
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 10.0),
+                  padding: EdgeInsets.only(left: 10.0),
                   child: Text(
                     "Feed",
-                    style: GoogleFonts.raleway(
-                      textStyle: const TextStyle(
-                        color: Constants.whiteColor,
-                        fontSize: 30,
-                      ),
+                    style: TextStyle(
+                      color: Constants.whiteColor,
+                      fontSize: 30,
                     ),
                   ),
                 ),
@@ -95,8 +90,9 @@ class FeedScreen extends StatelessWidget {
                 child: ListView.builder(
                     itemCount: Dummy.length,
                     itemBuilder: (BuildContext context, int index) {
+                      // ignore: non_constant_identifier_names
                       final Content = Dummy[index];
-                
+
                       return FeedList(
                         body: Content.body,
                         color: Content.color,
@@ -105,7 +101,6 @@ class FeedScreen extends StatelessWidget {
                       );
                     }),
               ),
-
             ],
           ),
         ),
