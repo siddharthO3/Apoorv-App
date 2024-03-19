@@ -22,7 +22,7 @@ class APICalls {
       if (response.statusCode == 200) {
         payload =
             json.decode(response.toString())["user"] as Map<String, dynamic>;
-        print(payload);
+        // print(payload);
         payload['success'] = true;
         payload['message'] = 'Your user data has been updated';
       }

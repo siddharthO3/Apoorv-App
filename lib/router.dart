@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
 
+import 'widgets/dialog.dart';
 import 'widgets/snackbar.dart';
 import 'widgets/spinning_apoorv.dart';
 
@@ -22,15 +23,21 @@ class Routing extends StatefulWidget {
 class _RoutingState extends State<Routing> {
   Future<int> getStartupPage(BuildContext context) async {
     Provider.of<UserProvider>(context, listen: false);
-
     if (FirebaseAuth.instance.currentUser == null) {
       return 0;
     }
 
-    var usrResponse = await APICalls().getUserDataAPI(
-      FirebaseAuth.instance.currentUser!.uid,
-      (await FirebaseAuth.instance.currentUser!.getIdToken())!,
-    );
+    Map<String, dynamic> usrResponse = {};
+
+    try {
+      usrResponse = await APICalls().getUserDataAPI(
+        FirebaseAuth.instance.currentUser!.uid,
+        (await FirebaseAuth.instance.currentUser!.getIdToken())!,
+      );
+    } catch (e) {
+      print("Error in the try catch: $e");
+      return -1;
+    }
 
     // print(FirebaseAuth.instance.currentUser!);
     // BaseClient.printAuthTokenForTest();
@@ -78,27 +85,10 @@ class _RoutingState extends State<Routing> {
 
   late Future<int> _myFuture;
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   WidgetsBinding.instance.addPostFrameCallback((_) {
-  //     // Update idToken after the first frame is built
-  //     Provider.of<UserProvider>(context, listen: false).refreshIdToken();
-  //     setState(() {
-  //       _myFuture = getStartupPage(context);
-  //     });
-  //   });
-  // }
-
   @override
   void initState() {
     super.initState();
     _myFuture = getStartupPage(context);
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   // Update idToken after the first frame is built
-    //   Provider.of<UserProvider>(context, listen: false).refreshIdToken();
-    //   _myFuture = getStartupPage(context);
-    // });
   }
 
   @override
@@ -108,8 +98,7 @@ class _RoutingState extends State<Routing> {
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.waiting:
-            return const Scaffold(
-                body: Center(child: SpinningApoorv()));
+            return const Scaffold(body: Center(child: SpinningApoorv()));
 
           case ConnectionState.done:
           default:
@@ -137,6 +126,21 @@ class _RoutingState extends State<Routing> {
                   Navigator.of(context)
                       .pushReplacementNamed(HomePage.routeName);
                 });
+              } else if (userProgress == -1) {
+                var message =
+                    "There was a connection error! Check your connection and try again";
+
+                Future.delayed(
+                    const Duration(seconds: 1),
+                    () =>
+                        dialogBuilder(context, message: message, function: () {
+                          setState(() {
+                            _myFuture = getStartupPage(context);
+                          });
+                          Navigator.of(context).pop();
+                        }));
+
+                return const Scaffold(body: Center(child: SpinningApoorv()));
               } else {
                 Future.delayed(
                   const Duration(seconds: 0),
