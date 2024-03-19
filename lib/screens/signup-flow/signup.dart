@@ -230,6 +230,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 Transform.scale(
                                   scale: 1.2,
                                   child: Checkbox(
+                                    fillColor: isChecked? MaterialStateProperty.all(Constants.redColor): MaterialStateProperty.all(Colors.transparent),
+                                    checkColor: Colors.white,
                                     value: isChecked,
                                     onChanged: (bool? value) {
                                       userCollegeNameController.clear();

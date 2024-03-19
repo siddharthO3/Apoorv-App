@@ -70,16 +70,22 @@ class _Profile2ScreenState extends State<Profile2Screen> {
 
                 return const Scaffold(body: Center(child: SpinningApoorv()));
               } else if (snapshot.hasData) {
-                print("Error in snapshot data: ${snapshot.error}");
-                print("Data in snapshot data: ${snapshot.data}");
-                // print(snapshot.data);
+                if (snapshot.data['error'] != null) {
+                  var message = snapshot.data['error'];
+
+                  Future.delayed(
+                      const Duration(seconds: 1),
+                      () => dialogBuilder(context, message: message,
+                              function: () {
+                            _updateProfileData();
+                            Navigator.of(context).pop();
+                          }));
+
+                  return const Scaffold(body: Center(child: SpinningApoorv()));
+                }
                 if (snapshot.data['success']) {
                   Provider.of<UserProvider>(ctx);
                   var providerContext = ctx.read<UserProvider>();
-
-
-                  // Future.delayed(Duration.zero,
-                  //     () => showSnackbarOnScreen(ctx, data['message']));
 
                   return Scaffold(
                     floatingActionButton: FloatingActionButton(

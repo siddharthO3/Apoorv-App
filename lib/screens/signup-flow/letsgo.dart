@@ -75,8 +75,7 @@ class _LetsGoPageState extends State<LetsGoPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Your one-stop shop for everything Apoorv!\n"
-                      "",
+                      "Your one-stop shop for everything Apoorv!",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 17,
@@ -91,24 +90,21 @@ class _LetsGoPageState extends State<LetsGoPage> {
                       ),
                     ),
                     Text(
-                      "\u2022  Exchange points with friends and climb up the\n "
-                      "   leaderboard",
+                      "\u2022  Exchange points with friends and climb up the\n leaderboard",
                       style: TextStyle(
                         fontSize: 16,
                       ),
                       textAlign: TextAlign.start,
                     ),
                     Text(
-                      "\u2022  Explore the campus with an interactive virtual\n"
-                      "   Map",
+                      "\u2022  Explore the campus with an interactive virtual Map",
                       style: TextStyle(
                         fontSize: 16,
                       ),
                       textAlign: TextAlign.start,
                     ),
                     Text(
-                      "\u2022 Stay updated with the latest Apoorv related\n"
-                      "   news and event schedules",
+                      "\u2022 Stay updated with the latest Apoorv related news and event schedules",
                       style: TextStyle(
                         fontSize: 16,
                       ),

@@ -34,8 +34,7 @@ class APICalls {
       } else if (e.type == DioExceptionType.connectionError) {
         payload['error'] = "${e.type.name} Connection error";
       } else {
-        payload['error'] =
-            "Unhandled/Unknown Error, with name: ${e.type.name}";
+        payload['error'] = "Unhandled/Unknown Error, with name: ${e.type.name}";
       }
       payload['success'] = false;
     }
@@ -57,7 +56,6 @@ class APICalls {
       );
 
       if (response.statusCode == 201) {
-        print("Data uploadad in db");
         var res = json.decode(response.toString());
         payload['success'] = true;
         payload['message'] = res['message'];
@@ -105,16 +103,12 @@ class APICalls {
         payload['message'] = payload['error'];
       }
     } on DioException catch (e) {
-      print("Response code: ${e.response!.statusCode}");
       if (e.type == DioExceptionType.badResponse) {
-        payload['error'] =
-            "${json.decode(e.response.toString())['error']}\n${e.type.name}, index: ${e.type.index}: ${e.response!.statusCode}";
+        payload['error'] = "${json.decode(e.response.toString())['error']}";
       } else if (e.type == DioExceptionType.connectionError) {
-        payload['error'] =
-            "${e.type.name}, index: ${e.type.index}: ${e.response!.statusCode}";
+        payload['error'] = e.type.name;
       } else {
-        payload['error'] =
-            "${json.decode(e.response.toString())['error']}\n${e.type.name}, index: ${e.type.index}: ${e.response!.statusCode}";
+        payload['error'] = "${json.decode(e.response.toString())['error']}";
       }
     } catch (e) {
       print("Error: $e");

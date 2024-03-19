@@ -6,6 +6,7 @@ import 'package:apoorv_app/providers/user_info_provider.dart';
 import 'package:apoorv_app/screens/homepage/Transactions/payment.dart';
 import 'package:apoorv_app/screens/homepage/points/all_transactions.dart';
 import 'package:provider/provider.dart';
+import '../../../widgets/dialog.dart';
 import '../../../widgets/points-widget/qr/generate_qr.dart';
 import '../../../widgets/points-widget/qr/scan_qr.dart';
 import 'package:flutter/material.dart';
@@ -85,10 +86,21 @@ class _PointsScreenState extends State<PointsScreen> {
             case ConnectionState.done:
             default:
               if (snapshot.hasError) {
-                return Scaffold(
-                  body: Center(child: Text(snapshot.error.toString())),
-                );
+                var message =
+                    "There was a connection error! Check your connection and try again";
+
+                Future.delayed(
+                    const Duration(seconds: 1),
+                    () =>
+                        dialogBuilder(context, message: message, function: () {
+                          getTransactionHistory();
+                          Navigator.of(context).pop();
+                        }));
+
+                return const Scaffold(body: Center(child: SpinningApoorv()));
               } else if (snapshot.hasData) {
+                print("Error in snapshot data: ${snapshot.error}");
+                print("Data in snapshot data: ${snapshot.data}");
                 // print(snapshot.data);
                 if (snapshot.data['success']) {
                   Provider.of<UserProvider>(context);
