@@ -2,7 +2,6 @@ import 'package:apoorv_app/providers/user_info_provider.dart';
 import 'package:flutter/material.dart';
 
 import 'package:apoorv_app/constants.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
 class LeaderboardCard extends StatelessWidget {
@@ -28,7 +27,7 @@ class LeaderboardCard extends StatelessWidget {
 
     String showRank = "";
 
-    if ((rank! / 10) % 10 == 1) {
+    if (((rank! / 10).floor() % 10) == 1) {
       showRank = "${rank}th";
     } else {
       if (rank! % 10 == 1) {

@@ -1,6 +1,8 @@
 import 'package:apoorv_app/router.dart';
 import 'package:flutter/material.dart';
 
+import 'widgets/spinning_apoorv.dart';
+
 class LoadingScreen extends StatelessWidget {
   const LoadingScreen({super.key});
 
@@ -16,7 +18,7 @@ class LoadingScreen extends StatelessWidget {
 
     return const Scaffold(
       body: Center(
-        child: CircularProgressIndicator(),
+        child: SpinningApoorv(),
       ),
     );
   }

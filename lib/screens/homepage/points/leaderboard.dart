@@ -1,4 +1,5 @@
 import 'package:apoorv_app/api.dart';
+import 'package:apoorv_app/widgets/spinning_apoorv.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -33,7 +34,8 @@ class _LeaderboardState extends State<Leaderboard> {
       },
     );
     setState(() {
-      _myFuture = APICalls().getLeaderboard(context.read<UserProvider>().idToken);
+      _myFuture =
+          APICalls().getLeaderboard(context.read<UserProvider>().idToken);
     });
   }
 
@@ -46,7 +48,7 @@ class _LeaderboardState extends State<Leaderboard> {
             case ConnectionState.waiting:
               return const Scaffold(
                 body: Center(
-                  child: CircularProgressIndicator(),
+                  child: SpinningApoorv(),
                 ),
               );
 
@@ -66,8 +68,8 @@ class _LeaderboardState extends State<Leaderboard> {
                   if (data.length == 1) {
                     Future.delayed(
                         Duration.zero,
-                        () =>
-                            showSnackbarOnScreen(context, "Looks like you are the only one here!"));
+                        () => showSnackbarOnScreen(
+                            context, "Looks like you are the only one here!"));
                   }
                   if (data[0]['uid'] == providerContext.uid) {
                     Future.delayed(
@@ -96,7 +98,10 @@ class _LeaderboardState extends State<Leaderboard> {
                                     bottomLeft: Radius.circular(20),
                                   ),
                                   gradient: LinearGradient(
-                                    colors: [Constants.gradientHigh, Constants.gradientLow],
+                                    colors: [
+                                      Constants.gradientHigh,
+                                      Constants.gradientLow
+                                    ],
                                     begin: Alignment.topCenter,
                                     end: Alignment.bottomCenter,
                                   ),
@@ -146,7 +151,8 @@ class _LeaderboardState extends State<Leaderboard> {
                               const SizedBox(
                                 height: 20,
                               ),
-                              if (data.isEmpty) const Center(child: Text("No winner's yet")),
+                              if (data.isEmpty)
+                                const Center(child: Text("No winner's yet")),
                               Center(
                                   child: Winner(
                                 image: data[0]['profileImage'],
@@ -157,10 +163,13 @@ class _LeaderboardState extends State<Leaderboard> {
                               Expanded(
                                 child: Padding(
                                   padding: EdgeInsets.symmetric(
-                                    horizontal: MediaQuery.of(context).size.width * 0.03,
+                                    horizontal:
+                                        MediaQuery.of(context).size.width *
+                                            0.03,
                                   ),
                                   child: ListView.builder(
-                                    itemBuilder: (context, i) => LeaderboardCard(
+                                    itemBuilder: (context, i) =>
+                                        LeaderboardCard(
                                       name: data[i + 1]['fullName'],
                                       image: data[i + 1]['profileImage'],
                                       points: data[i + 1]['points'],
@@ -181,7 +190,7 @@ class _LeaderboardState extends State<Leaderboard> {
                   return Center(child: Text(snapshot.data['message']));
                 }
               } else {
-                return const Scaffold(body: Center(child: Text('No data')));
+                return const Scaffold(body: Center(child: SpinningApoorv()));
               }
           }
         });

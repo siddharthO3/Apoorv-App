@@ -1,5 +1,6 @@
 import '../../../providers/receiver_provider.dart';
 import '../../../providers/user_info_provider.dart';
+import '../../../widgets/spinning_apoorv.dart';
 import 'payment_success.dart';
 import '../../../widgets/snackbar.dart';
 import 'package:flutter/material.dart';
@@ -104,7 +105,7 @@ class _PaymentState extends State<Payment> {
           case ConnectionState.waiting:
             return const Scaffold(
               body: Center(
-                child: CircularProgressIndicator(),
+                child: SpinningApoorv(),
               ),
             );
 

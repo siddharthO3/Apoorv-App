@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../constants.dart';
+import '../../../widgets/spinning_apoorv.dart';
 
 class FeedScreen extends StatefulWidget {
   static const routeName = '/feed';
@@ -39,7 +40,7 @@ class _FeedScreenState extends State<FeedScreen> {
             case ConnectionState.waiting:
               return const Scaffold(
                 body: Center(
-                  child: CircularProgressIndicator(),
+                  child: SpinningApoorv(),
                 ),
               );
 

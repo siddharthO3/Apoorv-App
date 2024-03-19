@@ -45,7 +45,7 @@ class _HomePageState extends State<HomePage> {
 
   List screens = [
     () => const FeedScreen(),
-    () => const MapsScreen(),
+    // () => const MapsScreen(),
     () => PointsScreen(stream: st.stream),
     () => const Profile2Screen(),
   ];
@@ -83,11 +83,11 @@ class _HomePageState extends State<HomePage> {
               icon: Icon(Icons.home_outlined),
               label: 'Home',
             ),
-            NavigationDestination(
-              selectedIcon: Icon(Icons.map),
-              icon: Icon(Icons.map_outlined),
-              label: 'Maps',
-            ),
+            // NavigationDestination(
+            //   selectedIcon: Icon(Icons.map),
+            //   icon: Icon(Icons.map_outlined),
+            //   label: 'Maps',
+            // ),
             NavigationDestination(
               selectedIcon: Icon(Icons.stars),
               icon: Icon(Icons.stars_outlined),

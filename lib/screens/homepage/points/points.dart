@@ -11,6 +11,7 @@ import '../../../widgets/points-widget/qr/scan_qr.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
+import '../../../widgets/spinning_apoorv.dart';
 import 'leaderboard.dart';
 
 StreamController<bool> st = StreamController<bool>.broadcast();
@@ -78,7 +79,7 @@ class _PointsScreenState extends State<PointsScreen> {
             case ConnectionState.waiting:
               return const Scaffold(
                 body: Center(
-                  child: CircularProgressIndicator(),
+                  child: SpinningApoorv(),
                 ),
               );
 

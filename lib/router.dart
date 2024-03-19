@@ -9,6 +9,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
 
 import 'widgets/snackbar.dart';
+import 'widgets/spinning_apoorv.dart';
 
 class Routing extends StatefulWidget {
   static const routeName = '/routing';
@@ -108,7 +109,7 @@ class _RoutingState extends State<Routing> {
         switch (snapshot.connectionState) {
           case ConnectionState.waiting:
             return const Scaffold(
-                body: Center(child: CircularProgressIndicator()));
+                body: Center(child: SpinningApoorv()));
 
           case ConnectionState.done:
           default:
