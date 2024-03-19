@@ -9,7 +9,8 @@ class AllTransactions extends StatelessWidget {
   const AllTransactions({super.key});
 
   Future<void> fetchAllTransactions(BuildContext context) async {
-    await Provider.of<UserProvider>(context,listen: false).getUserTransactions();
+    await Provider.of<UserProvider>(context, listen: false)
+        .getUserTransactions();
   }
 
   @override
@@ -32,7 +33,10 @@ class AllTransactions extends StatelessWidget {
                         bottomLeft: Radius.circular(20),
                       ),
                       gradient: LinearGradient(
-                        colors: [Constants.gradientHigh, Constants.gradientLow],
+                        colors: [
+                          Constants.gradientHigh,
+                          Constants.gradientMid,
+                        ],
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
                       ),

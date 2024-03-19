@@ -28,7 +28,7 @@ class _LeaderboardState extends State<Leaderboard> {
 
   Future<void> getLeaderboardUpdates() async {
     await Future.delayed(
-      Duration(seconds: 2),
+      const Duration(seconds: 2),
       () {
         var s = "";
       },
@@ -100,7 +100,7 @@ class _LeaderboardState extends State<Leaderboard> {
                                   gradient: LinearGradient(
                                     colors: [
                                       Constants.gradientHigh,
-                                      Constants.gradientLow
+                                      Constants.gradientMid,
                                     ],
                                     begin: Alignment.topCenter,
                                     end: Alignment.bottomCenter,

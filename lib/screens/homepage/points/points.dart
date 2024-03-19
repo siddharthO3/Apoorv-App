@@ -50,7 +50,6 @@ class _PointsScreenState extends State<PointsScreen> {
         }
       });
     }
-    // searchController.addListener(_onSearchChanged);
   }
 
   @override
@@ -252,7 +251,6 @@ class _PointsScreenState extends State<PointsScreen> {
                                               }
                                               timer = Timer(
                                                 const Duration(seconds: 1),
-                                                // userWrites,
                                                 () async {
                                                   var res = await APICalls()
                                                       .getUsersSearchList(

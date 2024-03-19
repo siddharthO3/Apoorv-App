@@ -74,7 +74,7 @@ class _FeedScreenState extends State<FeedScreen> {
                                 gradient: LinearGradient(
                                   colors: [
                                     Constants.gradientHigh,
-                                    Constants.gradientLow
+                                    Constants.gradientMid,
                                   ],
                                   begin: Alignment.topCenter,
                                   end: Alignment.center,

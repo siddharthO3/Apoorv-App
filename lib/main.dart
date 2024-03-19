@@ -35,8 +35,7 @@ Future<void> main() async {
   );
 
   BaseClient(dotenv.get('BASE_URL'));
-  SystemChrome.setPreferredOrientations(
-      [DeviceOrientation.portraitUp]);
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   // FirebaseAuth.instance.authStateChanges().listen((User? user) {
   //   if (user == null) {
   //     print('User is currently signed out!');
@@ -76,6 +75,11 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           fontFamily: 'Raleway',
           brightness: Brightness.dark,
+          scaffoldBackgroundColor: Constants.blackColor,
+          navigationBarTheme: const NavigationBarThemeData(
+            backgroundColor: Constants.blackColor,
+            surfaceTintColor: Constants.blackColor,
+          ),
           textButtonTheme: TextButtonThemeData(
             style: ButtonStyle(
               foregroundColor: MaterialStateProperty.all<Color>(Colors.white),

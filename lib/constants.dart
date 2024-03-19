@@ -15,6 +15,7 @@ class Constants {
   static const blackColor = Colors.black;
 
   static const gradientHigh = Color.fromRGBO(0xFF, 0xC3, 0xAE, 1);
+  static const gradientMid = Color(0xffffdfb3);
   static const gradientLow = Color.fromRGBO(0xFF, 0xE8, 0xB4, 1);
 
   static const gap = SizedBox(height: 16);
