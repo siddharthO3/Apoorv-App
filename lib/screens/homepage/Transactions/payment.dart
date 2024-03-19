@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../../constants.dart';
 
-Future<void> dialogBuilder(BuildContext context) {
+Future<void> dialogBuilder(BuildContext context, {String? dialog, Function? onFailedPayment}) {
   return showDialog<void>(
     context: context,
     builder: (BuildContext context) {
