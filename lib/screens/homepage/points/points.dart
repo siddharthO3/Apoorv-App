@@ -438,7 +438,7 @@ class _PointsScreenState extends State<PointsScreen> {
                   return Center(child: Text(snapshot.data['message']));
                 }
               } else {
-                return const Scaffold(body: Text('No data'));
+                return const Scaffold(body: Center(child: SpinningApoorv()));
               }
           }
         });

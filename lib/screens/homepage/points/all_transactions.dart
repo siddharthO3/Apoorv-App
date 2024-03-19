@@ -1,4 +1,5 @@
 import 'package:apoorv_app/providers/user_info_provider.dart';
+import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -17,7 +18,9 @@ class AllTransactions extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromRGBO(18, 18, 18, 1),
-      body: RefreshIndicator(
+      body: CustomMaterialIndicator(
+        indicatorBuilder: (context, controller) =>
+            Image.asset("assets/images/phoenix_74.png"),
         onRefresh: () => fetchAllTransactions(context),
         child: SingleChildScrollView(
           physics: const AlwaysScrollableScrollPhysics(),

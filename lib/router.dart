@@ -146,7 +146,7 @@ class _RoutingState extends State<Routing> {
               }
             }
             // else {
-            return const Scaffold(body: Text('No data'));
+            return const Scaffold(body: Center(child: SpinningApoorv()));
           // }
         }
       },

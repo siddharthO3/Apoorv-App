@@ -5,37 +5,39 @@ class SingleFeed extends StatelessWidget {
   const SingleFeed({
     super.key,
     required this.title,
-    required this.priority,
+    this.priority = false,
     this.imageUrl,
+    required this.index,
   });
+  final int index;
   final String title;
-  final int priority;
+  final bool priority;
   final String? imageUrl;
 
-  static const feedColor = {
-    1: Constants.redColor,
-    2: Constants.creamColor,
-    3: Constants.silverColor,
-    4: Constants.greyColor,
-  };
+  static const feedColor = [
+    Constants.creamColor,
+    Constants.whiteColor,
+  ];
 
-  static const textColor = {
-    1: Constants.whiteColor,
-    2: Constants.blackColor,
-    3: Constants.blackColor,
-    4: Constants.silverColor,
-  };
+  static const textColor = Constants.blackColor;
 
   @override
   Widget build(BuildContext context) {
+    var border;
+    if (priority) {
+      border = RoundedRectangleBorder(
+        side: const BorderSide(color: Constants.redColor, width: 5.0),
+        borderRadius: BorderRadius.circular(24),
+      );
+    }
     return Card(
-      // decoration: BoxDecoration(color: feedColor[priority]),
+      shape: border,
       margin: EdgeInsets.only(
         left: MediaQuery.of(context).size.width * 0.03,
         right: MediaQuery.of(context).size.width * 0.03,
         bottom: MediaQuery.of(context).size.width * 0.03,
       ),
-      color: feedColor[priority],
+      color: feedColor[index % 2],
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -47,15 +49,14 @@ class SingleFeed extends StatelessWidget {
                 Expanded(
                     child: Text(
                   title,
-                  style: TextStyle(
-                    color: textColor[priority],
+                  style: const TextStyle(
+                    color: textColor,
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
                   ),
                 )),
               ],
             ),
-
             if (imageUrl != null) ...{
               Constants.gap,
               Image.network(

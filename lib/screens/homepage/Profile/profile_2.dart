@@ -9,6 +9,7 @@ import 'package:qr_flutter/qr_flutter.dart';
 import '../../../constants.dart';
 import '../../../widgets/signup-flow/logout.dart';
 import '../../../widgets/snackbar.dart';
+import '../../../widgets/spinning_apoorv.dart';
 
 class Profile2Screen extends StatefulWidget {
   static const routeName = '/profile-2';
@@ -258,7 +259,7 @@ class _Profile2ScreenState extends State<Profile2Screen> {
                   return Center(child: Text(snapshot.data['message']));
                 }
               } else {
-                return const Scaffold(body: Text('No data'));
+                return const Scaffold(body: Center(child: SpinningApoorv()));
               }
           }
         });

@@ -1,6 +1,7 @@
 import 'package:apoorv_app/api.dart';
 import 'package:apoorv_app/providers/user_info_provider.dart';
 import 'package:apoorv_app/screens/homepage/feed/single_feed.dart';
+import 'package:apoorv_app/widgets/dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -21,7 +22,6 @@ class _FeedScreenState extends State<FeedScreen> {
   @override
   void initState() {
     super.initState();
-    // ScaffoldMessenger.of(context).hideCurrentSnackBar();
     _updateFeedData();
   }
 
@@ -51,8 +51,26 @@ class _FeedScreenState extends State<FeedScreen> {
                   body: Center(child: Text(snapshot.error.toString())),
                 );
               } else if (snapshot.hasData) {
-                print(snapshot.data);
-                if (snapshot.data['success']) {
+                print("Feed page data in hasData: ${snapshot.data}");
+                if (snapshot.data['error'] != null) {
+                  var e = snapshot.data['error'] as String;
+                  var message = "";
+                  if (e.contains("connection")) {
+                    message =
+                        "There was a connection error! Check your connection and try again";
+                  } else {
+                    message = e;
+                  }
+                  Future.delayed(
+                      const Duration(seconds: 1),
+                      () => dialogBuilder(context, message: message,
+                              function: () {
+                            _updateFeedData();
+                            Navigator.of(context).pop();
+                          }));
+
+                  return const Scaffold(body: Center(child: SpinningApoorv()));
+                } else if (snapshot.data['success']) {
                   var providerContext = context.read<UserProvider>();
 
                   var data = snapshot.data['body'] as List;
@@ -63,8 +81,6 @@ class _FeedScreenState extends State<FeedScreen> {
                     ),
                     body: SizedBox(
                       width: MediaQuery.of(context).size.width,
-                      // height: MediaQuery.of(context).size.height -
-                      //     kBottomNavigationBarHeight,
                       child: Column(
                         children: [
                           Container(
@@ -155,6 +171,7 @@ class _FeedScreenState extends State<FeedScreen> {
                                 itemBuilder: (BuildContext context, int i) {
                                   if (data[i]['imageUrl'] != null) {
                                     return SingleFeed(
+                                      index: i,
                                       title:
                                           "${data[i]['title']}\n${data[i]['text']}",
                                       priority: data[i]['priority'],
@@ -162,6 +179,7 @@ class _FeedScreenState extends State<FeedScreen> {
                                     );
                                   } else {
                                     return SingleFeed(
+                                      index: i,
                                       title:
                                           "${data[i]['title']}\n${data[i]['text']}",
                                       priority: data[i]['priority'],
@@ -175,15 +193,10 @@ class _FeedScreenState extends State<FeedScreen> {
                     ),
                   );
                 } else {
-                  // Future.delayed(
-                  //   Duration.zero,
-                  //   () =>
-                  //       showSnackbarOnScreen(context, snapshot.data['message']),
-                  // );
                   return Center(child: Text(snapshot.data['message']));
                 }
               } else {
-                return const Scaffold(body: Center(child: Text('No data')));
+                return const Scaffold(body: Center(child: SpinningApoorv()));
               }
           }
         });

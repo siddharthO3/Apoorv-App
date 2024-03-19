@@ -1,5 +1,6 @@
 import '../../../providers/receiver_provider.dart';
 import '../../../providers/user_info_provider.dart';
+import '../../../widgets/dialog.dart';
 import '../../../widgets/spinning_apoorv.dart';
 import 'payment_success.dart';
 import '../../../widgets/snackbar.dart';
@@ -17,43 +18,6 @@ class Payment extends StatefulWidget {
 }
 
 class _PaymentState extends State<Payment> {
-  Future<void> dialogBuilder(BuildContext context, String message) {
-    return showDialog<void>(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(
-            message,
-            style: const TextStyle(
-              color: Constants.blackColor,
-              fontWeight: FontWeight.bold,
-            ),
-            textAlign: TextAlign.center,
-          ),
-          backgroundColor: Constants.yellowColor,
-          actionsAlignment: MainAxisAlignment.center,
-          actions: <Widget>[
-            TextButton(
-              style: TextButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  textStyle: Theme.of(context).textTheme.labelLarge,
-                  backgroundColor: Constants.blackColor),
-              child: const Text(
-                'Try Again',
-                style: TextStyle(color: Constants.whiteColor),
-              ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-
   final TextEditingController amountController = TextEditingController();
 
   Future<Map<String, dynamic>>? _myFuture;
@@ -234,7 +198,11 @@ class _PaymentState extends State<Payment> {
                                                       PaymentSuccess.routeName);
                                             } else {
                                               dialogBuilder(
-                                                  context, response['message']);
+                                                context,
+                                                message: response['message'],
+                                                function: () =>
+                                                    Navigator.of(context).pop(),
+                                              );
                                               showSnackbarOnScreen(
                                                   context, response['message']);
                                             }
@@ -282,7 +250,7 @@ class _PaymentState extends State<Payment> {
                 return Center(child: Text(snapshot.data['message']));
               }
             } else {
-              return const Scaffold(body: Text('No data'));
+              return const Scaffold(body: Center(child: SpinningApoorv()));
             }
         }
       },

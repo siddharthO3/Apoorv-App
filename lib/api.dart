@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_print
-
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
@@ -31,7 +29,6 @@ class APICalls {
     } on DioException catch (e) {
       print("Response code: ${e.response!.statusCode}");
       print(e.message);
-      // TODO: Custom error messages needed
       if (e.type == DioExceptionType.badResponse) {
         payload['message'] =
             "${e.type.name}, index: ${e.type.index}: ${e.response!.statusCode}";
@@ -238,7 +235,7 @@ class APICalls {
         ),
       );
 
-      print("Feed Query: $response");
+      // print("Feed Query: $response");
 
       if (response.statusCode == 200) {
         payload = json.decode(response.toString()) as Map<String, dynamic>;
@@ -248,7 +245,7 @@ class APICalls {
       if (e.type == DioExceptionType.badResponse) {
         print("Response code: ${e.response!.statusCode}");
         payload['error'] =
-            "${json.decode(e.response.toString())['error']}\n${e.type.name}, ${e.response!.statusCode}";
+            "${json.decode(e.response.toString())['error']}";
       } else if (e.type == DioExceptionType.connectionError) {
         payload['error'] = "${e.type.name} Connection Error";
       } else {
