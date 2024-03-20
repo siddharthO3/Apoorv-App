@@ -99,9 +99,6 @@ class _PointsScreenState extends State<PointsScreen> {
 
                 return const Scaffold(body: Center(child: SpinningApoorv()));
               } else if (snapshot.hasData) {
-                print("Error in snapshot data: ${snapshot.error}");
-                print("Data in snapshot data: ${snapshot.data}");
-                // print(snapshot.data);
                 if (snapshot.data['success']) {
                   Provider.of<UserProvider>(context);
                   var providerContext = context.read<UserProvider>();

@@ -1,4 +1,5 @@
 import 'package:apoorv_app/constants.dart';
+import 'package:apoorv_app/screens/homepage/Maps/maps_full_view.dart';
 
 import 'base_client.dart';
 import 'providers/receiver_provider.dart';
@@ -125,6 +126,7 @@ class MyApp extends StatelessWidget {
           WelcomeScreen.routeName: (context) => const WelcomeScreen(),
           SignUpScreen.routeName: (context) => const SignUpScreen(),
           HomePage.routeName: (context) => const HomePage(),
+          MapsFullView.routeName: (context) => const MapsFullView(),
           PointsScreen.routeName: (context) => const PointsScreen(),
           Profile2Screen.routeName: (context) => const Profile2Screen(),
           Leaderboard.routeName: (context) => const Leaderboard(),
