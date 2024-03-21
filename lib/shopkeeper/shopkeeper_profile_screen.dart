@@ -1,5 +1,6 @@
 import 'package:apoorv_app/screens/signup-flow/welcome.dart';
 import 'package:apoorv_app/shopkeeper/shopkeeper_welcome.dart';
+import 'package:apoorv_app/widgets/signup-flow/logout.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -81,7 +82,7 @@ class _ShopkeeperProfileScreenState extends State<ShopkeeperProfileScreen> {
                   var providerContext = context.read<ShopkeeperProvider>();
                   return Scaffold(
                     floatingActionButton: FloatingActionButton(
-                      child: Icon(Icons.refresh_rounded),
+                      child: const Icon(Icons.refresh_rounded),
                       onPressed: () => setState(() {
                         _updateProfileData();
                       }),
@@ -163,33 +164,7 @@ class _ShopkeeperProfileScreenState extends State<ShopkeeperProfileScreen> {
                                                 ),
                                               ),
                                               Constants.gap,
-                                              FilledButton(
-                                                onPressed: () {
-                                                  Navigator.of(context)
-                                                      .pushReplacementNamed(
-                                                          ShopKeeperWelcomeScreen
-                                                              .routeName);
-                                                },
-                                                style: ButtonStyle(
-                                                  backgroundColor:
-                                                      MaterialStateProperty.all<
-                                                              Color>(
-                                                          Constants.redColor),
-                                                  foregroundColor:
-                                                      MaterialStateProperty.all<
-                                                              Color>(
-                                                          Constants.whiteColor),
-                                                ),
-                                                child: const SizedBox(
-                                                  width: double.infinity,
-                                                  child: Text(
-                                                    "Logout",
-                                                    textAlign: TextAlign.center,
-                                                    style:
-                                                        TextStyle(fontSize: 16),
-                                                  ),
-                                                ),
-                                              ),
+                                              const LogoutButton(shop: true),
                                             ],
                                           ),
                                         )

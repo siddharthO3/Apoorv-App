@@ -1,4 +1,5 @@
 import 'package:apoorv_app/screens/signup-flow/welcome.dart';
+import 'package:apoorv_app/shopkeeper/shopkeeper_welcome.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -6,7 +7,8 @@ import 'package:google_sign_in/google_sign_in.dart';
 import '../../constants.dart';
 
 class LogoutButton extends StatelessWidget {
-  const LogoutButton({super.key});
+  final bool shop;
+  const LogoutButton({super.key, this.shop = false});
 
   @override
   Widget build(BuildContext context) {
@@ -16,8 +18,13 @@ class LogoutButton extends StatelessWidget {
         await GoogleSignIn().signOut();
 
         if (context.mounted) {
-          Navigator.of(context)
-              .restorablePushReplacementNamed(WelcomeScreen.routeName);
+          if (shop) {
+            Navigator.of(context).restorablePushReplacementNamed(
+                ShopKeeperWelcomeScreen.routeName);
+          } else {
+            Navigator.of(context)
+                .restorablePushReplacementNamed(WelcomeScreen.routeName);
+          }
         }
       },
       style: ButtonStyle(

@@ -25,6 +25,8 @@ class _ShopkeeperRoutingState extends State<ShopkeeperRouting> {
       return 0;
     }
 
+    print(FirebaseAuth.instance.currentUser);
+
     try {
       Provider.of<ShopkeeperProvider>(context, listen: false)
           .refreshGoogleServiceData();

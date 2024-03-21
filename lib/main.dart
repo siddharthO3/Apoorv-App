@@ -154,7 +154,7 @@ class MyApp extends StatelessWidget {
           ShopkeeperProfileScreen.routeName: (context) =>
               const ShopkeeperProfileScreen(),
         },
-        initialRoute: ShopKeeperWelcomeScreen.routeName,
+        initialRoute: ShopkeeperRouting.routeName,
         // initialRoute: WelcomeScreen.routeName,
         // home: const LoadingScreen(),
       ),

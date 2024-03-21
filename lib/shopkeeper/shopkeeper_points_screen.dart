@@ -102,6 +102,7 @@ class _ShopkeeperPointsScreenState extends State<ShopkeeperPointsScreen> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
+                            const SizedBox(),
                             // Constants.gap,
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -127,85 +128,79 @@ class _ShopkeeperPointsScreenState extends State<ShopkeeperPointsScreen> {
                                 ),
                               ],
                             ),
-                            Constants.gap,
-                            Flexible(
-                              child: Container(
-                                // Container(
-                                alignment: Alignment.center,
-                                decoration: const BoxDecoration(
-                                  color: Constants.blackColor,
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(24),
-                                    topRight: Radius.circular(24),
-                                  ),
+                            // Constants.gap,
+                            Container(
+                              // Container(
+                              alignment: Alignment.center,
+                              decoration: const BoxDecoration(
+                                color: Constants.blackColor,
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(24),
+                                  topRight: Radius.circular(24),
                                 ),
-                                padding: EdgeInsets.all(
-                                    MediaQuery.of(context).size.width * 0.05),
-                                child: SingleChildScrollView(
-                                  physics:
-                                      const AlwaysScrollableScrollPhysics(),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      const Text(
-                                        "LAST TRANSACTIONS",
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 19,
-                                        ),
+                              ),
+                              padding: EdgeInsets.all(
+                                  MediaQuery.of(context).size.width * 0.05),
+                              child: SingleChildScrollView(
+                                physics:
+                                    const AlwaysScrollableScrollPhysics(),
+                                child: Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    const Text(
+                                      "LAST TRANSACTIONS",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 19,
                                       ),
-                                      if (providerContext
-                                          .transactions.isEmpty) ...[
-                                        Constants.gap,
-                                        const Center(
-                                          child: Text(
-                                              "No transactions to show here"),
-                                        ),
-                                        // Constants.gap,
-                                      ],
-                                      if (providerContext
-                                          .transactions.isNotEmpty)
-                                        ...snapshot.data['transactions'],
-                                      // Constants.gap,
-                                      Align(
-                                        alignment: Alignment.centerRight,
-                                        child: TextButton(
-                                          onPressed: providerContext
-                                                  .transactions.isNotEmpty
-                                              ? () {
-                                                  Navigator.of(context)
-                                                      .restorablePushNamed(
-                                                          AllTransactions
-                                                              .routeName);
-                                                }
-                                              : null,
-                                          // Disable the button if there are no transactions
-                                          style: const ButtonStyle(),
-                                          child: const Text(
-                                            'View More ->',
-                                            style: TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                            // textAlign: TextAlign.end,
-                                          ),
-                                        ),
-                                      ),
-                                      // Constants.gap,
-                                      const Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [ScanQR()],
-                                      ),
-                                      const SizedBox(
-                                        height: 20,
+                                    ),
+                                    if (providerContext
+                                        .transactions.isEmpty) ...[
+                                      Constants.gap,
+                                      const Center(
+                                        child: Text(
+                                            "No transactions to show here"),
                                       ),
                                       // Constants.gap,
                                     ],
-                                  ),
+                                    if (providerContext
+                                        .transactions.isNotEmpty)
+                                      ...snapshot.data['transactions'],
+                                    // Constants.gap,
+                                    Align(
+                                      alignment: Alignment.centerRight,
+                                      child: TextButton(
+                                        onPressed: providerContext
+                                                .transactions.isNotEmpty
+                                            ? () {
+                                                Navigator.of(context)
+                                                    .restorablePushNamed(
+                                                        AllTransactions
+                                                            .routeName);
+                                              }
+                                            : null,
+                                        // Disable the button if there are no transactions
+                                        style: const ButtonStyle(),
+                                        child: const Text(
+                                          'View More ->',
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                          // textAlign: TextAlign.end,
+                                        ),
+                                      ),
+                                    ),
+                                    // Constants.gap,
+                                      const Center(child: ScanQR()),
+                                    const SizedBox(
+                                      height: 20,
+                                    ),
+                                    // Constants.gap,
+                                  ],
                                 ),
                               ),
                             ),
