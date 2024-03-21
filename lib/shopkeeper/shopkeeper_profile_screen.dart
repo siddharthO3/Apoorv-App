@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants.dart';
-import '../providers/shopkeeperProvider.dart';
+import '../providers/shopkeeper_provider.dart';
 import '../widgets/dialog.dart';
 import '../widgets/spinning_apoorv.dart';
 
@@ -18,21 +18,16 @@ class ShopkeeperProfileScreen extends StatefulWidget {
 
 class _ShopkeeperProfileScreenState extends State<ShopkeeperProfileScreen> {
   Future<Map<String, dynamic>>? _myFuture;
-  // Timer? timer;
 
   @override
   void initState() {
     super.initState();
-    _updateProfileData(); // Call the function to initially fetch and update profile data
-    // timer = Timer.periodic(const Duration(seconds: 10), (timer) {
-    //   _updateProfileData(); // Call the function to fetch and update profile data every 10 seconds
-    // });
+    _updateProfileData();
   }
 
   @override
   void dispose() {
     super.dispose();
-    // timer?.cancel();
   }
 
   // Function to fetch and update profile data

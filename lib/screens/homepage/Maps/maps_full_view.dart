@@ -20,9 +20,9 @@ class MapsFullView extends StatelessWidget {
           child: Hero(
             tag: args['url'],
             child: InteractiveViewer(
-              constrained: false,
-              minScale: 0.5,
-              // boundaryMargin: EdgeInsets.all(100),
+              constrained: true,
+              maxScale: 3.5,
+              boundaryMargin: const EdgeInsets.all(8),
               child: Image.network(
                 args['url'],
               ),

@@ -1,12 +1,10 @@
 import 'dart:async';
 
-import 'package:apoorv_app/providers/shopkeeperProvider.dart';
+import 'package:apoorv_app/providers/shopkeeper_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants.dart';
-import '../../widgets/points-widget/transactions.dart';
-import '../providers/user_info_provider.dart';
 import '../screens/homepage/points/all_transactions.dart';
 import '../widgets/dialog.dart';
 import '../widgets/points-widget/qr/scan_qr.dart';

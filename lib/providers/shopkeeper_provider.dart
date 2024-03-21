@@ -75,7 +75,13 @@ class ShopkeeperProvider extends ChangeNotifier {
     refreshUID(listen: false);
     refreshIdToken(listen: true);
 
-    var res = await APICalls().getUserDataAPI(uid, idToken);
+    var args = {
+      "from": uid,
+      "password": shopkeeperPassword,
+      "email": shopkeeperEmail,
+    };
+
+    var res = await APICalls().getUserDataAPI(uid, idToken, args: args);
     print("res get user api: $res");
     if (res['success']) {
       updateEmail(res['email']);

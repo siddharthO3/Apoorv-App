@@ -1,5 +1,9 @@
 import 'package:apoorv_app/constants.dart';
+import 'package:apoorv_app/providers/shopkeeper_provider.dart';
 import 'package:apoorv_app/screens/homepage/Maps/maps_full_view.dart';
+import 'package:apoorv_app/shopkeeper/shopkeeper_homepage.dart';
+import 'package:apoorv_app/shopkeeper/shopkeeper_points_screen.dart';
+import 'package:apoorv_app/shopkeeper/shopkeeper_profile_screen.dart';
 
 import 'base_client.dart';
 import 'providers/receiver_provider.dart';
@@ -70,6 +74,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => ReceiverProvider(),
         ),
+        ChangeNotifierProvider(
+          create: (context) => ShopkeeperProvider(),
+        ),
       ],
       child: MaterialApp(
         theme: ThemeData(
@@ -134,6 +141,11 @@ class MyApp extends StatelessWidget {
           Payment.routeName: (context) => const Payment(),
           PaymentSuccess.routeName: (context) => const PaymentSuccess(),
           AllTransactions.routeName: (context) => const AllTransactions(),
+          ShopkeeperHomePage.routeName: (context) => const ShopkeeperHomePage(),
+          ShopkeeperPointsScreen.routeName: (context) =>
+              const ShopkeeperPointsScreen(),
+          ShopkeeperProfileScreen.routeName: (context) =>
+              const ShopkeeperProfileScreen(),
         },
         initialRoute: Routing.routeName,
         // initialRoute: WelcomeScreen.routeName,

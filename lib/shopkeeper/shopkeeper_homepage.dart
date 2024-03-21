@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../constants.dart';
-import 'ShopkeeperPointsScreen.dart';
-import 'ShopkeeperProfileScreen.dart';
+import 'shopkeeper_points_screen.dart';
+import 'shopkeeper_profile_screen.dart';
 
 class ShopkeeperHomePage extends StatefulWidget {
   static const routeName = '/shopkeeper-home-page';
@@ -32,16 +32,16 @@ class _ShopkeeperHomePageState extends State<ShopkeeperHomePage> {
   }
 
   void showAppCloseConfirmation(BuildContext context) {
-    final snackBar = SnackBar(
-      content: const Text("Press back again to exit"),
+    const snackBar = SnackBar(
+      content: Text("Press back again to exit"),
       backgroundColor: Colors.white,
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
   List screens = [
-    () => ShopkeeperPointsScreen(),
-    () => ShopkeeperProfileScreen(),
+    () => const ShopkeeperPointsScreen(),
+    () => const ShopkeeperProfileScreen(),
   ];
   @override
   Widget build(BuildContext context) {
