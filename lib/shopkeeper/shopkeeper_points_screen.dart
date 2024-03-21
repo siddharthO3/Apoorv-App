@@ -2,15 +2,15 @@ import 'dart:async';
 
 import 'package:apoorv_app/providers/shopkeeper_provider.dart';
 import 'package:apoorv_app/shopkeeper/shopkeeper_all_transactions.dart';
+import 'package:apoorv_app/shopkeeper/shopkeeper_scan_qr.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants.dart';
 import '../widgets/dialog.dart';
-import '../widgets/points-widget/qr/scan_qr.dart';
 import '../widgets/spinning_apoorv.dart';
 
-StreamController<bool> st = StreamController<bool>.broadcast();
+StreamController<bool> shopst = StreamController<bool>.broadcast();
 
 class ShopkeeperPointsScreen extends StatefulWidget {
   static const routeName = '/shopkeeper-points';
@@ -192,7 +192,7 @@ class _ShopkeeperPointsScreenState extends State<ShopkeeperPointsScreen> {
                                       ),
                                     ),
                                     // Constants.gap,
-                                    const Center(child: ScanQR()),
+                                    Center(child: ShopkeeperScanQR()),
                                     const SizedBox(
                                       height: 20,
                                     ),

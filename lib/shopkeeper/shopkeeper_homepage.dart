@@ -40,7 +40,7 @@ class _ShopkeeperHomePageState extends State<ShopkeeperHomePage> {
   }
 
   List screens = [
-    () => const ShopkeeperPointsScreen(),
+    () => ShopkeeperPointsScreen(stream: shopst.stream,),
     () => const ShopkeeperProfileScreen(),
   ];
   @override

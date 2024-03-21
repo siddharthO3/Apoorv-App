@@ -4,6 +4,7 @@ import 'package:apoorv_app/screens/homepage/Maps/maps_full_view.dart';
 import 'package:apoorv_app/shop_router.dart';
 import 'package:apoorv_app/shopkeeper/shopkeeper_all_transactions.dart';
 import 'package:apoorv_app/shopkeeper/shopkeeper_homepage.dart';
+import 'package:apoorv_app/shopkeeper/shopkeeper_payment.dart';
 import 'package:apoorv_app/shopkeeper/shopkeeper_points_screen.dart';
 import 'package:apoorv_app/shopkeeper/shopkeeper_profile_screen.dart';
 import 'package:apoorv_app/shopkeeper/shopkeeper_signup.dart';
@@ -156,6 +157,7 @@ class MyApp extends StatelessWidget {
               const ShopkeeperProfileScreen(),
           ShopkeeperAllTransactions.routeName: (context) =>
               const ShopkeeperAllTransactions(),
+          ShopkeeperPayment.routeName: (context) => const ShopkeeperPayment(),
         },
         initialRoute: ShopkeeperRouting.routeName,
         // initialRoute: WelcomeScreen.routeName,

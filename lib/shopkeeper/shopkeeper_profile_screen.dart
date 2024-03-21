@@ -205,8 +205,8 @@ class _ShopkeeperProfileScreenState extends State<ShopkeeperProfileScreen> {
                               child: Container(
                                 color: Colors.white,
                                 width: double.infinity,
-                                child: Image.asset(
-                                  'assets/images/newacadground.png',
+                                child: Image.network(
+                                  'https://drive.google.com/uc?export=view&id=1IHBaPuam7Q8mv2JUMBcCtlOf9pQr2Ncx',
                                 ),
                               ),
                             ),

@@ -4,11 +4,13 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../../../constants.dart';
+import '../../../shopkeeper/shopkeeper_points_screen.dart';
 import '../points/points.dart';
 
 class PaymentSuccess extends StatefulWidget {
   static const routeName = '/PaymentSuccess';
-  const PaymentSuccess({super.key});
+  final bool shop;
+  const PaymentSuccess({super.key, this.shop = false});
 
   @override
   State<PaymentSuccess> createState() => _PaymentSuccessState();
@@ -18,7 +20,11 @@ class _PaymentSuccessState extends State<PaymentSuccess> {
   @override
   void initState() {
     super.initState();
-    st.add(true);
+    if (widget.shop) {
+      shopst.add(true);
+    } else {
+      st.add(true);
+    }
   }
 
   @override
@@ -101,7 +107,8 @@ class _PaymentSuccessState extends State<PaymentSuccess> {
                   Constants.gap,
                   FilledButton(
                     onPressed: () {
-                      Provider.of<ReceiverProvider>(context, listen: false).resetProvider();
+                      Provider.of<ReceiverProvider>(context, listen: false)
+                          .resetProvider();
                       Navigator.of(context).popUntil((route) => route.isFirst);
                     },
                     style: ButtonStyle(

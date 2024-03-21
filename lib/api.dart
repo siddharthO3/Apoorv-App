@@ -40,6 +40,41 @@ class APICalls {
     return payload;
   }
 
+  Future<Map<String, dynamic>> getShopDataAPI(String uid, String idToken,
+      {required Map<String, String>? args}) async {
+    Map<String, dynamic> payload = {};
+    try {
+      var response = await BaseClient.dio.get(
+        '/shop/$uid',
+        data: args,
+        options: Options(
+          headers: {
+            'Authorization': idToken,
+          },
+        ),
+      );
+      if (response.statusCode == 200) {
+        payload =
+            json.decode(response.toString())["user"] as Map<String, dynamic>;
+        // print(payload);
+        payload['success'] = true;
+        payload['message'] = 'Your user data has been updated';
+      }
+    } on DioException catch (e) {
+      print("Response code: ${e.response!.statusCode}");
+      print(e.message);
+      if (e.type == DioExceptionType.badResponse) {
+        payload['error'] = "${e.type.name} ${e.response!.statusCode}";
+      } else if (e.type == DioExceptionType.connectionError) {
+        payload['error'] = "${e.type.name} Connection error";
+      } else {
+        payload['error'] = "Unhandled/Unknown Error, with name: ${e.type.name}";
+      }
+      payload['success'] = false;
+    }
+    return payload;
+  }
+
   Future<Map<String, dynamic>> uploadUserData(
     Map<String, dynamic> args,
     String idToken,

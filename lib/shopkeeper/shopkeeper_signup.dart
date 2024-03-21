@@ -1,4 +1,4 @@
-import 'package:email_validator/email_validator.dart';
+import 'package:apoorv_app/widgets/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -33,9 +33,13 @@ class _ShopkeeperSignInState extends State<ShopkeeperSignIn> {
   bool passwordVisible = false;
   int popCount = 0;
 
+  bool isProcessing = false;
+
   @override
   void initState() {
     super.initState();
+    Provider.of<ShopkeeperProvider>(context, listen: false)
+        .refreshGoogleServiceData();
     popScreen(context);
     shopkeeperEmailController = TextEditingController(
         text: Provider.of<ShopkeeperProvider>(context, listen: false)
@@ -148,9 +152,12 @@ class _ShopkeeperSignInState extends State<ShopkeeperSignIn> {
                                   hintStyle:
                                       const TextStyle(color: Colors.black),
                                   suffixIcon: IconButton(
-                                    icon: Icon(passwordVisible
-                                        ? Icons.visibility
-                                        : Icons.visibility_off),
+                                    icon: Icon(
+                                      passwordVisible
+                                          ? Icons.visibility
+                                          : Icons.visibility_off,
+                                      color: Colors.black,
+                                    ),
                                     onPressed: () {
                                       setState(() {
                                         passwordVisible = !passwordVisible;
@@ -160,18 +167,41 @@ class _ShopkeeperSignInState extends State<ShopkeeperSignIn> {
                             ),
                             Constants.gap,
                             FilledButton(
-                              onPressed: () {
-                                if (_formKey.currentState!.validate()) {
-                                  shopkeeperProvider.updateShopkeeper(
-                                    shopEmail: shopkeeperEmailController.text,
-                                    shopPass: shopkeeperPassController.text,
-                                  );
+                              onPressed: isProcessing
+                                  ? null
+                                  : () async {
+                                      if (!isProcessing) {
+                                        setState(() {
+                                          isProcessing = true;
+                                        });
+                                      }
+                                      if (_formKey.currentState!.validate()) {
+                                        shopkeeperProvider.updateShopkeeper(
+                                          shopEmail:
+                                              shopkeeperEmailController.text,
+                                          shopPass:
+                                              shopkeeperPassController.text,
+                                        );
+                                        var shopProvider =
+                                            Provider.of<ShopkeeperProvider>(
+                                                context,
+                                                listen: false);
 
-                                  Navigator.of(context)
-                                      .restorablePushReplacementNamed(
-                                          ShopkeeperHomePage.routeName);
-                                }
-                              },
+                                        shopProvider.shopkeeperPassword =
+                                            shopkeeperPassController.text;
+
+                                        var response =
+                                            await shopProvider.getUserInfo();
+                                        if (response['success']) {
+                                          Navigator.of(context)
+                                              .restorablePushReplacementNamed(
+                                                  ShopkeeperHomePage.routeName);
+                                        } else {
+                                          showSnackbarOnScreen(context,
+                                              "Incorrect password login");
+                                        }
+                                      }
+                                    },
                               style: ButtonStyle(
                                   backgroundColor:
                                       MaterialStateProperty.all<Color>(

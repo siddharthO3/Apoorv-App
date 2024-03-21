@@ -84,7 +84,7 @@ class ShopkeeperProvider extends ChangeNotifier {
       "email": shopkeeperEmail,
     };
 
-    var res = await APICalls().getUserDataAPI(uid, idToken, args: args);
+    var res = await APICalls().getShopDataAPI(uid, idToken, args: args);
     print("res get user api: $res");
     if (res['success']) {
       updateEmail(res['email']);

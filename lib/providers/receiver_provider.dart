@@ -1,4 +1,5 @@
 import 'package:apoorv_app/api.dart';
+import 'package:apoorv_app/providers/shopkeeper_provider.dart';
 import 'package:apoorv_app/providers/user_info_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -56,10 +57,18 @@ class ReceiverProvider extends ChangeNotifier {
     updateProfilePhoto(args['profileImage']);
   }
 
-  Future<Map<String, dynamic>> setReceiverData(BuildContext context) async {
-    Provider.of<UserProvider>(context, listen: false).refreshIdToken();
-    var response = await APICalls()
-        .getUserDataAPI(uid, context.read<UserProvider>().idToken);
+  Future<Map<String, dynamic>> setReceiverData(BuildContext context,
+      {bool shop = false}) async {
+    var response;
+    if (shop) {
+      Provider.of<ShopkeeperProvider>(context, listen: false).refreshIdToken();
+      response = await APICalls()
+          .getUserDataAPI(uid, context.read<ShopkeeperProvider>().idToken);
+    } else {
+      Provider.of<UserProvider>(context, listen: false).refreshIdToken();
+      response = await APICalls()
+          .getUserDataAPI(uid, context.read<UserProvider>().idToken);
+    }
 
     var retValue = {'success': false};
 
