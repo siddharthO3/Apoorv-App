@@ -1,5 +1,3 @@
-import 'package:apoorv_app/screens/signup-flow/welcome.dart';
-import 'package:apoorv_app/shopkeeper/shopkeeper_welcome.dart';
 import 'package:apoorv_app/widgets/signup-flow/logout.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

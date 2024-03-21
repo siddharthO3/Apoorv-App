@@ -175,6 +175,67 @@ class APICalls {
     return retValue;
   }
 
+  Future<Map<String, dynamic>> shopTransactionAPI({
+    required String from,
+    required String to,
+    required int amount,
+    required String password,
+    required int cardId,
+    required String email,
+  }) async {
+    var args = {
+      "from": from,
+      "to": to,
+      "amount": amount,
+      "transactionType": "shop",
+      "password": password,
+      "cardId": cardId,
+      "email": email,
+    };
+    Map<String, dynamic> retValue = {};
+
+    Map<String, dynamic> res = {};
+
+    try {
+      var response = await BaseClient.dio.post(
+        '/shop/transaction',
+        data: jsonEncode(args),
+        // options: Options(
+        //   headers: {
+        //     'Authorization': idToken,
+        //   },
+        // ),
+      );
+      print("Response in api call:$response");
+
+      res = json.decode(response.toString());
+      print(res);
+
+      retValue = {
+        'success': true,
+        'message': 'Transaction completed successfully!',
+      };
+    } on DioException catch (e) {
+      print(e);
+
+      if (e.type == DioExceptionType.badResponse) {
+        print(e);
+        print(e.response!);
+        retValue = {
+          'success': false,
+          'message': '${json.decode(e.response.toString())['error']}',
+        };
+      } else {
+        retValue = {
+          'success': false,
+          'message': 'Transaction didn"t complete!, ${e.type.name}',
+        };
+      }
+    }
+
+    return retValue;
+  }
+
   Future<Map<String, dynamic>> getLeaderboard(String idToken) async {
     Map<String, dynamic> payload = {};
     try {

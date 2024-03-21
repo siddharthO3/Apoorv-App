@@ -76,7 +76,6 @@ class ShopkeeperProvider extends ChangeNotifier {
 
   Future<Map<String, dynamic>> getUserInfo() async {
     refreshUID(listen: false);
-    print(uid);
     refreshIdToken(listen: true);
 
     var args = {
@@ -144,5 +143,31 @@ class ShopkeeperProvider extends ChangeNotifier {
       'success': res['success'],
       'error': res['error'],
     };
+  }
+
+  Future<Map<String, dynamic>> doATransaction(
+      String to, int amount, int cardId) async {
+    refreshUID(listen: false);
+    // refreshIdToken(listen: false);
+    await Future.delayed(
+      const Duration(seconds: 2),
+      () {
+        var s = "";
+      },
+    );
+    var response = await APICalls().shopTransactionAPI(
+      amount: amount,
+      cardId: cardId,
+      email: shopkeeperEmail,
+      from: uid,
+      to: to,
+      password: shopkeeperPassword,
+      // idToken,
+    );
+    print("Response from provider for shop API transaction-> $response");
+    if (response['success']) {
+      notifyListeners();
+    }
+    return response;
   }
 }

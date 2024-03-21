@@ -5,11 +5,11 @@ import 'package:provider/provider.dart';
 
 import '../constants.dart';
 
-class AllTransactions extends StatelessWidget {
-  static const routeName = '/all-transactions';
-  const AllTransactions({super.key});
+class ShopkeeperAllTransactions extends StatelessWidget {
+  static const routeName = '/shopkeeper-all-transactions';
+  const ShopkeeperAllTransactions({super.key});
 
-  Future<void> fetchAllTransactions(BuildContext context) async {
+  Future<void> fetchShopkeeperAllTransactions(BuildContext context) async {
     await Provider.of<ShopkeeperProvider>(context, listen: false)
         .getUserTransactions();
   }
@@ -21,7 +21,7 @@ class AllTransactions extends StatelessWidget {
       body: CustomMaterialIndicator(
         indicatorBuilder: (context, controller) =>
             Image.asset("assets/images/phoenix_74.png"),
-        onRefresh: () => fetchAllTransactions(context),
+        onRefresh: () => fetchShopkeeperAllTransactions(context),
         child: SingleChildScrollView(
           physics: const AlwaysScrollableScrollPhysics(),
           child: SizedBox(

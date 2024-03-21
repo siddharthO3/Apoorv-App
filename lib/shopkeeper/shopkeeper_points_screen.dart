@@ -1,11 +1,11 @@
 import 'dart:async';
 
 import 'package:apoorv_app/providers/shopkeeper_provider.dart';
+import 'package:apoorv_app/shopkeeper/shopkeeper_all_transactions.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants.dart';
-import '../screens/homepage/points/all_transactions.dart';
 import '../widgets/dialog.dart';
 import '../widgets/points-widget/qr/scan_qr.dart';
 import '../widgets/spinning_apoorv.dart';
@@ -142,11 +142,9 @@ class _ShopkeeperPointsScreenState extends State<ShopkeeperPointsScreen> {
                               padding: EdgeInsets.all(
                                   MediaQuery.of(context).size.width * 0.05),
                               child: SingleChildScrollView(
-                                physics:
-                                    const AlwaysScrollableScrollPhysics(),
+                                physics: const AlwaysScrollableScrollPhysics(),
                                 child: Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
@@ -166,8 +164,7 @@ class _ShopkeeperPointsScreenState extends State<ShopkeeperPointsScreen> {
                                       ),
                                       // Constants.gap,
                                     ],
-                                    if (providerContext
-                                        .transactions.isNotEmpty)
+                                    if (providerContext.transactions.isNotEmpty)
                                       ...snapshot.data['transactions'],
                                     // Constants.gap,
                                     Align(
@@ -178,7 +175,7 @@ class _ShopkeeperPointsScreenState extends State<ShopkeeperPointsScreen> {
                                             ? () {
                                                 Navigator.of(context)
                                                     .restorablePushNamed(
-                                                        AllTransactions
+                                                        ShopkeeperAllTransactions
                                                             .routeName);
                                               }
                                             : null,
@@ -195,7 +192,7 @@ class _ShopkeeperPointsScreenState extends State<ShopkeeperPointsScreen> {
                                       ),
                                     ),
                                     // Constants.gap,
-                                      const Center(child: ScanQR()),
+                                    const Center(child: ScanQR()),
                                     const SizedBox(
                                       height: 20,
                                     ),
