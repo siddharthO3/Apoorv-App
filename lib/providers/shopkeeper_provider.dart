@@ -12,15 +12,18 @@ class ShopkeeperProvider extends ChangeNotifier {
   String shopkeeperPassword;
   String profilePhoto;
   int shopPoints = 0;
-  List<int> pointsArray = [];
+  List<dynamic> pointsArray = [];
   String idToken;
   String uid;
+  String name;
 
   List<TransactionsWidget> transactions = [];
 
   ShopkeeperProvider({
+    this.name = "",
     this.shopkeeperEmail = " ",
-    this.profilePhoto = " ",
+    this.profilePhoto =
+        "https://t3.ftcdn.net/jpg/02/43/12/34/360_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg",
     this.shopkeeperPassword = " ",
     this.idToken = " ",
     this.uid = " ",
@@ -73,6 +76,7 @@ class ShopkeeperProvider extends ChangeNotifier {
 
   Future<Map<String, dynamic>> getUserInfo() async {
     refreshUID(listen: false);
+    print(uid);
     refreshIdToken(listen: true);
 
     var args = {
@@ -85,7 +89,8 @@ class ShopkeeperProvider extends ChangeNotifier {
     print("res get user api: $res");
     if (res['success']) {
       updateEmail(res['email']);
-      updateProfilePhoto(res['photoUrl']);
+      pointsArray = res['pointsArray'];
+      name = res['fullName'];
       updatePoints(res['points']);
       notifyListeners();
     }

@@ -1,9 +1,12 @@
 import 'package:apoorv_app/constants.dart';
 import 'package:apoorv_app/providers/shopkeeper_provider.dart';
 import 'package:apoorv_app/screens/homepage/Maps/maps_full_view.dart';
+import 'package:apoorv_app/shop_router.dart';
 import 'package:apoorv_app/shopkeeper/shopkeeper_homepage.dart';
 import 'package:apoorv_app/shopkeeper/shopkeeper_points_screen.dart';
 import 'package:apoorv_app/shopkeeper/shopkeeper_profile_screen.dart';
+import 'package:apoorv_app/shopkeeper/shopkeeper_signup.dart';
+import 'package:apoorv_app/shopkeeper/shopkeeper_welcome.dart';
 
 import 'base_client.dart';
 import 'providers/receiver_provider.dart';
@@ -141,13 +144,17 @@ class MyApp extends StatelessWidget {
           Payment.routeName: (context) => const Payment(),
           PaymentSuccess.routeName: (context) => const PaymentSuccess(),
           AllTransactions.routeName: (context) => const AllTransactions(),
+          
+          ShopkeeperRouting.routeName:(context) =>  const ShopkeeperRouting(),
+          ShopKeeperWelcomeScreen.routeName:(context) => const ShopKeeperWelcomeScreen(),
+          ShopkeeperSignIn.routeName:(context) => const ShopkeeperSignIn(),
           ShopkeeperHomePage.routeName: (context) => const ShopkeeperHomePage(),
           ShopkeeperPointsScreen.routeName: (context) =>
               const ShopkeeperPointsScreen(),
           ShopkeeperProfileScreen.routeName: (context) =>
               const ShopkeeperProfileScreen(),
         },
-        initialRoute: Routing.routeName,
+        initialRoute: ShopKeeperWelcomeScreen.routeName,
         // initialRoute: WelcomeScreen.routeName,
         // home: const LoadingScreen(),
       ),

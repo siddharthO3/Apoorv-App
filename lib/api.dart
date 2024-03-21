@@ -5,14 +5,13 @@ import 'package:dio/dio.dart';
 import 'base_client.dart';
 
 class APICalls {
-  Future<Map<String, dynamic>> getUserDataAPI(
-    String uid,
-    String idToken,
-  ) async {
+  Future<Map<String, dynamic>> getUserDataAPI(String uid, String idToken,
+      {Map<String, String>? args}) async {
     Map<String, dynamic> payload = {};
     try {
       var response = await BaseClient.dio.get(
         '/user/$uid',
+        data: args,
         options: Options(
           headers: {
             'Authorization': idToken,

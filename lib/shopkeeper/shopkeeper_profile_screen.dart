@@ -1,4 +1,5 @@
 import 'package:apoorv_app/screens/signup-flow/welcome.dart';
+import 'package:apoorv_app/shopkeeper/shopkeeper_welcome.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -30,7 +31,6 @@ class _ShopkeeperProfileScreenState extends State<ShopkeeperProfileScreen> {
     super.dispose();
   }
 
-  // Function to fetch and update profile data
   Future<void> _updateProfileData() async {
     setState(() {
       _myFuture =
@@ -80,6 +80,12 @@ class _ShopkeeperProfileScreenState extends State<ShopkeeperProfileScreen> {
                   Provider.of<ShopkeeperProvider>(ctx);
                   var providerContext = context.read<ShopkeeperProvider>();
                   return Scaffold(
+                    floatingActionButton: FloatingActionButton(
+                      child: Icon(Icons.refresh_rounded),
+                      onPressed: () => setState(() {
+                        _updateProfileData();
+                      }),
+                    ),
                     body: Container(
                       decoration: const BoxDecoration(
                         gradient: LinearGradient(
@@ -100,121 +106,136 @@ class _ShopkeeperProfileScreenState extends State<ShopkeeperProfileScreen> {
                                   horizontal:
                                       MediaQuery.of(context).size.width * 0.05),
                               child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
-                                        children: [
-                                          ClipRRect(
-                                            borderRadius: BorderRadius.circular(
-                                                MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.33 /
-                                                    2),
-                                            child: Image.network(
-                                              providerContext.profilePhoto,
-                                              height: MediaQuery.of(context)
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        ClipRRect(
+                                          borderRadius: BorderRadius.circular(
+                                              MediaQuery.of(context)
                                                       .size
                                                       .width *
-                                                  0.33,
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.33,
-                                              fit: BoxFit
-                                                  .cover, // You might want to add this to cover the entire circular area
-                                            ),
-                                          ),
-                                          SizedBox(
+                                                  0.33 /
+                                                  2),
+                                          child: Image.network(
+                                            providerContext.profilePhoto,
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.33,
                                             width: MediaQuery.of(context)
                                                     .size
                                                     .width *
-                                                0.45,
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceEvenly,
-                                              children: [
-                                                FilledButton(
-                                                  onPressed: () {},
-                                                  style: ButtonStyle(
-                                                    backgroundColor:
-                                                        MaterialStateProperty
-                                                            .all<Color>(Constants
-                                                                .yellowColor),
-                                                    foregroundColor:
-                                                        MaterialStateProperty
-                                                            .all<Color>(
-                                                                Colors.black),
-                                                  ),
-                                                  child: SizedBox(
-                                                    width: double.infinity,
-                                                    child: Text(
-                                                      "Shop Points: ${context.read<ShopkeeperProvider>().shopPoints}",
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                      // style: TextStyle(fontSize: 16),
-                                                    ),
+                                                0.33,
+                                            fit: BoxFit
+                                                .cover, // You might want to add this to cover the entire circular area
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.45,
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            children: [
+                                              FilledButton(
+                                                onPressed: () {},
+                                                style: ButtonStyle(
+                                                  backgroundColor:
+                                                      MaterialStateProperty
+                                                          .all<Color>(Constants
+                                                              .yellowColor),
+                                                  foregroundColor:
+                                                      MaterialStateProperty.all<
+                                                          Color>(Colors.black),
+                                                ),
+                                                child: SizedBox(
+                                                  width: double.infinity,
+                                                  child: Text(
+                                                    "Shop Points: ${context.read<ShopkeeperProvider>().shopPoints}",
+                                                    textAlign: TextAlign.center,
+                                                    // style: TextStyle(fontSize: 16),
                                                   ),
                                                 ),
-                                                Constants.gap,
-                                                FilledButton(
-                                                  onPressed: () {
-                                                    Navigator.of(context)
-                                                        .pushReplacementNamed(
-                                                            WelcomeScreen
-                                                                .routeName);
-                                                  },
-                                                  style: ButtonStyle(
-                                                    backgroundColor:
-                                                        MaterialStateProperty
-                                                            .all<Color>(
-                                                                Constants
-                                                                    .redColor),
-                                                    foregroundColor:
-                                                        MaterialStateProperty
-                                                            .all<Color>(Constants
-                                                                .whiteColor),
-                                                  ),
-                                                  child: const SizedBox(
-                                                    width: double.infinity,
-                                                    child: Text(
-                                                      "Logout",
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                      style: TextStyle(
-                                                          fontSize: 16),
-                                                    ),
+                                              ),
+                                              Constants.gap,
+                                              FilledButton(
+                                                onPressed: () {
+                                                  Navigator.of(context)
+                                                      .pushReplacementNamed(
+                                                          ShopKeeperWelcomeScreen
+                                                              .routeName);
+                                                },
+                                                style: ButtonStyle(
+                                                  backgroundColor:
+                                                      MaterialStateProperty.all<
+                                                              Color>(
+                                                          Constants.redColor),
+                                                  foregroundColor:
+                                                      MaterialStateProperty.all<
+                                                              Color>(
+                                                          Constants.whiteColor),
+                                                ),
+                                                child: const SizedBox(
+                                                  width: double.infinity,
+                                                  child: Text(
+                                                    "Logout",
+                                                    textAlign: TextAlign.center,
+                                                    style:
+                                                        TextStyle(fontSize: 16),
                                                   ),
                                                 ),
-                                              ],
-                                            ),
-                                          )
-                                        ]),
-                                    Constants.gap,
-                                    const Text("Email",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: Constants.blackColor,
-                                            fontSize: 16)),
-                                    Text(
-                                        context
-                                            .read<ShopkeeperProvider>()
-                                            .shopkeeperEmail,
-                                        style: const TextStyle(
-                                            color: Constants.blackColor,
-                                            fontSize: 16)),
-                                    Container(
-                                      color: Constants.whiteColor,
-                                      width: MediaQuery.of(context).size.width *
-                                          0.8,
-                                      child: Image.network(
-                                        'https://drive.google.com/uc?export=view&id=1IHBaPuam7Q8mv2JUMBcCtlOf9pQr2Ncx',
-                                        fit: BoxFit.contain,
-                                      ),
-                                    ),
-                                  ]),
+                                              ),
+                                            ],
+                                          ),
+                                        )
+                                      ]),
+                                  Constants.gap,
+                                  Text(providerContext.name,
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Constants.blackColor,
+                                          fontSize: 24)),
+                                  Constants.gap,
+                                  const Text("Email",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Constants.blackColor,
+                                          fontSize: 16)),
+                                  Text(
+                                      context
+                                          .read<ShopkeeperProvider>()
+                                          .shopkeeperEmail,
+                                      style: const TextStyle(
+                                          color: Constants.blackColor,
+                                          fontSize: 16)),
+                                  Constants.gap,
+                                ],
+                              ),
+                            ),
+                            Container(
+                              // width: double.infinity,
+                              alignment: Alignment.center,
+                              padding: EdgeInsets.all(
+                                  MediaQuery.of(ctx).size.width * 0.05),
+                              decoration: const BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(24),
+                                  topRight: Radius.circular(24),
+                                ),
+                                color: Constants.blackColor,
+                              ),
+                              child: Container(
+                                color: Colors.white,
+                                width: double.infinity,
+                                child: Image.asset(
+                                  'assets/images/newacadground.png',
+                                ),
+                              ),
                             ),
                           ],
                         ),
