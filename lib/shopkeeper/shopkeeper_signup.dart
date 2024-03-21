@@ -30,6 +30,7 @@ class _ShopkeeperSignInState extends State<ShopkeeperSignIn> {
 
   bool isChecked = true;
   bool popStatus = true;
+  bool passwordVisible = false;
   int popCount = 0;
 
   @override
@@ -39,6 +40,7 @@ class _ShopkeeperSignInState extends State<ShopkeeperSignIn> {
     shopkeeperEmailController = TextEditingController(
         text: Provider.of<ShopkeeperProvider>(context, listen: false)
             .shopkeeperEmail);
+    passwordVisible = true;
   }
 
   Future<void> popScreen(BuildContext context) async {
@@ -129,14 +131,15 @@ class _ShopkeeperSignInState extends State<ShopkeeperSignIn> {
                                 )),
                             Constants.gap,
                             TextFormField(
-                                controller: shopkeeperPassController,
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return "Password Required";
-                                  }
-                                  return null;
-                                },
-                                decoration: InputDecoration(
+                              controller: shopkeeperPassController,
+                              obscureText: passwordVisible,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return "Password Required";
+                                }
+                                return null;
+                              },
+                              decoration: InputDecoration(
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(16)),
                                   filled: true,
@@ -144,7 +147,17 @@ class _ShopkeeperSignInState extends State<ShopkeeperSignIn> {
                                   hintText: 'Password',
                                   hintStyle:
                                       const TextStyle(color: Colors.black),
-                                )),
+                                  suffixIcon: IconButton(
+                                    icon: Icon(passwordVisible
+                                        ? Icons.visibility
+                                        : Icons.visibility_off),
+                                    onPressed: () {
+                                      setState(() {
+                                        passwordVisible = !passwordVisible;
+                                      });
+                                    },
+                                  )),
+                            ),
                             Constants.gap,
                             FilledButton(
                               onPressed: () {

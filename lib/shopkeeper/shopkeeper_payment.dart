@@ -26,7 +26,7 @@ class _PaymentState extends State<Payment> {
   Future<Map<String, dynamic>>? _myFuture;
 
   var isProcessing = false;
-
+  bool isDisable = true;
   @override
   void initState() {
     super.initState();
@@ -100,42 +100,46 @@ class _PaymentState extends State<Payment> {
                               style: const TextStyle(fontSize: 20),
                             ),
                             SizedBox(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  SizedBox(
-                                    width: 160,
-                                    child: TextField(
-                                      controller: amountController,
-                                      keyboardType: TextInputType.number,
-                                      inputFormatters: [
-                                        LengthLimitingTextInputFormatter(4),
-                                        FilteringTextInputFormatter.digitsOnly,
-                                      ],
-                                      decoration: const InputDecoration(
-                                        border: UnderlineInputBorder(),
-                                        hintText: '0',
-                                      ),
-                                      style: const TextStyle(
-                                          fontSize: 72, color: Colors.white),
-                                    ),
-                                  ),
-                                  const Text(
-                                    "pts",
-                                    style: TextStyle(
-                                      fontSize: 48,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
+                                child: Wrap(
+                              children: context
+                                  .read<ShopkeeperProvider>()
+                                  .pointsArray
+                                  .map((e) => FilledButton(
+                                        onPressed: () {
+                                          setState(() {
+                                            isDisable = false;
+                                            amount = e;
+                                          });
+                                        },
+                                        child: Text("$e pts"),
+                                      ))
+                                  .toList(),
+                            )),
                           ],
                         ),
                         // Stack(
                         //   alignment: Alignment.center,
                         //   children: [
+                        TextFormField(
+                            controller: cardIdController,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return "Enter Amount";
+                              }
+                              return null;
+                            },
+                            inputFormatters: [
+                              LengthLimitingTextInputFormatter(5),
+                              FilteringTextInputFormatter.digitsOnly,
+                            ],
+                            keyboardType: TextInputType.phone,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(16)),
+                              fillColor: Constants.yellowColor,
+                              hintText: "Card ID",
+                              hintStyle: const TextStyle(color: Colors.black),
+                            )),
                         Padding(
                           padding: EdgeInsets.symmetric(
                               horizontal:
@@ -195,17 +199,28 @@ class _PaymentState extends State<Payment> {
                             child: Container(
                               height: 48,
                               alignment: Alignment.center,
-                              child: Container(
-                                height: 48,
-                                alignment: Alignment.center,
-                                child: isProcessing
-                                    ? const SpinningApoorv()
-                                    : const Text(
-                                        'Continue',
+                              child: isDisable
+                                  ? Container(
+                                      height: 48,
+                                      alignment: Alignment.center,
+                                      child: const Text(
+                                        'Select Points',
                                         style: TextStyle(fontSize: 20),
                                         textAlign: TextAlign.center,
                                       ),
-                              ),
+                                    )
+                                  : Container(
+                                      height: 48,
+                                      alignment: Alignment.center,
+                                      child: isProcessing
+                                          ? const SpinningApoorv()
+                                          : Text(
+                                              'Paying $amount points',
+                                              style:
+                                                  const TextStyle(fontSize: 20),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                    ),
                             ),
                           ),
                         ),
