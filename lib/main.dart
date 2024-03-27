@@ -159,7 +159,7 @@ class MyApp extends StatelessWidget {
               const ShopkeeperAllTransactions(),
           ShopkeeperPayment.routeName: (context) => const ShopkeeperPayment(),
         },
-        initialRoute: ShopkeeperRouting.routeName,
+        initialRoute: Routing.routeName,
         // initialRoute: WelcomeScreen.routeName,
         // home: const LoadingScreen(),
       ),

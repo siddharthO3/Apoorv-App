@@ -121,13 +121,27 @@ class _LeaderboardState extends State<Leaderboard> {
                                         Navigator.pop(context);
                                       },
                                     ),
-                                    const Text(
-                                      "Leaderboard",
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 24,
-                                        fontWeight: FontWeight.w700,
-                                      ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        const Text(
+                                          "Leaderboard",
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 24,
+                                            fontWeight: FontWeight.w700,
+                                          ),
+                                        ),
+                                        Text(
+                                          "out of ${data.length} users",
+                                          style: const TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w700,
+                                          ),
+                                        ),
+                                        
+                                      ],
                                     ),
                                     Constants.gap,
                                     const Text(
