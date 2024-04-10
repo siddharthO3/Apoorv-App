@@ -1,4 +1,7 @@
 # Apoorv App
+![Flutter](https://img.shields.io/badge/Flutter-%2302569B.svg?style=for-the-badge&logo=Flutter&logoColor=white)
+![Firebase](https://img.shields.io/badge/firebase-%23039BE5.svg?style=for-the-badge&logo=firebase)
+![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)
 
 ## Description
 Welcome to Apoorv App, your one-stop shop for everything related to Apoorv, the Techno-Cultural Fest of IIITK! This Flutter-based project is crafted to revolutionize your Apoorv experience! Dive into a world where earning points, connecting with friends, and exploring the campus is just a tap away. With features tailored to keep you engaged, from virtual campus exploration to real-time event updates, Apoorv App is your gateway to delve into a lively fest experience.
