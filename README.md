@@ -8,7 +8,7 @@ Welcome to the repository for the user side of the Apoorv App! This Flutter-base
 Dive into a world of gaming where every interaction earns you points. Play exciting games and earn points.
 
 ### Exchange Points with Friends
-Connect with friends and exchange your hard-earned points.
+Connect with friends and exchange your hard-earned points. Use QR code scanning to send points to your friends seamlessly.
 
 ### Climb Up the Leaderboard
 Track your progress and compete with peers on the leaderboard. Aim for the top spot and showcase your determination.
