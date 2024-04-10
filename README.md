@@ -1,16 +1,30 @@
-# apoorv_app
+# Apoorv User App
 
-A new Flutter project.
+Welcome to the repository for the user side of the Apoorv App! This Flutter-based project is dedicated to providing users with an immersive experience tailored to enhance their engagement with the Apoorv community. Below are the key features and guidelines for using this repository effectively.
 
-## Getting Started
+## Features
 
-This project is a starting point for a Flutter application.
+### Earn Points
+Dive into a world of gaming where every interaction earns you points. Play exciting games and earn points.
 
-A few resources to get you started if this is your first Flutter project:
+### Exchange Points with Friends
+Connect with friends and exchange your hard-earned points.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### Climb Up the Leaderboard
+Track your progress and compete with peers on the leaderboard. Aim for the top spot and showcase your determination.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Explore the Campus Virtually
+Embark on a virtual tour of the campus through our interactive map feature. Discover locations and gain knowledge of events happening in the campus.
+
+### Stay Updated with News and Event Schedules
+Access the latest news and event schedules through the Feed section. Stay informed about upcoming events and never miss out on exciting opportunities.
+
+## Installation
+1. Clone this repository to your local machine.
+2. Ensure you have Flutter installed on your system.
+3. Open the project in your preferred Flutter-compatible IDE or code editor.
+
+## Usage
+1. Explore the codebase to familiarize yourself with the project structure.
+2. Run the project locally to experience the app's features firsthand.
+3. Customize and extend the app according to your requirements.
